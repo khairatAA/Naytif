@@ -18,8 +18,10 @@ class Base(DeclarativeBase):
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
-from models.restaurant import Restaurant
 from models.user import User
+from models.restaurant import Restaurant
+from models.menu import Menu
+from models.delivery import DeliveryDetails
 
 with app.app_context():
     db.create_all()
