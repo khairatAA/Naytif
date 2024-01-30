@@ -1,31 +1,39 @@
-#!/usr/bin/python3
-"""The restaurant model"""
-from sqlalchemy import String, DateTime
-from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy.sql import func
-from models import db
-from datetime import datetime
+from flask import jsonify, request
+from models import app, db
+from models.restaurant import Restaurant
+import datetime
 import uuid
 
 
-class Restaurant(db.Model):
-    __tablename__ = "restaurants"
-    id:Mapped[str] = mapped_column(String(128), primary_key=True, nullable=False)
-    address: Mapped[str] = mapped_column(String(60), nullable=False)
-    store_name: Mapped[str] = mapped_column(String(60), nullable=False)
-    brand_name: Mapped[str] = mapped_column(String(60), nullable=False)
-    first_name: Mapped[str] = mapped_column(String(60), nullable=False)  
-    last_name: Mapped[str] = mapped_column(String(60), nullable=False)  
-    email: Mapped[str] = mapped_column(String(60), nullable=False, unique=True)
-    password: Mapped[str] = mapped_column(String(60), nullable=False)
-    phone: Mapped[str] = mapped_column(String(20), nullable=True)
-    image_url: Mapped[str] = mapped_column(String(255), nullable=True)
-    created_at:Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
-    updated_at:Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+@app.route('/restaurants', methods=['GET', 'POST'])
+def get_or_post_restaurants():
+    if request.method == 'GET':
+        restaurants = db.session.execute(db.select(Restaurant)).scalars().all()
+        restaurant_list = [restaurant.to_dict() for restaurant in restaurants]
+        return jsonify(restaurants=restaurant_list)
+    restaurant_id = str(uuid.uuid4())
+    store_name = request.form['store_name']
+    brand_name = request.form['brand_name']
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    email = request.form['email']
+    password = request.form['password']
+    phone = request.form['phone']
+    image_url = request.form['image_url']
+    address = request.form['address']
+    new_restaurant = Restaurant(
+        id=restaurant_id,
+        store_name=store_name,
+        brand_name=brand_name,
+        first_name=first_name,
+        last_name=last_name,
+        email=email,
+        password=password,
+        phone=phone,
+        image_url=image_url,
+        address=address
+    ) 
 
-    def to_dict(self):
-        restaurant_dict = self.__dict__.copy()
-
-        if restaurant_dict.get('_sa_instance_state'):
-            del restaurant_dict['_sa_instance_state']
-        return restaurant_dict
+    db.session.add(new_restaurant)
+    db.session.commit()
+    return jsonify({"Success": "Restaurant has been successfully created."})

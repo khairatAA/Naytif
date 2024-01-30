@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """The restaurant model"""
 from sqlalchemy import String, DateTime
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.sql import func
 from models import db
 from datetime import datetime
@@ -23,6 +23,7 @@ class Restaurant(db.Model):
     image_url: Mapped[str] = mapped_column(String(255), nullable=True)
     created_at:Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at:Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    menu = relationship("Menu", back_populates="restaurant")
 
     def to_dict(self):
         """Serializes the class object to dictionary"""
