@@ -22,6 +22,8 @@ from models.user import User
 from models.restaurant import Restaurant
 from models.menu import Menu
 from models.delivery import DeliveryDetails
+from models.order import Order
+from models.driver import Driver
 
 with app.app_context():
     db.create_all()

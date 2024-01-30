@@ -15,7 +15,7 @@ class DeliveryDetails(db.Model):
     user_id:Mapped[str] = mapped_column(String(128), db.ForeignKey("users.id"))
     phone: Mapped[str] = mapped_column(String(20), nullable=True)
     address: Mapped[str] = mapped_column(Text, nullable=False)  
-    user = relationship("Restaurant", back_populates="delivery_details")
+    user = relationship("User", back_populates="delivery_details")
 
     def to_dict(self):
         """Serializes the class object to dictionary"""

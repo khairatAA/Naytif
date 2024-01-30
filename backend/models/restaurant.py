@@ -11,7 +11,7 @@ import uuid
 class Restaurant(db.Model):
     """The Restaurant class"""
     __tablename__ = "restaurants"
-    id:Mapped[str] = mapped_column(String(128), primary_key=True, nullable=False)
+    id: Mapped[str] = mapped_column(String(128), primary_key=True, nullable=False)
     address: Mapped[str] = mapped_column(String(60), nullable=False)
     store_name: Mapped[str] = mapped_column(String(60), nullable=False)
     brand_name: Mapped[str] = mapped_column(String(60), nullable=False)
@@ -21,9 +21,10 @@ class Restaurant(db.Model):
     password: Mapped[str] = mapped_column(String(60), nullable=False)
     phone: Mapped[str] = mapped_column(String(20), nullable=True)
     image_url: Mapped[str] = mapped_column(String(255), nullable=True)
-    created_at:Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
-    updated_at:Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
-    menu = relationship("Menu", back_populates="restaurant")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    menu_items = relationship("Menu", back_populates="restaurant")
+    orders = relationship("Order", back_populates="restaurant")
 
     def to_dict(self):
         """Serializes the class object to dictionary"""

@@ -13,7 +13,7 @@ class Order(db.Model):
     __tablename__ = "orders"
     id:Mapped[str] = mapped_column(String(128), primary_key=True, nullable=False)
     menu_id:Mapped[str] = mapped_column(String(128), db.ForeignKey("menu_items.id"))
-    restaurant_id:[str] = mapped_column(String(128), db.ForeignKey("restaurants.id"))
+    restaurant_id: Mapped[str] = mapped_column(String(128), db.ForeignKey("restaurants.id"))
     user_id:Mapped[str] = mapped_column(String(128), db.ForeignKey("users.id"))
     driver_id:Mapped[str] = mapped_column(String(128), db.ForeignKey("drivers.id"))
     number_of_order: Mapped[int] = mapped_column(Integer, nullable=False)
@@ -21,9 +21,9 @@ class Order(db.Model):
     order_status: Mapped[str] = mapped_column(String(60), default="Preparing")
     created_at:Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     menu_items = relationship("Menu", back_populates="order")
-    restaurant = relationship("Restaurant", back_populates="order")
+    restaurant = relationship("Restaurant", back_populates="orders")
     user = relationship("User", back_populates="orders")
-    order = relationship("Driver", back_populates="orders")
+    driver = relationship("Driver", back_populates="orders")
 
     def to_dict(self):
         """Serializes the class object to dictionary"""
