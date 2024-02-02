@@ -2,13 +2,17 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 from sqlalchemy.orm import DeclarativeBase
 import os
-
+from flask_jwt_extended import (create_access_token,
+                                get_jwt_identity,
+                                jwt_required,
+                                JWTManager)
 
 app = Flask(__name__)
 
 # App configurations
 app.config['SECRET_KEY'] = os.getenv('FLASK_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB', 'sqlite:///food_delivery.db')
+app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY')
 
 # Declarative Base
 class Base(DeclarativeBase):

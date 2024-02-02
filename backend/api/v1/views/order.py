@@ -11,6 +11,7 @@ import uuid
 
 # /api/v1/view/orders
 # GET: Get a list of all orders.
+# POST: Create an order
 @app.route('/orders', methods=['GET', 'POST'])
 def get_or_post_orders():
     if request.method == 'GET':
@@ -40,19 +41,35 @@ def get_or_post_orders():
     return jsonify({"Success": "Order has been successfully created."})
 
 
-
 # /api/v1/view/orders/<int:id>
 # GET: Get information about a specific order.
-
-
-# /api/v1/view/orders
-# POST: Create an order
-
-
-# /api/v1/view/orders/<int:id>/status
 # Put: Update an order status
-
-
 # /api/v1/view/order/<int:id>
-# DELETE: Cancel an order
 
+@app.route('/orders/<order_id>', methods=['GET', 'PATCH', 'DELETE'])
+def order_by_id(order_id):
+    try:
+        order = db.get_or_404(Order, order_id)
+    except Exception:
+        return jsonify({'error': 'order not found'})
+    
+    # get order information
+    if request.method == 'GET':
+        order_dict = order.to_dict()
+        return jsonify(order=order_dict)
+    
+    # update order information
+    if request.method == 'PATCH':
+        if request.form.get('number_of_order'):
+            order.phone = request.form['number_or_order']
+            order.updated_at = datetime.datetime.now()
+        if request.form.get('order_status'):
+            order.order_status = request.form['order_status']
+            order.updated_at = datetime.datetime.now()
+        db.session.commit()
+        return jsonify({"Success": "Successfully updated the order."})
+    
+    # delete order
+    db.session.delete(order)
+    db.session.commit()
+    return jsonify({'Success': 'order successfully deleted.'})
