@@ -2,12 +2,15 @@ from flask import jsonify, request
 from models import app, db
 from models.restaurant import Restaurant
 from models.menu import Menu
+from models.blocked_token import TokenBlocklist
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import (
     jwt_required,
     create_access_token,
     create_refresh_token,
-    get_jwt_identity
+    get_jwt_identity,
+    get_jwt,
+    current_user
 )
 import datetime
 import uuid
@@ -15,10 +18,12 @@ import uuid
 #GET: Get a list of all restaurants
 #POST: Create a new restaurant.
 @app.route('/restaurants/all', methods=['GET'])
+@jwt_required(optional=True)
 def get_restaurants():
     print("In the get restaurant method.")
     restaurants = db.session.execute(db.select(Restaurant)).scalars().all()
     restaurant_list = [restaurant.to_dict() for restaurant in restaurants]
+    current_user = get_jwt_identity()
     return jsonify(restaurants=restaurant_list)
 
 
@@ -50,7 +55,7 @@ def post_restaurant():
 
     db.session.add(new_restaurant)
     db.session.commit()
-    return jsonify({"Success": "Restaurant has been successfully created."})
+    return jsonify({"Success": "Restaurant has been successfully created."}), 201
 
 
 @app.route('/restaurants/login', methods=['POST'])
@@ -59,18 +64,31 @@ def login():
     email = request.form.get('email', None)
     password = request.form.get('password', None)
     if not email or not password:
-        return jsonify({"error": "Invalid Entry"})
+        return jsonify({"msg": "Invalid email or password"}), 401
     restaurant = db.session.execute(db.select(Restaurant).where(email==email)).scalar()
     if not restaurant:
-        return ({"error": "Restaurant doesn't exist."}) 
-    print(restaurant.password, password)
+        return ({"msg": "Restaurant doesn't exist."}), 401
     is_valid = check_password_hash(restaurant.password, password)
     if not is_valid:
-        return jsonify({"error": "Incorrect password"})
+        return jsonify({"msg": "Incorrect password"}), 401
     # login here
     # generate token
-    access_token = create_access_token(identity=restaurant)
+    access_token = create_access_token(identity=restaurant, additional_claims={"role": "Restaurant"})
     return jsonify(access_token=access_token)
+
+
+@app.route('/restaurants/logout', methods=['DELETE'])
+@jwt_required()
+def restaurant_logout():
+    jti = get_jwt()['jti']
+    blocked_token = TokenBlocklist(
+        id=str(uuid.uuid4()),
+        jti=jti
+    )
+    db.session.add(blocked_token)
+    db.session.commit()
+    return jsonify({"msg": "JWT revoked"})
+
 
 
 # /api/v1/view/restaurants/<int:id>
@@ -91,6 +109,11 @@ def restaurant_by_id(restaurant_id):
 @app.route('/restaurants/<restaurant_id>', methods=['PATCH', 'DELETE'])
 @jwt_required()
 def put_or_delete_restaurant(restaurant_id):
+    # current_restaurant = get_jwt_identity()
+    claims = get_jwt()
+    role = claims.get('role')
+    if role != 'Restaurant':
+        return jsonify(msg="Access forbidden")
     try:
         restaurant = db.get_or_404(Restaurant, restaurant_id)
     except Exception:
@@ -121,7 +144,7 @@ def get_or_post_menu(restaurant_id):
     try:
         restaurant = db.get_or_404(Restaurant, restaurant_id)
     except Exception:
-        return jsonify({'error': "Restaurant not found."})
+        return jsonify({'msg': "Restaurant not found."}), 404
     restaurant_menu_items = [menu_item.to_dict() for menu_item in restaurant.menu_items]
     return jsonify(menu=restaurant_menu_items)
 
@@ -130,6 +153,11 @@ def get_or_post_menu(restaurant_id):
 @app.route('/restaurants/<restaurant_id>/menu', methods=['POST'])
 @jwt_required()
 def post_menu_item(restaurant_id):
+    # current_restaurant = get_jwt_identity()
+    claims = get_jwt()
+    role = claims.get('role')
+    if role != 'Restaurant':
+        return jsonify(msg="Access forbidden")
     try:
         restaurant = db.get_or_404(Restaurant, restaurant_id)
     except Exception:
@@ -148,7 +176,7 @@ def post_menu_item(restaurant_id):
     )
     db.session.add(new_menu_item)
     db.session.commit()
-    return jsonify({"Success": "Restaurant menu item created."})
+    return jsonify({"Success": "Restaurant menu item created."}), 201
 
 
 # /api/v1/view/restaurants/<int:id>/menu/<int:item_id>
@@ -179,6 +207,11 @@ def get_menu_item(restaurant_id, menu_item_id):
 @app.route('/restaurants/<restaurant_id>/menu/<menu_item_id>', methods=['GET', 'PATCH', 'DELETE'])
 @jwt_required()
 def patch_or_delete_menu_item(restaurant_id, menu_item_id):
+    # current_restaurant = get_jwt_identity()
+    claims = get_jwt()
+    role = claims.get('role')
+    if role != 'Restaurant':
+        return jsonify(msg="Access forbidden"), 403
     try:
         restaurant = db.get_or_404(Restaurant, restaurant_id)
     except Exception:
@@ -187,7 +220,7 @@ def patch_or_delete_menu_item(restaurant_id, menu_item_id):
     try:
         menu_item = db.get_or_404(Menu, menu_item_id)
     except Exception:
-        return jsonify({'error': 'Menu item not found.'})
+        return jsonify({'msg': 'Menu item not found.'})
     
     if menu_item.restaurant_id != restaurant_id:
         return jsonify({'error': 'Menu item not found'})
@@ -219,5 +252,9 @@ def patch_or_delete_menu_item(restaurant_id, menu_item_id):
 @app.route('/protected')
 @jwt_required()
 def protected():
-    current_restaurant = get_jwt_identity()
-    return jsonify(logged_in_as=current_restaurant)
+    current_restaurant = current_user
+    claims = get_jwt()
+    role = claims.get('role')
+    if role != 'Restaurant':
+        return jsonify(msg="Access forbidden"), 403
+    return jsonify(logged_in_as=current_restaurant.brand_name)

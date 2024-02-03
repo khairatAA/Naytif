@@ -1,7 +1,10 @@
 #!/usr/bin/python3
 """App Module"""
 from models import app
-from flask_jwt_extended import JWTManager
+from datetime import timedelta
+from flask_jwt_extended import JWTManager, get_jwt
+
+ACCESS_EXPIRES = timedelta(hours=1)
 
 jwt = JWTManager(app)
 
@@ -19,7 +22,19 @@ def user_identity_lookup(user):
 @jwt.user_lookup_loader
 def user_lookup_callback(_jwt_header, jwt_data):
     identity = jwt_data["sub"]
-    return Restaurant.query.filter_by(id=identity).one_or_none()
+    role = jwt_data.get('role')
+    if role == 'Restaurant':
+        return Restaurant.query.filter_by(id=identity).one_or_none()
+    return User.query.filter_by(id=identity).one_or_none()
+
+
+# Callback function to check if a JWT exists in the database blocklist
+@jwt.token_in_blocklist_loader
+def check_if_token_revoked(jwt_header, jwt_payload: dict) -> bool:
+    jti = jwt_payload["jti"]
+    token = TokenBlocklist.query.filter_by(jti=jti).one_or_none()
+    return token is not None
+
 
 from api.v1.views.user import *
 from api.v1.views.restaurant import *

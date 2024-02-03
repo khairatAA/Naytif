@@ -4,3 +4,5 @@ SQLAlchemy==2.0.25
 flask_sqlalchemy==3.1.1
 PyJWT==2.8.0
 flask-jwt-extended==4.6.0
+async-timeout==4.0.3
+redis==5.0.1

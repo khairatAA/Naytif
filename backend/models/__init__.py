@@ -14,6 +14,7 @@ app.config['SECRET_KEY'] = os.getenv('FLASK_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB', 'sqlite:///food_delivery.db')
 app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY')
 
+
 # Declarative Base
 class Base(DeclarativeBase):
     pass
@@ -28,6 +29,7 @@ from models.menu import Menu
 from models.delivery import DeliveryDetails
 from models.order import Order
 from models.driver import Driver
+from models.blocked_token import TokenBlocklist
 
 with app.app_context():
     db.create_all()
