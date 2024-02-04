@@ -5,7 +5,7 @@ export default function RestuarantHeroPage() {
     
     return (
         <div className=" bg-green flex flex-col h-screen">
-            <div className=" py-5 pl-5" style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.25)' }} >
+            <div className=" py-5 pl-5" style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.25)' }}>
                 <h1 className="font-logo text-yellow text-4xl leading-7 font-bold">Naytiv</h1>
             </div>
             <div className=" flex flex-col justify-center items-center h-full px-10">
