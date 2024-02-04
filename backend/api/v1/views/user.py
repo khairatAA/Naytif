@@ -116,6 +116,7 @@ def user_logout():
 
 # TODO: Add authentication
 @app.route('/users/<user_id>', methods=['PATCH', 'DELETE'])
+@jwt_required()
 def user_by_id(user_id):
     """Update or deletes user depending on the type of method"""
     # current_user = get_jwt_identity()
