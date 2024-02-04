@@ -17,6 +17,7 @@ from flask_jwt_extended import (
 
 @app.route('/users')
 def get_users():
+    """ Gets all the users"""
     if request.method == 'GET':
         users = db.session.execute(db.select(User)).scalars().all()
         user_list = []
@@ -27,6 +28,7 @@ def get_users():
 
 @app.route('/users', methods=['POST'])
 def create_user():
+    """ Creates user if the user doesn't exist"""
     first_name = request.form['first_name']
     last_name = request.form['last_name']
     email = request.form['email']
@@ -65,6 +67,9 @@ def create_user():
 
 @app.route('/users/<user_id>')
 def get_user(user_id):
+    """Takes the id of the user and return the 
+    user if it exist otherwise returns 404
+    """
     try:
         user = db.get_or_404(User, user_id)
     except Exception:
@@ -78,7 +83,7 @@ def get_user(user_id):
 
 @app.route('/users/login', methods=['POST'])
 def login_user():
-    # login restaurant
+    """login user """
     email = request.form.get('email', None)
     password = request.form.get('password', None)
     if not email or not password:
@@ -98,6 +103,7 @@ def login_user():
 @app.route('/users/logout', methods=['DELETE'])
 @jwt_required()
 def user_logout():
+    """ blocks the access token of the user """
     jti = get_jwt()['jti']
     blocked_token = TokenBlocklist(
         id=str(uuid.uuid4()),
@@ -111,6 +117,7 @@ def user_logout():
 # TODO: Add authentication
 @app.route('/users/<user_id>', methods=['PATCH', 'DELETE'])
 def user_by_id(user_id):
+    """Update or deletes user depending on the type of method"""
     # current_user = get_jwt_identity()
     claims = get_jwt()
     role = claims.get('role')

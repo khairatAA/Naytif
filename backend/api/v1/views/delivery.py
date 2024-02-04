@@ -7,6 +7,7 @@ import uuid
 
 @app.route('/delivery_details')
 def get_delivery_details():
+    """Get all delivery details in the database"""
     if request.method == 'GET':
         delivery_details = db.session.execute(db.select(DeliveryDetails)).scalars().all()
         delivery_details_list = []
@@ -17,6 +18,7 @@ def get_delivery_details():
 
 @app.route('/delivery_details', methods=['POST'])
 def create_delivery_details():
+    """Create a delivery detail"""
     user_id = request.form['user_id']
     phone = request.form['phone']
     address = request.form['address']
@@ -35,6 +37,7 @@ def create_delivery_details():
 
 @app.route('/delivery_details/<delivery_details_id>', methods=['GET', 'PATCH', 'DELETE'])
 def delivery_details_by_id(delivery_details_id):
+    """ Get delivery detail by id"""
     try:
         delivery_details = db.get_or_404(delivery_details, delivery_details_id)
     except Exception:

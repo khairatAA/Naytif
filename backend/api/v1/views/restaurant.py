@@ -20,7 +20,7 @@ import uuid
 @app.route('/restaurants/all', methods=['GET'])
 @jwt_required(optional=True)
 def get_restaurants():
-    print("In the get restaurant method.")
+    """ Return all restaurant in the database"""
     restaurants = db.session.execute(db.select(Restaurant)).scalars().all()
     restaurant_list = [restaurant.to_dict() for restaurant in restaurants]
     current_user = get_jwt_identity()
@@ -29,6 +29,8 @@ def get_restaurants():
 
 @app.route('/restaurants/register', methods=['POST'])
 def post_restaurant():
+    """ Creates new restaurant if the email doesn't exist in
+    the database with details provided"""
     restaurant_id = str(uuid.uuid4())
     store_name = request.form['store_name']
     brand_name = request.form['brand_name']
@@ -60,7 +62,7 @@ def post_restaurant():
 
 @app.route('/restaurants/login', methods=['POST'])
 def login():
-    # login restaurant
+    """ login restaurant with valid credentials"""
     email = request.form.get('email', None)
     password = request.form.get('password', None)
     if not email or not password:
@@ -80,6 +82,7 @@ def login():
 @app.route('/restaurants/logout', methods=['DELETE'])
 @jwt_required()
 def restaurant_logout():
+    """ Logs user out and blocks its access token"""
     jti = get_jwt()['jti']
     blocked_token = TokenBlocklist(
         id=str(uuid.uuid4()),
@@ -94,6 +97,9 @@ def restaurant_logout():
 # /api/v1/view/restaurants/<int:id>
 @app.route('/restaurants/<restaurant_id>')
 def restaurant_by_id(restaurant_id):
+    """ Returns specific restaurant based on id 
+    otherwise 404 if the restaurant doesn't exist
+    """
     try:
         restaurant = db.get_or_404(Restaurant, restaurant_id)
     except Exception:
@@ -109,13 +115,15 @@ def restaurant_by_id(restaurant_id):
 @app.route('/restaurants/<restaurant_id>', methods=['PATCH', 'DELETE'])
 @jwt_required()
 def put_or_delete_restaurant(restaurant_id):
+    """ Deletes or udpates a specific restaurant if it exist
+     otherwise 404 """
     # current_restaurant = get_jwt_identity()
     claims = get_jwt()
     role = claims.get('role')
     if role != 'Restaurant':
-        return jsonify(msg="Access forbidden")
+        return jsonify(msg="Access forbidden"), 403
     try:
-        restaurant = db.get_or_404(Restaurant, restaurant_id)
+        restaurant = db.get_or_404(Restaurant, restaurant_id), 404
     except Exception:
         return jsonify({'error': 'Restaurant not found'})
 
@@ -157,11 +165,11 @@ def post_menu_item(restaurant_id):
     claims = get_jwt()
     role = claims.get('role')
     if role != 'Restaurant':
-        return jsonify(msg="Access forbidden")
+        return jsonify(msg="Access forbidden"), 403
     try:
         restaurant = db.get_or_404(Restaurant, restaurant_id)
     except Exception:
-        return jsonify({'error': "Restaurant not found."})
+        return jsonify({'msg': "Restaurant not found."})
     name = request.form['name']
     price = request.form['price']
     category = request.form['category']
@@ -185,15 +193,15 @@ def get_menu_item(restaurant_id, menu_item_id):
     try:
         restaurant = db.get_or_404(Restaurant, restaurant_id)
     except Exception:
-        return jsonify({'error': 'restaurant not found'})
+        return jsonify({'msg': 'restaurant not found'}), 404
     
     try:
         menu_item = db.get_or_404(Menu, menu_item_id)
     except Exception:
-        return jsonify({'error': 'Menu item not found.'})
+        return jsonify({'msg': 'Menu item not found.'}), 404
     
     if menu_item.restaurant_id != restaurant_id:
-        return jsonify({'error': 'Menu item not found'})
+        return jsonify({'msg': 'Menu item not found'}), 404
     
     # get restaurant information
     menu_item_dict = menu_item.to_dict()
@@ -215,15 +223,15 @@ def patch_or_delete_menu_item(restaurant_id, menu_item_id):
     try:
         restaurant = db.get_or_404(Restaurant, restaurant_id)
     except Exception:
-        return jsonify({'error': 'restaurant not found'})
+        return jsonify({'error': 'restaurant not found'}), 404
     
     try:
         menu_item = db.get_or_404(Menu, menu_item_id)
     except Exception:
-        return jsonify({'msg': 'Menu item not found.'})
+        return jsonify({'msg': 'Menu item not found.'}), 404
     
     if menu_item.restaurant_id != restaurant_id:
-        return jsonify({'error': 'Menu item not found'})
+        return jsonify({'msg': 'Menu item not found'}), 404
     
     # update restaurant information
     if request.method == 'PATCH':

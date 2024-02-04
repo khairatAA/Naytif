@@ -14,6 +14,7 @@ import uuid
 # POST: Create an order
 @app.route('/orders', methods=['GET', 'POST'])
 def get_or_post_orders():
+    """ Get all orders or create an order depending on the method"""
     if request.method == 'GET':
         orders = db.session.execute(db.select(Order)).scalars().all()
         order_list = [order.to_dict() for order in orders]
@@ -48,6 +49,7 @@ def get_or_post_orders():
 
 @app.route('/orders/<order_id>', methods=['GET', 'PATCH', 'DELETE'])
 def order_by_id(order_id):
+    """ Get order by id"""
     try:
         order = db.get_or_404(Order, order_id)
     except Exception:

@@ -7,6 +7,7 @@ import uuid
 
 @app.route('/drivers')
 def get_drivers():
+    """Gets all the drivers in the database"""
     if request.method == 'GET':
         drivers = db.session.execute(db.select(Driver)).scalars().all()
         driver_list = []
@@ -17,6 +18,7 @@ def get_drivers():
 
 @app.route('/drivers', methods=['POST'])
 def create_driver():
+    """ Create a driver"""
     first_name = request.form['first_name']
     last_name = request.form['last_name']
     email = request.form['email']
@@ -56,6 +58,7 @@ def create_driver():
 
 @app.route('/drivers/<driver_id>', methods=['GET', 'PATCH', 'DELETE'])
 def driver_by_id(driver_id):
+    """Get, update, or delete a driver base on method"""
     try:
         driver = db.get_or_404(Driver, driver_id)
     except Exception:

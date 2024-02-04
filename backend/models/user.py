@@ -9,6 +9,7 @@ import uuid
 
 
 class User(db.Model):
+    """ User class """
     __tablename__ = "users"
     id:Mapped[str] = mapped_column(String(128), primary_key=True, nullable=False)
     first_name: Mapped[str] = mapped_column(String(60), nullable=False)  
@@ -23,6 +24,7 @@ class User(db.Model):
     orders = relationship("Order", back_populates="user")
 
     def to_dict(self):
+        """ Returns a dictionary with all fields and their values """
         user_dict = self.__dict__.copy()
 
         if user_dict.get('_sa_instance_state'):
