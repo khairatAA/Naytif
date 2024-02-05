@@ -7,6 +7,9 @@ import UserHeroPage from './components/UserHeroPage';
 import UserLogin from './components/UserLogin';
 import ResturantSignUp from './components/RestuarantSignIn';
 import RestuarantHeroPage from './components/RestuarantHero';
+import RiderSignIn from './components/RiderSignIn';
+import RestaurantLogin from './components/RestaurantLogin';
+import RiderHeroPage from './components/RiderHero';
 
 function App() {
   return (
@@ -18,7 +21,10 @@ function App() {
         <Route path="/auth/success" element={<UserHeroPage />} />
         <Route path="/auth/login" element={<UserLogin />} />
         <Route path="/auth/restuarant/sign_up" element={<ResturantSignUp />} />
+        <Route path="/auth/restuarant/login" element={<RestaurantLogin />} />
         <Route path="/auth/restuarant/success" element={< RestuarantHeroPage />} />
+        <Route path="/auth/rider/sign_up" element={<RiderSignIn />} />
+        <Route path="/auth/rider/success" element={<RiderHeroPage />} />
         {/* Add more routes as needed */}
       </Routes>
     </Router>

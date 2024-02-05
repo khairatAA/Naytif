@@ -11,9 +11,10 @@ function MenuBar({onClose}) {
             onClose();
         }
     }
+    // bg-opacity-80
 
     return (
-      <div ref={menubarRef} onClick={closeMenubar} className=" fixed inset-0 bg-white bg-opacity-55 backdrop-blur-2xl flex items-stretch justify-center py-6 z-10 w-80 max-md:w-72 h-screen">
+      <div ref={menubarRef} onClick={closeMenubar} className=" fixed inset-0 bg-white backdrop-blur-2xl flex items-stretch justify-center py-6 z-10 w-80 max-md:w-72 h-screen">
         <div className=' mt-8 flex flex-col gap-5'>
             <button onClick={onClose} className=' absolute top-3 right-5'><X size={40}/></button>
             <div className=' px-8 py-8 flex flex-col gap-7 items-center'>
@@ -23,9 +24,10 @@ function MenuBar({onClose}) {
                     <BigYellowButtons text="Sign Up" />
                 </div>
                 <div className=' flex flex-col items-center justify-center gap-1 text-base'>
+                    <a className=' hover:text-green font-semibold' href="">Explore as guest</a>
                     <a className=' hover:text-green font-semibold' href="/auth/restuarant/sign_up">Add your Restaurant</a>
-                    <a className=' hover:text-green font-semibold' href="/">Login as Admin</a>
-                    <a className=' hover:text-green font-semibold' href="/">Become a Rider</a>
+                    <a className=' hover:text-green font-semibold' href="/auth/restuarant/login">Login to your restaurant</a>
+                    <a className=' hover:text-green font-semibold' href="/auth/rider/sign_up">Become a Rider</a>
                 </div>
             </div>
         </div>

@@ -32,7 +32,7 @@ export function TopResturants({image, text}) {
 // Top Cities
 export function TopCities({text}) {
     return (
-        <div className="  flex items-center justify-center bg-light-yellow rounded-full px-6 py-1 text-center w-48 h-12 max-md:w-auto">
+        <div className="  flex items-center justify-center bg-light-yellow rounded-full px-6 py-1 text-center h-12 w-auto">
             <p className=" font-semibold text-lg">{text}</p>
         </div>
     )
@@ -59,7 +59,7 @@ export function AuthenticationInput({type, name, id, autoComplete, placeholder})
 export function FormContent({title, type, name, id, autoComplete, placeholder, instruction}) {
     return (
         <div className=" flex flex-col justify-center items-start gap-1">
-            <label htmlFor="username" className="block text-sm font-medium leading-6 text-black">
+            <label htmlFor="" className="block text-sm font-medium leading-6 text-black">
                 {title}
             </label>
             <input
@@ -67,7 +67,7 @@ export function FormContent({title, type, name, id, autoComplete, placeholder, i
                 name={name}
                 id={id}
                 autoComplete={autoComplete}
-                className="block flex-1 rounded w-full bg-light-grey py-2 pl-1 placeholder:text-black focus:ring-0 sm:text-sm sm:leading-6 outline-0 hover:border-green invalid:text-red invalid:border-black"
+                className="block flex-1 rounded w-full bg-light-grey py-2 pl-1 placeholder:text-grey-800 focus:ring-0 sm:text-sm sm:leading-6 outline-0 hover:border-green invalid:text-red invalid:border-black"
                 placeholder={placeholder}
                 required
             />

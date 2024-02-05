@@ -3,7 +3,7 @@ import heroImage from "../assets/heroImage.svg"
 
 export default function UserHeroPage() {
     return (
-        <div className=" bg-yellow flex flex-col h-fit">
+        <div className=" bg-yellow flex flex-col h-screen">
             <div className=" py-5 pl-5" style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.25)' }} >
                 <h1 className="font-logo text-green text-4xl leading-7 font-bold">Naytiv</h1>
             </div>

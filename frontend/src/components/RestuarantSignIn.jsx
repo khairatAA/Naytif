@@ -14,12 +14,12 @@ function ResturantSignUp() {
     return (
         <div className="">
             {/* Navbar implementation */}
-            <nav className="flex flex-row px-11 items-center justify-between py-5 bg-black">
+            <nav className="flex flex-row px-11 items-center justify-between py-5 bg-black fixed top-0 w-full">
                 <div className="flex flex-row items-center justify-center gap-6">
                     <a href="/" className="font-logo text-white text-4xl leading-7 font-bold">Naytif</a>
                 </div>
-                <div className="flex flex-row items-center justify-center gap-6 max-sm:hidden">
-                    <Link to="">
+                <div className="flex flex-row items-center justify-center gap-6">
+                    <Link to="/auth/restuarant/login">
                         <GreenButtonsWithIcon text="Log In" icon={ loginIcon } />
                     </Link>
                 </div>

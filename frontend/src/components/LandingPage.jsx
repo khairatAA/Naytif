@@ -33,16 +33,16 @@ function LandingPage() {
 
     return (
       <div>
-        <div className="bg-cover bg-no-repeat h-screen px-11 max-md:px-6" style={{backgroundImage: `url(${landingpageImage})`}}>
+        <div className="bg-cover bg-no-repeat h-screen" style={{backgroundImage: `url(${landingpageImage})`}}>
             {/* Navbar implementation */}
-            <nav className="flex flex-row items-center justify-between py-3">
-                <div className="flex flex-row items-center justify-center gap-6">
+            <nav className="flex flex-row items-center justify-between z-10 px-11 max-md:px-6 py-3 fixed top-0 backdrop-blur-xl w-full ">
+                <div className="flex flex-row items-center justify-center max-md:justify-between max-md:w-full gap-6">
                     <button type="button" onClick={() => setShowMenubar(true)}>
                         <img src={ Menu } alt="menubar icon" />
                     </button>
                     <a href="/" className="font-logo text-black text-4xl leading-7 font-bold">Naytif</a>
                 </div>
-                <div className="flex flex-row items-center justify-center gap-6 max-sm:hidden">
+                <div className="flex flex-row items-center justify-center gap-6 max-md:hidden">
                     <Link to="/auth/login">
                         <GreenButtonsWithIcon text="Log In" icon={ loginIcon } />
                     </Link>
@@ -52,8 +52,8 @@ function LandingPage() {
                 </div>
                 {showMenuBar && <MenuBar onClose={() => setShowMenubar(false)} />}
             </nav>
-            <div className=" max-md:flex max-md:flex-col max-md:items-center">
-                <div className="text-5xl font-bold pt-36 pb-6 max-md:text-4xl">
+            <div className=" max-md:flex px-11 max-md:flex-col py-5 max-md:items-center">
+                <div className="text-5xl font-bold pt-36 pb-6 max-md:text-5xl">
                     Order delivery near you
                 </div>
                 <form action="">
@@ -101,7 +101,7 @@ function LandingPage() {
         </div>
 
         {/* Cities we deliver to */}
-        <div className=" flex flex-col gap-14 pt-32 pb-10 bg-yellow px-11 max-md:px-6 max-md:py20">
+        <div className=" flex flex-col gap-14 pt-32 pb-10 items-center bg-yellow px-11 max-md:px-6 max-md:py20">
             <div className=" flex flex-col items-center justify-center">
                 <img src={NomadsMap} alt="Maps" />
                 <p className="text-5xl font-semibold text-center max-md:text-4xl">
@@ -122,13 +122,13 @@ function LandingPage() {
                 <TopCities text="Ikorodu" />
                 <TopCities text="Abeokuta" />
             </div>
-            <div className=" flex items-center justify-center">
+            <div className=" flex items-center justify-center w-fit">
                 <BigGreenButtons text="See More Cities"/>
             </div>
         </div>
 
         {/* Top Catergories */}
-        <div className=" flex flex-col gap-14 pt-32 pb-32 bg-yellow px-11 max-md:px-6 max-md:py20">
+        <div className=" flex flex-col items-center gap-14 pt-32 pb-32 bg-yellow px-11 max-md:px-6 max-md:py20">
             <div className=" flex flex-col items-center justify-center">
                 <p className="text-5xl font-semibold text-center">
                     Top Categories
@@ -142,7 +142,7 @@ function LandingPage() {
                 <TopCities text="Snacks" />
                 <TopCities text="Fruits" />
             </div>
-            <div className=" flex items-center justify-center">
+            <div className=" flex items-center justify-center w-fit">
                 <BigGreenButtons text="See More Categories"/>
             </div>
         </div>
