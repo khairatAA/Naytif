@@ -38,7 +38,7 @@ def post_restaurant():
     last_name = request.form['last_name']
     email = request.form['email']
     password = request.form['password']
-    password = generate_password_hash("pass789", method="pbkdf2:sha256", salt_length=8)
+    password = generate_password_hash(password, method="pbkdf2:sha256", salt_length=8)
     phone = request.form['phone']
     image_url = request.form['image_url']
     address = request.form['address']

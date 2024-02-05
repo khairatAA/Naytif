@@ -11,6 +11,7 @@ from flask_jwt_extended import (
     jwt_required,
     get_jwt_identity,
     get_jwt,
+    decode_token,
     current_user
 )
 
@@ -39,6 +40,7 @@ def create_user():
     if user:
         return jsonify({'msg': 'User already exist'}), 400
     if first_name and last_name and email and password:
+        password = generate_password_hash(password=password, method="pbkdf2:sha256", salt_length=8)
         new_user = User(
             id=str(uuid.uuid4()),
             first_name=first_name,
@@ -156,3 +158,27 @@ def user_protected():
     if role != 'User':
         return jsonify(msg="Access forbidden"), 403
     return jsonify(logged_in_as=current_restaurant.first_name)
+
+
+@app.route('/users/forgot', methods=['POST'])
+def user_forgot_password():
+    email = request.form['email']
+    user = db.session.execute(db.select(User).where(User.email==email)).scalar()
+    if not user:
+        return jsonify(msg="User not founnd"), 404
+    reset_token = create_access_token(identity=user)
+    reset_link = request.host_url + 'reset/' + reset_token
+    return jsonify(reset_link=reset_link)
+
+
+@app.route('/users/reset/<reset_token>', methods=['PATCH'])
+def user_reset_password(reset_token):
+    user_id = decode_token(reset_token)['sub']
+    try:
+        user = db.get_or_404(User, user_id)
+    except Exception:
+        return jsonify(msg="Bad token")
+    password = request.form['password']
+    user.password = generate_password_hash(password=password, method="pbkdf2:sha256", salt_length=8)
+    db.session.commit()
+    return jsonify(msg="Password reset successful")
