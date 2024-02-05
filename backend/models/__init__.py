@@ -3,6 +3,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 from sqlalchemy.orm import DeclarativeBase
+from flask_cors import CORS
 import os
 from flask_jwt_extended import (create_access_token,
                                 get_jwt_identity,
@@ -10,6 +11,7 @@ from flask_jwt_extended import (create_access_token,
                                 JWTManager)
 
 app = Flask(__name__)
+CORS(app)
 
 # App configurations
 app.config['SECRET_KEY'] = os.getenv('FLASK_KEY')
