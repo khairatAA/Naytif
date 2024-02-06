@@ -39,7 +39,7 @@ export function TopCities({text}) {
 }
 
 // Authentication input field
-export function AuthenticationInput({type, name, id, autoComplete, placeholder}) {
+export function AuthenticationInput({type, name, id, autoComplete, placeholder,}) {
     return (
         <div>
             <input
@@ -50,26 +50,30 @@ export function AuthenticationInput({type, name, id, autoComplete, placeholder})
                 className="block flex-1 border rounded w-full bg-light-yellow py-2 pl-1 placeholder:text-black focus:ring-0 sm:text-sm sm:leading-6 outline-0 hover:border-green invalid:text-red invalid:border-black"
                 placeholder={placeholder}
                 required
+                // value={value}
             />
         </div>
     )
 }
 
 // Form input and label
-export function FormContent({title, type, name, id, autoComplete, placeholder, instruction}) {
+export function FormContent({title, type, id, autoComplete, placeholder, instruction, value, onChange }) {
+
     return (
         <div className=" flex flex-col justify-center items-start gap-1">
-            <label htmlFor="" className="block text-sm font-medium leading-6 text-black">
+            <label htmlFor={id} className="block text-sm font-medium leading-6 text-black">
                 {title}
             </label>
             <input
                 type={type}
-                name={name}
+                name={id}
                 id={id}
                 autoComplete={autoComplete}
-                className="block flex-1 rounded w-full bg-light-grey py-2 pl-1 placeholder:text-grey-800 focus:ring-0 sm:text-sm sm:leading-6 outline-0 hover:border-green invalid:text-red invalid:border-black"
+                className="block flex-1 rounded w-full bg-light-grey py-2 pl-1 placeholder:text-grey-800 focus:ring-0 sm:text-sm sm:leading-6 outline-0 hover:border-green invalid:text-red"
                 placeholder={placeholder}
                 required
+                value={value}
+                onChange={onChange}
             />
             <p className="block text-xs font-normal leading-6 text-black">{instruction}</p>
         </div>
