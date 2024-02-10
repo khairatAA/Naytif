@@ -12,8 +12,8 @@ class Driver(db.Model):
     """Driver Class"""
     __tablename__ = "drivers"
     id:Mapped[int] = mapped_column(String(128), primary_key=True, nullable=False)
-    first_name: Mapped[str] = mapped_column(String(60), nullable=False)  
-    last_name: Mapped[str] = mapped_column(String(60), nullable=False)  
+    first_name: Mapped[str] = mapped_column(String(60), nullable=False)
+    last_name: Mapped[str] = mapped_column(String(60), nullable=False)
     email: Mapped[str] = mapped_column(String(60), nullable=False, unique=True)
     phone: Mapped[str] = mapped_column(String(20), nullable=False)
     vehicle_type: Mapped[str] = mapped_column(String(20), nullable=False)
