@@ -34,6 +34,9 @@ def create_user():
     last_name = request.form['last_name']
     email = request.form['email']
     password = request.form['password']
+    confirm_password = request.form['confirm_password']
+    if password != confirm_password:
+        return jsonify(msg="Password don't match"), 400
     phone = request.form['phone']
     image_url = request.form['image_url']
     user = db.session.execute(db.select(User).where(User.email == email)).scalar()

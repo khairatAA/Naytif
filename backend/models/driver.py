@@ -15,7 +15,6 @@ class Driver(db.Model):
     first_name: Mapped[str] = mapped_column(String(60), nullable=False)
     last_name: Mapped[str] = mapped_column(String(60), nullable=False)
     email: Mapped[str] = mapped_column(String(60), nullable=False, unique=True)
-    password: Mapped[str] = mapped_column(String(60), nullable=False)
     phone: Mapped[str] = mapped_column(String(20), nullable=False)
     vehicle_type: Mapped[str] = mapped_column(String(20), nullable=False)
     image_url: Mapped[str] = mapped_column(String(255), nullable=True)
@@ -30,3 +29,10 @@ class Driver(db.Model):
         if driver_dict.get('_sa_instance_state'):
             del driver_dict['_sa_instance_state']
         return driver_dict
+<<<<<<< HEAD
+=======
+
+
+# remove  password
+# user confirm_password
+>>>>>>> 514de6c09a8266d50de8d9367b8722d419dc2302
