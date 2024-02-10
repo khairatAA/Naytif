@@ -9,8 +9,58 @@ import Illustration2 from "../assets/Illustration2.svg"
 import Illustration3 from "../assets/Illustration3.svg"
 import Footer from "./Footer";
 import areYouReady from "../assets/areYouReady.svg"
+import { useState } from "react";
+import api from "./api";
+import { useNavigate } from "react-router-dom";
 
+
+/**
+ * Function to handle the sign up process for restaurants.
+ * 
+ * @returns {JSX.Element} The JSX element containing the sign up form for restaurants.
+ */
 function ResturantSignUp() {
+    // Connection wth backend and error and success handling
+    const [formValue, setFormValue] = useState({address:'', store_name:'', brand_name:'', first_name:'', last_name:'', email:'', password:'', phone:''})
+    const [errorMessage, setErrorMessage] = useState("");
+    
+    const navigate = useNavigate();
+
+    const handleInput = (e) => {
+        if (e && e.target) {
+            const { name, value } = e.target;
+            setFormValue((prevFormValue) => ({ ...prevFormValue, [name]: value }));
+        }
+    }
+
+    const handleSubmit = async(e)=>{
+        e.preventDefault();
+        // const allInputvalue = { address: formValue.address, store_name: formValue.store_name, brand_name: formValue.brand_name, first_name: formValue.first_name, last_name: formValue.last_name, email: formValue.email, password: formValue.password, phone: formValue.phone }
+        let formData = new FormData();
+        formData.append("address", formValue.address);
+        formData.append("brand_name", formValue.brand_name);
+        formData.append("email", formValue.email);
+        formData.append("first_name", formValue.first_name);
+        formData.append("last_name", formValue.last_name);
+        formData.append("password", formValue.password);
+        formData.append("phone", formValue.phone);
+        formData.append("store_name", formValue.store_name);
+        formData.append("image_url", "");
+        
+        api.post('/restaurants/register', formData)
+            .then(function (response) {
+                console.log(response);
+                navigate("/auth/restuarant/success");
+            }) 
+            .catch(function (error) {
+                console.log(error);
+                setErrorMessage("Something went wrong. Please try again."); // set error message
+                window.scrollTo(0, 0); //scroll to the top of the page
+            })
+
+        // console.log(formData.values)
+    }
+
     return (
         <div className="">
             {/* Navbar implementation */}
@@ -24,25 +74,29 @@ function ResturantSignUp() {
                     </Link>
                 </div>
             </nav>
-            <div className="bg-cover bg-no-repeat w-full px-11 max-md:px-6 flex flex-row items-center gap-5" style={{backgroundImage: `url(${restuarantbg})`}}>
+
+            <div className="bg-cover bg-no-repeat w-full px-11 mt-20 max-md:px-6 flex flex-row items-center gap-5" style={{backgroundImage: `url(${restuarantbg})`}}>
                 <div className=" bg-white p-8 flex flex-col gap-5 w-full mb-16">
                     <div>
                         <h1 className=" font-bold text-xl">Get Started</h1>
                         <a href="" className=" text-sm"><u>Already have an account?</u></a>
                     </div>
-                    <form action="">
+                    {/* Form content */}
+                    <form action="" onSubmit={ handleSubmit }>
+                        {/* Show error message if somthing went wronh */}
+                        {errorMessage && <p className=" text-red font-semibold">{errorMessage}</p>}
                         <div className=" flex flex-col gap-3">
-                            <FormContent title="Restaurant Address" type="text" name="text" id="restaurant_address" autoComplete="text" placeholder="" instruction="" />
-                            {/* <FormContent title="Store Name" type="text" name="text" id="text" autoComplete="store_name" placeholder="Example: Sam's Pizza - 123 Main Street" instruction="This is how your store will appear in the app." /> */}
-                            <FormContent title="Brand Name" type="text" name="text" id="brand_name" autoComplete="text" placeholder="Example: Sam's Pizza" instruction="We’ll use this to help organize information that is shared across stores, such as menus." />
+                            <FormContent title="Restaurant Address*" type="text" id="address" autoComplete="text" placeholder="" instruction="" value={formValue.address} onChange={handleInput} />
+                            <FormContent title="Store Name*" type="text" id="store_name" autoComplete="text" placeholder="Example: Sam's Pizza - 123 Main Street" instruction="This is how your store will appear in the app." value={formValue.store_name} onChange={handleInput} />
+                            <FormContent title="Brand Name*" type="text" id="brand_name" autoComplete="text" placeholder="Example: Sam's Pizza" instruction="We’ll use this to help organize information that is shared across stores, such as menus." value={formValue.brand_name} onChange={handleInput} />
                             <div>
-                                <FormContent title="First Name" type="First Name" name="text" id="first_name" autoComplete="text" placeholder="" instruction="" />
-                                <FormContent title="Last Name" type="Last Name" name="text" id="last_name" autoComplete="text" placeholder="" instruction="" />
+                                <FormContent title="First Name*" type="First Name" id="first_name" autoComplete="text" placeholder="" instruction="" value={formValue.first_name} onChange={handleInput} />
+                                <FormContent title="Last Name*" type="Last Name" id="last_name" autoComplete="text" placeholder="" instruction="" value={formValue.last_name} onChange={handleInput} />
                             </div>
-                            <FormContent title="Email" type="text" name="email" id="email" autoComplete="text" placeholder="" instruction="" />
-                            <FormContent title="Create Password" type="password" name="password" id="password" autoComplete="text" placeholder="" instruction="" />
-                            <FormContent title="Mobile Number" type="number" name="number" id="mobile_number" autoComplete="number" placeholder="" instruction="" />
-                            <BigGreenButtons text="Submit" />
+                            <FormContent title="Email*" type="email" name="email" id="email" autoComplete="text" placeholder="" instruction="" value={formValue.email} onChange={handleInput} />
+                            <FormContent title="Create Password*" type="password" id="password" autoComplete="text" placeholder="" instruction="" value={formValue.password} onChange={handleInput} />
+                            <FormContent title="Mobile Number*" type="number" id="phone" autoComplete="number" placeholder="" instruction="" value={formValue.phone} onChange={handleInput} />
+                            <BigGreenButtons text="Submit" type="submit" />
                         </div>
                     </form>
                 </div>
