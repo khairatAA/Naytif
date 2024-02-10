@@ -102,7 +102,7 @@ export default function RiderSignIn() {
                                     <div className=" flex flex-col justify-center items-start gap-1">
                                         <label htmlFor="vehicle" className="block text-sm font-medium leading-6 text-black">What will be your means of transportation?*</label>
                                         <select name="vehicle" required id="vehicle" className="block font-medium flex-1 rounded w-full bg-light-grey py-2 pl-1 focus:ring-0 sm:text-sm sm:leading-6 outline-0 hover:border-green" value={formValue.vehicle} onChange={handleInput} >
-                                            <option value="vehicle" disabled>Vehicle*</option>
+                                            <option value="vehicle">Choose option</option>
                                             <option value="bike">Bike</option>
                                             <option value="bicycle">Bicycle</option>
                                             <option value="car">Car</option>
