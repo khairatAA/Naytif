@@ -65,6 +65,7 @@ def login():
     """ login restaurant with valid credentials"""
     email = request.form.get('email', None)
     password = request.form.get('password', None)
+    print(email, password)
     if not email or not password:
         return jsonify({"msg": "Invalid email or password"}), 401
     restaurant = db.session.execute(db.select(Restaurant).where(email==email)).scalar()
