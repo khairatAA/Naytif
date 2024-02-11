@@ -1,26 +1,26 @@
 // This file contains the landing page of the Naytiv Web App
-import Menu from "../assets/Menu.svg"
-import landingpageImage from "../assets/landingpageImage.svg"
-import { GreenButtonsWithIcon } from "../components/Buttons";
-import { YellowButtons } from "../components/Buttons";
-import loginIcon from "../assets/loginIcon.svg"
-import location from "../assets/location.svg"
-import clock from "../assets/clock.svg"
-import { GreenButtons } from "../components/Buttons";
-import { Placeholder } from "../components/Reusables";
-import { TopResturants } from "../components/Reusables";
-import topResturant1 from "../assets/topResturant1.svg"
-import topRestuarant2 from "../assets/topRestuarant2.svg"
-import topRestuarant3 from "../assets/topRestuarant3.svg"
-import topRestuarant4 from "../assets/topRestuarant4.svg"
-import topRestuarant5 from "../assets/topRestuarant5.svg"
-import topResturant6 from "../assets/topResturant6.svg"
-import topResturant7 from "../assets/topResturant7.svg"
-import topResturant8 from "../assets/topResturant8.svg"
-import NomadsMap from "../assets/NomadsMap.png"
-import { TopCities } from "../components/Reusables";
-import { BigGreenButtons } from "../components/Buttons";
-import Footer from "./Footer";
+import Menu from "../../assets/Menu.svg"
+import landingpageImage from "../../assets/landingpageImage.svg"
+import { GreenButtonsWithIcon } from "../Buttons";
+import { YellowButtons } from "../Buttons";
+import loginIcon from "../../assets/loginIcon.svg"
+import location from "../../assets/location.svg"
+import clock from "../../assets/clock.svg"
+import { GreenButtons } from "../Buttons";
+import { Placeholder } from "../Reusables";
+import { TopResturants } from "../Reusables";
+import topResturant1 from "../../assets/topResturant1.svg"
+import topRestuarant2 from "../../assets/topRestuarant2.svg"
+import topRestuarant3 from "../../assets/topRestuarant3.svg"
+import topRestuarant4 from "../../assets/topRestuarant4.svg"
+import topRestuarant5 from "../../assets/topRestuarant5.svg"
+import topResturant6 from "../../assets/topResturant6.svg"
+import topResturant7 from "../../assets/topResturant7.svg"
+import topResturant8 from "../../assets/topResturant8.svg"
+import NomadsMap from "../../assets/NomadsMap.png"
+import { TopCities } from "../Reusables";
+import { BigGreenButtons } from "../Buttons";
+import Footer from "../Footer";
 import MenuBar from "./MenuBar";
 import { useState } from "react";
 import { Link } from "react-router-dom"

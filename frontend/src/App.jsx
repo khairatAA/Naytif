@@ -1,17 +1,18 @@
 import './App.css'
-import LandingPage from './components/LandingPage'
+import LandingPage from './components/Users/LandingPage'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import UserSignUp from './components/UserSignUp';
-import UserSignUp2 from './components/UserSignUp2';
-import UserHeroPage from './components/UserHeroPage';
-import UserLogin from './components/UserLogin';
-import ResturantSignUp from './components/RestuarantSignIn';
-import RestuarantHeroPage from './components/RestuarantHero';
-import RiderSignIn from './components/RiderSignIn';
-import RestaurantLogin from './components/RestaurantLogin';
-import RiderHeroPage from './components/RiderHero';
-import RestuarantSideBar from './components/RestuarantSideBar';
-import RestuarantHome from './components/RestuarantHome';
+import UserSignUp from './components/Users/UserSignUp';
+import UserSignUp2 from './components/Users/UserSignUp2';
+import UserHeroPage from './components/Users/UserHeroPage';
+import UserLogin from './components/Users/UserLogin';
+import ResturantSignUp from './components/Restaurants/RestuarantSignIn';
+import RestuarantHeroPage from './components/Restaurants/RestuarantHero';
+import RiderSignIn from './components/Riders/RiderSignIn';
+import RestaurantLogin from './components/Restaurants/RestaurantLogin';
+import RiderHeroPage from './components/Riders/RiderHero';
+import RestuarantSideBar from './components/Restaurants/RestuarantSideBar';
+import RestuarantHome from './components/Restaurants/RestuarantHome';
+import AddNewMenuItem from './components/Restaurants/AddNewMenu';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/auth/restuarant/login" element={<RestaurantLogin />} />
         <Route path="/auth/restuarant/success" element={< RestuarantHeroPage />} />
         <Route path="/restuarant/home" element={<RestuarantHome />} />
+        <Route path="/restuarant/addNewMenu" element={<AddNewMenuItem />} />
 
         <Route path="/auth/rider/sign_up" element={<RiderSignIn />} />
         <Route path="/auth/rider/success" element={<RiderHeroPage />} />

@@ -1,5 +1,5 @@
 // Restuarant Hero Page upon sign up
-import hero2 from "../assets/hero2.svg"
+import hero2 from "../../assets/hero2.svg"
 
 export default function RestuarantHeroPage() {
     

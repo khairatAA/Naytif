@@ -1,5 +1,5 @@
 // User Hero Page upon sign up
-import heroImage from "../assets/heroImage.svg"
+import heroImage from "../../assets/heroImage.svg"
 
 export default function UserHeroPage() {
     return (

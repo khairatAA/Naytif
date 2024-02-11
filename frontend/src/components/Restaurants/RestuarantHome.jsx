@@ -1,6 +1,6 @@
 // This file displays the home page of the restuarant route
 import RestuarantSideBar from "./RestuarantSideBar"
-import api from "./api";
+import api from "../api";
 
 function RestuarantHome() {
   return (

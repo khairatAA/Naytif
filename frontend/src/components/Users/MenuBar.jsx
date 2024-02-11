@@ -1,7 +1,7 @@
 // Pop-up Modal
 import { X } from 'lucide-react';
 import { useRef } from 'react';
-import { BigGreenButtons, BigYellowButtons } from './Buttons';
+import { BigGreenButtons, BigYellowButtons } from '../Buttons';
 
 function MenuBar({onClose}) {
     const menubarRef = useRef();
