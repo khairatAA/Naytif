@@ -76,7 +76,7 @@ def login():
     # login here
     # generate token
     access_token = create_access_token(identity=restaurant, additional_claims={"role": "Restaurant"})
-    return jsonify(access_token=access_token)
+    return jsonify({"access_token":access_token, "restaurant_id": restaurant.id})
 
 
 @app.route('/restaurants/logout', methods=['DELETE'])
@@ -174,6 +174,7 @@ def post_menu_item(restaurant_id):
     price = request.form['price']
     category = request.form['category']
     description = request.form['description']
+    image_url =  request.form.get('image_url')
     new_menu_item = Menu(
         id=str(uuid.uuid4()),
         restaurant_id=restaurant_id,
@@ -181,6 +182,7 @@ def post_menu_item(restaurant_id):
         price=float(price),
         category=category,
         description=description,
+        image_url=image_url
     )
     db.session.add(new_menu_item)
     db.session.commit()
