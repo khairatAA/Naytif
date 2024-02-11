@@ -22,19 +22,17 @@ def create_driver():
     first_name = request.form['first_name']
     last_name = request.form['last_name']
     email = request.form['email']
-    password = request.form['password']
     phone = request.form['phone']
     vehicle_type = request.form['vehicle_type']
     driver = db.session.execute(db.select(Driver).where(Driver.email == email)).scalar()
     if driver:
         return jsonify({'error': 'driver already exist'})
-    if first_name and last_name and email and password:
+    if first_name and last_name and email:
         new_driver = Driver(
             id=str(uuid.uuid4()),
             first_name=first_name,
             last_name=last_name,
             email=email,
-            password=password,
             phone=phone,
             vehicle_type=vehicle_type
         )
@@ -45,7 +43,6 @@ def create_driver():
             'first_name': first_name,
             'last_name': last_name,
             'email': email,
-            'password': password,
             'phone': phone,
             'image_url': new_driver.image_url,
             'created_at': new_driver.created_at,

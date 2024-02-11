@@ -24,3 +24,4 @@ class DeliveryDetails(db.Model):
         if dict.get('_sa_instance_state'):
             del dict['_sa_instance_state']
         return dict
+    

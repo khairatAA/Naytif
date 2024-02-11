@@ -35,10 +35,10 @@ export default function RestuarantSideBar() {
                 </div>
             </div>
             <div className="flex flex-col gap-3">
-                <div onClick={() => handleClick('DELETE A MENU ITEM')} className={`flex p-3 justify-start gap-5 items-center rounded-md border border-red hover:bg-red ${activeItem === 'DELETE A MENU ITEM' ? 'bg-red' : ''}`}>
+                {/* <div onClick={() => handleClick('DELETE A MENU ITEM')} className={`flex p-3 justify-start gap-5 items-center rounded-md border border-red hover:bg-red ${activeItem === 'DELETE A MENU ITEM' ? 'bg-red' : ''}`}>
                     <DeleteIcon color="white" />
                     <h2 className="text-white hidden md:block">DELETE A MENU ITEM</h2>
-                </div>
+                </div> */}
                 <div onClick={() => handleClick('DELETE RESTUARANT')} className={`flex p-3 justify-start gap-5 items-center rounded-md border border-red hover:bg-red ${activeItem === 'DELETE RESTUARANT' ? 'bg-red' : ''}`}>
                     <X color="white" />
                     <h2 className="text-white hidden md:block">DELETE RESTUARANT</h2>
