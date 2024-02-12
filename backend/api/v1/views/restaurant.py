@@ -65,10 +65,10 @@ def login():
     """ login restaurant with valid credentials"""
     email = request.form.get('email', None)
     password = request.form.get('password', None)
-    print(email, password)
+    print(email, f'==>{password}<==')
     if not email or not password:
         return jsonify({"msg": "Invalid email or password"}), 401
-    restaurant = db.session.execute(db.select(Restaurant).where(email==email)).scalar()
+    restaurant = db.session.execute(db.select(Restaurant).where(Restaurant.email==email)).scalar()
     if not restaurant:
         return ({"msg": "Restaurant doesn't exist."}), 401
     is_valid = check_password_hash(restaurant.password, password)
@@ -124,7 +124,7 @@ def put_or_delete_restaurant(restaurant_id):
     if role != 'Restaurant':
         return jsonify(msg="Access forbidden"), 403
     try:
-        restaurant = db.get_or_404(Restaurant, restaurant_id), 404
+        restaurant = db.get_or_404(Restaurant, restaurant_id)#, 404
     except Exception:
         return jsonify({'error': 'Restaurant not found'})
 
