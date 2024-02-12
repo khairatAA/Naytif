@@ -130,6 +130,18 @@ def put_or_delete_restaurant(restaurant_id):
 
     # update restaurant information
     if request.method == 'PATCH':
+        if request.form.get('brand_name'):
+            restaurant.brand_name = restaurant.form.get('brand_name')
+        if request.form.get('store_name'):
+            restaurant.store_name = restaurant.form.get('store_name')
+        if request.form.get('address'):
+            restaurant.address_name = restaurant.form.get('address')
+
+        if request.form.get('first_name'):
+            restaurant.first_name = restaurant.form.get('first_name')
+
+        if request.form.get('last_name'):
+            restaurant.last_name = restaurant.form.get('last_name')
         if request.form.get('phone'):
             phone = request.form['phone']
             restaurant.phone = phone
@@ -142,6 +154,13 @@ def put_or_delete_restaurant(restaurant_id):
     
     # delete restaurant
     db.session.delete(restaurant)
+    db.session.commit()
+    jti = get_jwt()['jti']
+    blocked_token = TokenBlocklist(
+        id=str(uuid.uuid4()),
+        jti=jti
+    )
+    db.session.add(blocked_token)
     db.session.commit()
     return jsonify({'Success': 'restaurant successfully deleted.'})
 
@@ -215,7 +234,7 @@ def get_menu_item(restaurant_id, menu_item_id):
 # /api/v1/view/restaurants/<int:id>/menu/<int:item_id>
 # PUT: Update information about a menu
 # DELETE: Delete a menu item.
-@app.route('/restaurants/<restaurant_id>/menu/<menu_item_id>', methods=['GET', 'PATCH', 'DELETE'])
+@app.route('/restaurants/<restaurant_id>/menu/<menu_item_id>', methods=['PATCH', 'DELETE'])
 @jwt_required()
 def patch_or_delete_menu_item(restaurant_id, menu_item_id):
     # current_restaurant = get_jwt_identity()
