@@ -81,7 +81,7 @@ export function FormContent({title, type, id, autoComplete, placeholder, instruc
 }
 
 // Form with custom background
-export function FormContentCustomBg({title, type, id, autoComplete, placeholder, instruction, value, onChange }) {
+export function FormContentCustomBg({title, type, id, autoComplete, placeholder, instruction, value, onChange, maxLength }) {
 
     return (
         <div className=" flex flex-col justify-center items-start gap-1">
@@ -98,6 +98,7 @@ export function FormContentCustomBg({title, type, id, autoComplete, placeholder,
                 required
                 value={value}
                 onChange={onChange}
+                maxLength={maxLength}
             />
             <p className="block text-xs font-normal leading-6 text-black">{instruction}</p>
         </div>
