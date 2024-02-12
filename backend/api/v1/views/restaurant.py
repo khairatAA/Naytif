@@ -10,6 +10,7 @@ from flask_jwt_extended import (
     create_refresh_token,
     get_jwt_identity,
     get_jwt,
+    decode_token,
     current_user
 )
 import datetime
@@ -288,3 +289,27 @@ def protected():
     if role != 'Restaurant':
         return jsonify(msg="Access forbidden"), 403
     return jsonify(logged_in_as=current_restaurant.brand_name)
+
+
+@app.route('/restaurants/forgot', methods=['POST'])
+def restaurant_forgot_password():
+    email = request.form['email']
+    restaurant = db.session.execute(db.select(Restaurant).where(Restaurant.email==email)).scalar()
+    if not restaurant:
+        return jsonify(msg="User not founnd"), 404
+    reset_token = create_access_token(identity=restaurant)
+    reset_link = request.host_url + 'reset/' + reset_token
+    return jsonify(reset_link=reset_link)
+
+
+@app.route('/restaurants/reset/<reset_token>', methods=['PATCH'])
+def restaurant_reset_password(reset_token):
+    restaurant_id = decode_token(reset_token)['sub']
+    try:
+        restaurant = db.get_or_404(Restaurant, restaurant_id)
+    except Exception:
+        return jsonify(msg="Bad token")
+    password = request.form['password']
+    restaurant.password = generate_password_hash(password=password, method="pbkdf2:sha256", salt_length=8)
+    db.session.commit()
+    return jsonify(msg="Password reset successful")
