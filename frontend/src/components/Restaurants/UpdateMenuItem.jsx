@@ -1,12 +1,11 @@
-import React from 'react'
 import RestuarantSideBar from "./RestuarantSideBar"
 import api from "../api";
 import RestaurantTop from './RestaurantTop';
 import { FormNotes, FormContentCustomBg } from '../Reusables';
 import { BigGreenButtons } from '../Buttons';
 import { useState } from 'react';
-function AddNewMenuItem() {
 
+function UpdateMenuItem() {
     const [selectedOption, setSelectedOption] = useState('Food');
     const [formValue, setFormValue] = useState({menu_item_name: '', price: '', menu_item_description:'', image_url: ''})
     const [errorMessage, setErrorMessage] = useState("");
@@ -35,11 +34,11 @@ function AddNewMenuItem() {
         formData.append("description", formValue.menu_item_description);
         formData.append("image", formValue.image_url);
         formData.append("restaurant_id", restaurant_id)
-    
+
+        // /restaurants/${restaurant_id}/menu/${}
         try {
-            const response = await api.post(`/restaurants/${restaurant_id}/menu`, formData);
+            const response = await api.patch(``, formData);
             console.log(response);
-            // localStorage.setItem("menu_item_id", response.data.menu.id)
             console.log(localStorage);
             setSuccessMessage('You have been successfully added a menu item');
             setErrorMessage('');
@@ -59,15 +58,14 @@ function AddNewMenuItem() {
             window.scrollTo(0, 0); //scroll to the top of the page
         }
     };
-
   return (
     <div className="flex flex-row bg-powder-blue w-full">
         <RestuarantSideBar />
         <div className=" ml-72 max-md:ml-16 px-5 bg-powder-blue w-full py-5 flex flex-col gap-14 ">
             <RestaurantTop />
-            <h1 className=' font-extrabold text-3xl'>Add a New Menu Item 🍽</h1>
+            <h1 className=' font-extrabold text-3xl'>Update a Menu Item</h1>
             <div className=' self-center p-8 rounded-xl bg-light-green flex flex-col gap-8 w-3/4 max-md:w-11/12'>
-                <h3 className=' self-start font-bold text-base '>When adding products do not forget to fill all required fields completely and follow the menu adding rules</h3>
+                <h3 className=' self-start font-bold text-base '>When updating products do not forget to fill all required fields completely and follow the menu adding rules</h3>
                 <form action="" onSubmit={handleSubmit} className=' flex flex-col gap-5' >
                     {successMessage && <p className=" text-green font-semibold">{successMessage}</p>}
                     {errorMessage && <p className=" text-[#ff0000] font-semibold">{errorMessage}</p>}
@@ -98,7 +96,7 @@ function AddNewMenuItem() {
                         <FormNotes title='Description' id='menu_item_description' instruction='Do not exceed 50 characters when entering menu description.' value={formValue.menu_item_description} onChange={handleInput} />
                     </div>
                     <FormContentCustomBg title="Menu Item's image URL" type="text" id="image_url" autoComplete="text" placeholder="Example: https://imgur/myImage.png" instruction="You can use hosting platforms like imgur to host your images then copy the link here" value={formValue.image_url} onChange={handleInput} />
-                    <BigGreenButtons type='submit' disabled={isSubmitting} text='Add a New Menu Item' />
+                    <BigGreenButtons type='submit' disabled={isSubmitting} text='Update Menu Item' />
                 </form>
             </div>
         </div>
@@ -106,4 +104,4 @@ function AddNewMenuItem() {
   )
 }
 
-export default AddNewMenuItem
+export default UpdateMenuItem

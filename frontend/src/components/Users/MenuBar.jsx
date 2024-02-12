@@ -25,8 +25,8 @@ function MenuBar({onClose}) {
                 </div>
                 <div className=' flex flex-col items-center justify-center gap-1 text-base'>
                     <a className=' hover:text-green font-semibold' href="">Explore as guest</a>
-                    <a className=' hover:text-green font-semibold' href="/auth/restuarant/sign_up">Add your Restaurant</a>
-                    <a className=' hover:text-green font-semibold' href="/auth/restuarant/login">Login to your restaurant</a>
+                    <a className=' hover:text-green font-semibold' href="/auth/restuarants/sign_up">Add your Restaurant</a>
+                    <a className=' hover:text-green font-semibold' href="/auth/restuarants/login">Login to your restaurant</a>
                     <a className=' hover:text-green font-semibold' href="/auth/rider/sign_up">Become a Rider</a>
                 </div>
             </div>

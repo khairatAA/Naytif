@@ -50,7 +50,7 @@ function ResturantSignUp() {
         api.post('/restaurants/register', formData)
             .then(function (response) {
                 console.log(response);
-                navigate("/auth/restuarant/success");
+                navigate("/auth/restuarants/success");
             }) 
             .catch(function (error) {
                 console.log(error);
@@ -69,7 +69,7 @@ function ResturantSignUp() {
                     <a href="/" className="font-logo text-white text-4xl leading-7 font-bold">Naytif</a>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-6">
-                    <Link to="/auth/restuarant/login">
+                    <Link to="/auth/restuarants/login">
                         <GreenButtonsWithIcon text="Log In" icon={ loginIcon } />
                     </Link>
                 </div>
@@ -79,7 +79,7 @@ function ResturantSignUp() {
                 <div className=" bg-white p-8 flex flex-col gap-5 w-full mb-16">
                     <div>
                         <h1 className=" font-bold text-xl">Get Started</h1>
-                        <a href="" className=" text-sm"><u>Already have an account?</u></a>
+                        <a href="/auth/restuarants/login" className=" text-sm"><u>Already have an account?</u></a>
                     </div>
                     {/* Form content */}
                     <form action="" onSubmit={ handleSubmit }>
