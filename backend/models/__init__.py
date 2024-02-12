@@ -5,6 +5,7 @@ from flask import Flask
 from sqlalchemy.orm import DeclarativeBase
 from flask_cors import CORS
 import os
+from datetime import timedelta
 from flask_jwt_extended import (create_access_token,
                                 get_jwt_identity,
                                 jwt_required,
@@ -17,7 +18,7 @@ CORS(app)
 app.config['SECRET_KEY'] = os.getenv('FLASK_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB', 'sqlite:///food_delivery.db')
 app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY')
-
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 
 # Declarative Base
 class Base(DeclarativeBase):

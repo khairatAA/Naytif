@@ -37,7 +37,6 @@ def create_driver():
             vehicle_type=vehicle_type
         )
         db.session.add(new_driver)
-        db.session.commit()
         return jsonify(msg="Driver successfully created."), 201
     return jsonify(msg="Invalid entry"), 400
 

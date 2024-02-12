@@ -1,10 +1,8 @@
 #!/usr/bin/python3
 """App Module"""
 from models import app
-from datetime import timedelta
 from flask_jwt_extended import JWTManager, get_jwt
 
-ACCESS_EXPIRES = timedelta(hours=1)
 
 jwt = JWTManager(app)
 

@@ -30,6 +30,5 @@ class Driver(db.Model):
             del driver_dict['_sa_instance_state']
         return driver_dict
 
-
 # remove  password
 # user confirm_password

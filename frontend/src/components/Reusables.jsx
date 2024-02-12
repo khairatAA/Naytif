@@ -69,11 +69,36 @@ export function FormContent({title, type, id, autoComplete, placeholder, instruc
                 name={id}
                 id={id}
                 autoComplete={autoComplete}
-                className="block flex-1 rounded w-full bg-light-grey py-2 pl-1 placeholder:text-grey-800 focus:ring-0 sm:text-sm sm:leading-6 outline-0 hover:border-green invalid:text-red"
+                className="block flex-1 rounded w-full py-2 pl-1 bg-[#d3d3d3] placeholder:text-grey-800 focus:ring-0 sm:text-sm sm:leading-6 outline-0 hover:border-green invalid:text-red"
                 placeholder={placeholder}
                 required
                 value={value}
                 onChange={onChange}
+            />
+            <p className="block text-xs font-normal leading-6 text-black">{instruction}</p>
+        </div>
+    )
+}
+
+// Form with custom background
+export function FormContentCustomBg({title, type, id, autoComplete, placeholder, instruction, value, onChange, maxLength }) {
+
+    return (
+        <div className=" flex flex-col justify-center items-start gap-1">
+            <label htmlFor={id} className="block text-sm font-medium leading-6 text-black">
+                {title}
+            </label>
+            <input
+                type={type}
+                name={id}
+                id={id}
+                autoComplete={autoComplete}
+                className="block flex-1 rounded w-full py-2 pl-1 bg-light-green border placeholder:text-grey-800 focus:ring-0 sm:text-sm sm:leading-6 outline-0 hover:border-green invalid:text-red"
+                placeholder={placeholder}
+                required
+                value={value}
+                onChange={onChange}
+                maxLength={maxLength}
             />
             <p className="block text-xs font-normal leading-6 text-black">{instruction}</p>
         </div>
@@ -98,6 +123,29 @@ export function FormContentNotRequired({title, type, id, autoComplete, placehold
                 value={value}
                 onChange={onChange}
             />
+            <p className="block text-xs font-normal leading-6 text-black">{instruction}</p>
+        </div>
+    )
+}
+
+export function FormNotes({id, title,instruction, value, onChange}) {
+    return (
+        <div className=" flex flex-col justify-center items-start gap-1">
+            <label htmlFor={id} className=" block text-sm font-medium leading-6 text-black">
+            {title}
+            </label>
+            <div className="mt-1 w-full">
+            <textarea
+                id={id}
+                name={id}
+                rows={1}
+                className="block rounded w-full bg-light-green border py-2 pl-1 placeholder:text-grey-800 focus:ring-0 sm:text-sm sm:leading-6 outline-0 hover:border-green invalid:text-red"
+                placeholder="Example text."
+                maxLength={50}
+                value={value}
+                onChange={onChange}
+            />
+            </div>
             <p className="block text-xs font-normal leading-6 text-black">{instruction}</p>
         </div>
     )

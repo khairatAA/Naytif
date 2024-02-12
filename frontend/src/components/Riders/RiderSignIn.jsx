@@ -1,13 +1,13 @@
 // This file contains the rider sign up page
 
-import { GreenButtonsWithIcon } from "./Buttons"
+import { GreenButtonsWithIcon } from "../Buttons"
 import { Link } from "react-router-dom"
-import loginIcon from "../assets/loginIcon.svg"
-import { FormContent, FormContentNotRequired } from "./Reusables"
-import { BigGreenButtons } from "./Buttons"
-import RiderImage from "../assets/RiderImage.svg"
+import loginIcon from "../../assets/loginIcon.svg"
+import { FormContent, FormContentNotRequired } from "../Reusables"
+import { BigGreenButtons } from "../Buttons"
+import RiderImage from "../../assets/RiderImage.svg"
 import { useState } from "react";
-import api from "./api";
+import api from "../api";
 import { useNavigate } from "react-router-dom";
 
 /**

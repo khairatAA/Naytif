@@ -65,9 +65,10 @@ def login():
     """ login restaurant with valid credentials"""
     email = request.form.get('email', None)
     password = request.form.get('password', None)
+    print(email, f'==>{password}<==')
     if not email or not password:
         return jsonify({"msg": "Invalid email or password"}), 401
-    restaurant = db.session.execute(db.select(Restaurant).where(email==email)).scalar()
+    restaurant = db.session.execute(db.select(Restaurant).where(Restaurant.email==email)).scalar()
     if not restaurant:
         return ({"msg": "Restaurant doesn't exist."}), 401
     is_valid = check_password_hash(restaurant.password, password)
@@ -76,7 +77,7 @@ def login():
     # login here
     # generate token
     access_token = create_access_token(identity=restaurant, additional_claims={"role": "Restaurant"})
-    return jsonify(access_token=access_token)
+    return jsonify({"access_token":access_token, "restaurant_id": restaurant.id})
 
 
 @app.route('/restaurants/logout', methods=['DELETE'])
@@ -123,12 +124,24 @@ def put_or_delete_restaurant(restaurant_id):
     if role != 'Restaurant':
         return jsonify(msg="Access forbidden"), 403
     try:
-        restaurant = db.get_or_404(Restaurant, restaurant_id), 404
+        restaurant = db.get_or_404(Restaurant, restaurant_id)#, 404
     except Exception:
         return jsonify({'error': 'Restaurant not found'})
 
     # update restaurant information
     if request.method == 'PATCH':
+        if request.form.get('brand_name'):
+            restaurant.brand_name = restaurant.form.get('brand_name')
+        if request.form.get('store_name'):
+            restaurant.store_name = restaurant.form.get('store_name')
+        if request.form.get('address'):
+            restaurant.address_name = restaurant.form.get('address')
+
+        if request.form.get('first_name'):
+            restaurant.first_name = restaurant.form.get('first_name')
+
+        if request.form.get('last_name'):
+            restaurant.last_name = restaurant.form.get('last_name')
         if request.form.get('phone'):
             phone = request.form['phone']
             restaurant.phone = phone
@@ -141,6 +154,13 @@ def put_or_delete_restaurant(restaurant_id):
     
     # delete restaurant
     db.session.delete(restaurant)
+    db.session.commit()
+    jti = get_jwt()['jti']
+    blocked_token = TokenBlocklist(
+        id=str(uuid.uuid4()),
+        jti=jti
+    )
+    db.session.add(blocked_token)
     db.session.commit()
     return jsonify({'Success': 'restaurant successfully deleted.'})
 
@@ -174,6 +194,7 @@ def post_menu_item(restaurant_id):
     price = request.form['price']
     category = request.form['category']
     description = request.form['description']
+    image_url =  request.form.get('image_url')
     new_menu_item = Menu(
         id=str(uuid.uuid4()),
         restaurant_id=restaurant_id,
@@ -181,6 +202,7 @@ def post_menu_item(restaurant_id):
         price=float(price),
         category=category,
         description=description,
+        image_url=image_url
     )
     db.session.add(new_menu_item)
     db.session.commit()
@@ -212,7 +234,7 @@ def get_menu_item(restaurant_id, menu_item_id):
 # /api/v1/view/restaurants/<int:id>/menu/<int:item_id>
 # PUT: Update information about a menu
 # DELETE: Delete a menu item.
-@app.route('/restaurants/<restaurant_id>/menu/<menu_item_id>', methods=['GET', 'PATCH', 'DELETE'])
+@app.route('/restaurants/<restaurant_id>/menu/<menu_item_id>', methods=['PATCH', 'DELETE'])
 @jwt_required()
 def patch_or_delete_menu_item(restaurant_id, menu_item_id):
     # current_restaurant = get_jwt_identity()

@@ -1,6 +1,6 @@
-import { BigGreenButtons } from "./Buttons"
-import { AuthenticationInput } from "./Reusables"
-import google from "../assets/google.svg"
+import { BigGreenButtons } from "../Buttons"
+import { AuthenticationInput } from "../Reusables"
+import google from "../../assets/google.svg"
 import { Link } from "react-router-dom"
 
 // User Sign Up Page

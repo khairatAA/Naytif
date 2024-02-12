@@ -1,8 +1,8 @@
-import { BigGreenButtons } from "./Buttons"
-import { AuthenticationInput } from "./Reusables"
-import google from "../assets/google.svg"
+import { BigGreenButtons } from "../Buttons"
+import { AuthenticationInput } from "../Reusables"
+import google from "../../assets/google.svg"
 import { Link } from "react-router-dom"
-import naytiv from "../assets/naytiv.svg"
+import naytiv from "../../assets/naytiv.svg"
 
 // User Login Page
 function UserLogin() {

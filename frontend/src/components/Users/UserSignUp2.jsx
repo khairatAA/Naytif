@@ -1,8 +1,8 @@
 // Second Sign Up page
 
-import { BigGreenButtons, GreenButtons, GreenButtonsWithIcon } from "./Buttons"
-import { AuthenticationInput } from "./Reusables"
-import google from "../assets/google.svg"
+import { BigGreenButtons, GreenButtons, GreenButtonsWithIcon } from "../Buttons"
+import { AuthenticationInput } from "../Reusables"
+import google from "../../assets/google.svg"
 import { Link } from "react-router-dom"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 

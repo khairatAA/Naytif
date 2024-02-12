@@ -1,16 +1,16 @@
 // This file contains the Resturant Sign In page
-import { BigGreenButtons, GreenButtonsWithIcon } from "./Buttons";
-import loginIcon from "../assets/loginIcon.svg"
+import { BigGreenButtons, GreenButtonsWithIcon } from "../Buttons";
+import loginIcon from "../../assets/loginIcon.svg"
 import { Link } from "react-router-dom";
-import restuarantbg from "../assets/restuarantbg.svg"
-import { FormContent } from "./Reusables";
-import Illustration1 from "../assets/Illustration1.svg"
-import Illustration2 from "../assets/Illustration2.svg"
-import Illustration3 from "../assets/Illustration3.svg"
-import Footer from "./Footer";
-import areYouReady from "../assets/areYouReady.svg"
+import restuarantbg from "../../assets/restuarantbg.svg"
+import { FormContent } from "../Reusables";
+import Illustration1 from "../../assets/Illustration1.svg"
+import Illustration2 from "../../assets/Illustration2.svg"
+import Illustration3 from "../../assets/Illustration3.svg"
+import Footer from "../Footer";
+import areYouReady from "../../assets/areYouReady.svg"
 import { useState } from "react";
-import api from "./api";
+import api from "../api";
 import { useNavigate } from "react-router-dom";
 
 
@@ -21,7 +21,7 @@ import { useNavigate } from "react-router-dom";
  */
 function ResturantSignUp() {
     // Connection wth backend and error and success handling
-    const [formValue, setFormValue] = useState({address:'', store_name:'', brand_name:'', first_name:'', last_name:'', email:'', password:'', phone:''})
+    const [formValue, setFormValue] = useState({address:'', store_name:'', brand_name:'', first_name:'', last_name:'', email:'', password:'', phone:'', image_url:''})
     const [errorMessage, setErrorMessage] = useState("");
     
     const navigate = useNavigate();
@@ -45,12 +45,12 @@ function ResturantSignUp() {
         formData.append("password", formValue.password);
         formData.append("phone", formValue.phone);
         formData.append("store_name", formValue.store_name);
-        formData.append("image_url", "");
+        formData.append("image_url", formValue.image_url);
         
         api.post('/restaurants/register', formData)
             .then(function (response) {
                 console.log(response);
-                navigate("/auth/restuarant/success");
+                navigate("/auth/restuarants/success");
             }) 
             .catch(function (error) {
                 console.log(error);
@@ -69,7 +69,7 @@ function ResturantSignUp() {
                     <a href="/" className="font-logo text-white text-4xl leading-7 font-bold">Naytif</a>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-6">
-                    <Link to="/auth/restuarant/login">
+                    <Link to="/auth/restuarants/login">
                         <GreenButtonsWithIcon text="Log In" icon={ loginIcon } />
                     </Link>
                 </div>
@@ -79,7 +79,7 @@ function ResturantSignUp() {
                 <div className=" bg-white p-8 flex flex-col gap-5 w-full mb-16">
                     <div>
                         <h1 className=" font-bold text-xl">Get Started</h1>
-                        <a href="" className=" text-sm"><u>Already have an account?</u></a>
+                        <a href="/auth/restuarants/login" className=" text-sm"><u>Already have an account?</u></a>
                     </div>
                     {/* Form content */}
                     <form action="" onSubmit={ handleSubmit }>
@@ -89,13 +89,14 @@ function ResturantSignUp() {
                             <FormContent title="Restaurant Address*" type="text" id="address" autoComplete="text" placeholder="" instruction="" value={formValue.address} onChange={handleInput} />
                             <FormContent title="Store Name*" type="text" id="store_name" autoComplete="text" placeholder="Example: Sam's Pizza - 123 Main Street" instruction="This is how your store will appear in the app." value={formValue.store_name} onChange={handleInput} />
                             <FormContent title="Brand Name*" type="text" id="brand_name" autoComplete="text" placeholder="Example: Sam's Pizza" instruction="We’ll use this to help organize information that is shared across stores, such as menus." value={formValue.brand_name} onChange={handleInput} />
-                            <div>
+                            <div className=" flex flex-row max-md:flex-col gap-5">
                                 <FormContent title="First Name*" type="First Name" id="first_name" autoComplete="text" placeholder="" instruction="" value={formValue.first_name} onChange={handleInput} />
                                 <FormContent title="Last Name*" type="Last Name" id="last_name" autoComplete="text" placeholder="" instruction="" value={formValue.last_name} onChange={handleInput} />
                             </div>
                             <FormContent title="Email*" type="email" name="email" id="email" autoComplete="text" placeholder="" instruction="" value={formValue.email} onChange={handleInput} />
                             <FormContent title="Create Password*" type="password" id="password" autoComplete="text" placeholder="" instruction="" value={formValue.password} onChange={handleInput} />
                             <FormContent title="Mobile Number*" type="number" id="phone" autoComplete="number" placeholder="" instruction="" value={formValue.phone} onChange={handleInput} />
+                            <FormContent title="Restaurant's image URL" type="text" id="image_url" autoComplete="text" placeholder="Example: https://imgur/myImage.png" instruction="You can use hosting platforms like imgur to host your images then copy the link here" value={formValue.image_url} onChange={handleInput} />
                             <BigGreenButtons text="Submit" type="submit" />
                         </div>
                     </form>
