@@ -65,7 +65,6 @@ def login():
     """ login restaurant with valid credentials"""
     email = request.form.get('email', None)
     password = request.form.get('password', None)
-    print(email, f'==>{password}<==')
     if not email or not password:
         return jsonify({"msg": "Invalid email or password"}), 401
     restaurant = db.session.execute(db.select(Restaurant).where(Restaurant.email==email)).scalar()
@@ -130,24 +129,32 @@ def put_or_delete_restaurant(restaurant_id):
 
     # update restaurant information
     if request.method == 'PATCH':
+        count = 0
         if request.form.get('brand_name'):
-            restaurant.brand_name = restaurant.form.get('brand_name')
+            restaurant.brand_name = request.form.get('brand_name')
+            count += 1
         if request.form.get('store_name'):
-            restaurant.store_name = restaurant.form.get('store_name')
+            restaurant.store_name = request.form.get('store_name')
+            count += 1
         if request.form.get('address'):
-            restaurant.address_name = restaurant.form.get('address')
-
+            restaurant.address_name = request.form.get('address')
+            count += 1
         if request.form.get('first_name'):
-            restaurant.first_name = restaurant.form.get('first_name')
-
+            restaurant.first_name = request.form.get('first_name')
+            count += 1
         if request.form.get('last_name'):
-            restaurant.last_name = restaurant.form.get('last_name')
+            restaurant.last_name = request.form.get('last_name')
+            count += 1
         if request.form.get('phone'):
             phone = request.form['phone']
             restaurant.phone = phone
+            count += 1
         if request.form.get('image_url'):
             image_url = request.form['image_url']
             restaurant.image_url = image_url
+            count += 1
+        if count == 0:
+            return jsonify(msg="No data provided.")
         restaurant.updated_at = datetime.datetime.now()
         db.session.commit()
         return jsonify({"Success": "Successfully updated the restaurant."})
@@ -257,17 +264,25 @@ def patch_or_delete_menu_item(restaurant_id, menu_item_id):
     
     # update restaurant information
     if request.method == 'PATCH':
+        count = 0
         if request.form.get('name'):
             menu_item.name = request.form['name']
+            count += 1
         if request.form.get('image_url'):
             image_url = request.form['image_url']
             menu_item.image_url = image_url
+            count += 1
         if request.form.get('description'):
             menu_item.description = request.form['description']
+            count += 1
         if request.form.get('price'):
             menu_item.price = float(request.form['price'])
+            count += 1
         if request.form.get('category'):
             menu_item.category = request.form['category']
+            count += 1
+        if count < 1:
+            return jsonify(msg="No data provided.")
         menu_item.updated_at = datetime.datetime.now()
         db.session.commit()
         return jsonify({"Success": "Successfully updated the restaurant menu item."})
