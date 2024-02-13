@@ -123,7 +123,9 @@ function LandingPage() {
                 <TopCities text="Abeokuta" />
             </div>
             <div className=" flex items-center justify-center w-fit">
-                <BigGreenButtons text="See More Cities"/>
+                <Link to='/auth/sign_up_1'>
+                    <BigGreenButtons text="See More Cities"/>
+                </Link>
             </div>
         </div>
 
@@ -143,7 +145,9 @@ function LandingPage() {
                 <TopCities text="Fruits" />
             </div>
             <div className=" flex items-center justify-center w-fit">
-                <BigGreenButtons text="See More Categories"/>
+                <Link to='/auth/sign_up_1'>
+                    <BigGreenButtons text="See More Categories"/>
+                </Link>
             </div>
         </div>
 

@@ -98,7 +98,7 @@ function Login() {
     };
 
     return (
-     <div className=" flex flex-col justify-center h-screen" style={{backgroundColor: 'rgb(229 244 252' }}>
+     <div className=" flex flex-col justify-center h-full" style={{backgroundColor: 'rgb(229 244 252' }}>
         <div className=" bg-light-green w-full flex justify-center items-center py-5">
             <div className=" flex flex-col justify-center items-center p-6 border border-yellow rounded-2xl gap-6">
                 <div className=" flex flex-row justify-center items-baseline gap-2">

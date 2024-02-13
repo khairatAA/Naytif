@@ -2,6 +2,7 @@
 import { X } from 'lucide-react';
 import { useRef } from 'react';
 import { BigGreenButtons, BigYellowButtons } from '../Buttons';
+import { Link } from 'react-router-dom';
 
 function MenuBar({onClose}) {
     const menubarRef = useRef();
@@ -20,8 +21,12 @@ function MenuBar({onClose}) {
             <div className=' px-8 py-8 flex flex-col gap-7 items-center'>
                 <h1 className='text-3xl font-extrabold font-logo'>Naytiv</h1>
                 <div className=' flex flex-col gap-2'>
-                    <BigGreenButtons text="Log In" />
-                    <BigYellowButtons text="Sign Up" />
+                    <Link to='/auth/login'>
+                        <BigGreenButtons text="Log In" />
+                    </Link>
+                    <Link to='/auth/sign_up_1'>
+                        <BigYellowButtons text="Sign Up" />
+                    </Link>
                 </div>
                 <div className=' flex flex-col items-center justify-center gap-1 text-base'>
                     <a className=' hover:text-green font-semibold' href="">Explore as guest</a>
