@@ -98,7 +98,7 @@ function Login() {
     };
 
     return (
-     <div className=" flex flex-col justify-center h-full" style={{backgroundColor: 'rgb(229 244 252' }}>
+     <div className=" flex flex-col justify-center h-screen" style={{backgroundColor: 'rgb(229 244 252' }}>
         <div className=" bg-light-green w-full flex justify-center items-center py-5">
             <div className=" flex flex-col justify-center items-center p-6 border border-yellow rounded-2xl gap-6">
                 <div className=" flex flex-row justify-center items-baseline gap-2">
@@ -112,7 +112,7 @@ function Login() {
                         <>
                             <FormContent type="email" name="email" id="email" autoComplete="email" placeholder="Enter email" value={formValue.email} onChange={handleInput} />
                             <FormContent type="password" name="password" id="password" placeholder="Enter password" value={formValue.password} onChange={handleInput} />
-                            <div className=" text-xs" onClick={handleForgotPassword}><u>Forget Password</u></div>
+                            <div className=" text-xs cursor-pointer" onClick={handleForgotPassword}><u>Forget Password</u></div>
                         </>
 
                         <div className=" flex flex-col gap-3 w-full">

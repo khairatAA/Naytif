@@ -35,7 +35,7 @@ export default function RestuarantSideBar() {
     };
 
     // Delete Restaurant
-    const handleDelete = async () => {
+    const handleDelete = async (restaurantId) => {
         try {
             // Call your API to delete the item
             await api.delete(`/restaurants/${restaurant_id}`);
@@ -45,6 +45,7 @@ export default function RestuarantSideBar() {
                 text: 'Your restaurant has been deleted.',
                 icon: 'success',
             });
+            navigate("/")
             // window.location.reload();
         } catch (error) {
             console.error('Error deleting restaurant:', error);
@@ -74,7 +75,7 @@ export default function RestuarantSideBar() {
                         <PanelRightOpenIcon color="white" />
                         <h2 className="text-white hidden md:block">PRODUCTS</h2>
                     </Link>
-                    <Link to={`/restaurants/${restaurant_id}/update_menu_item`} onClick={() => handleClick('SETTINGS')} className={`flex p-3 justify-start gap-5 items-center rounded-md border border-yellow hover:bg-yellow ${activeItem === 'SETTINGS' ? 'bg-yellow' : ''}`}>
+                    <Link to={`/restaurants/${restaurant_id}/update_restaurant`} onClick={() => handleClick('SETTINGS')} className={`flex p-3 justify-start gap-5 items-center rounded-md border border-yellow hover:bg-yellow ${activeItem === 'SETTINGS' ? 'bg-yellow' : ''}`}>
                         <SettingsIcon color="white" />
                         <h2 className="text-white hidden md:block">SETTINGS</h2>
                     </Link>
@@ -82,15 +83,14 @@ export default function RestuarantSideBar() {
             </div>
             <div className="flex flex-col gap-3">
                 <div
-                    onClick={() => {
-                        SwalDelete({
-                        title: `Are you sure you want to delete your restaurant?`,
-                        warningText: "This action cannot be undone.",
-                        onConfirmDelete: handleDelete(),
-                        cancel_text: "Restaurant is not deleted",
-                        });
-                        handleClick('DELETE RESTUARANT');
-                    }}
+                     onClick={SwalDelete({
+                            title: `Are you sure you want to delete your restaurant?`,
+                            warningText: "This action cannot be undone.",
+                            onConfirmDelete: () => handleDelete(restaurant_id),
+                            cancel_text: "Restaurant is not deleted",
+                          })
+                        }
+                        // handleClick('DELETE RESTUARANT');
                     className={`flex p-3 justify-start gap-5 items-center rounded-md border border-red hover:bg-red ${activeItem === 'DELETE RESTUARANT' ? 'bg-red' : ''}`}
                     >
                     <X color="white" />

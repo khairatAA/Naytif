@@ -5,64 +5,66 @@ import Swal from 'sweetalert2';
 
 function RestaurantTop() {
   const [profileImageUrl, setProfileImageUrl] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
   const restaurant_id = localStorage.getItem("restaurant_id");
 
   useEffect(() => {
-    const fetchRestaurantDetails = async () => {
-      try {
-        const response = await api.get(`/restaurants/${restaurant_id}`);
-        const { profile_image_url, phone_number } = response.data.restaurant;
-        setProfileImageUrl(profile_image_url);
-        setPhoneNumber(phone_number);
-      } catch (error) {
-        console.error('Error fetching restaurant details:', error);
-      }
-    };
+    // Fetch profile image URL from local storage on component mount
+    const storedProfileImageUrl = localStorage.getItem('profileImageUrl');
+    if (storedProfileImageUrl) {
+      setProfileImageUrl(storedProfileImageUrl);
+    } else {
+      fetchRestaurantDetails(); // Fetch from API if not available in local storage
+    }
+  }, [restaurant_id]); // Trigger useEffect whenever restaurant_id changes
 
-    fetchRestaurantDetails();
-  }, [restaurant_id]);
+  // Function to fetch restaurant details
+  const fetchRestaurantDetails = async () => {
+    try {
+      const response = await api.get(`/restaurants/${restaurant_id}`);
+      const { image_url } = response.data.restaurant;
+      setProfileImageUrl(image_url);
+    } catch (error) {
+      console.error('Error fetching restaurant details:', error);
+    }
+  };
 
+  // Function to handle profile image update
   const handleProfileUpdate = async () => {
     const { value: formValues } = await Swal.fire({
       title: 'Update Profile',
-      html: `
-        <input id="profileImageUrl" class="swal2-input" placeholder="Profile Image URL" value="${profileImageUrl || ''}" />
-        <input id="phoneNumber" class="swal2-input" placeholder="Phone Number" value="${phoneNumber || ''}" />
-      `,
-      focusConfirm: false,
-      preConfirm: () => {
-        const profileImageUrl = document.getElementById('profileImageUrl').value;
-        const phoneNumber = document.getElementById('phoneNumber').value;
-        return { profileImageUrl, phoneNumber };
+      input: 'url',
+      inputValue: profileImageUrl || '',
+      inputPlaceholder: 'Enter Profile Image URL',
+      inputAttributes: {
+        autocapitalize: 'off'
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Update',
+      cancelButtonText: 'Cancel',
+      showLoaderOnConfirm: true,
+      preConfirm: (url) => {
+        if (!url.trim()) {
+          Swal.showValidationMessage('Please enter a valid URL');
+        }
+        return url;
       }
     });
 
     if (formValues) {
-      const { profileImageUrl, phoneNumber } = formValues;
-      if (!profileImageUrl.trim() || !phoneNumber.trim()) {
-        Swal.fire({
-          title: 'Error',
-          text: 'Please fill up the entire form.',
-          icon: 'error'
-        });
-        return;
-      }
-
       try {
-        await api.patch(`/restaurants/${restaurant_id}`, formValues);
-        setProfileImageUrl(profileImageUrl);
-        setPhoneNumber(phoneNumber);
+        await api.patch(`/restaurants/${restaurant_id}`, { image_url: formValues });
+        setProfileImageUrl(formValues);
+        localStorage.setItem('profileImageUrl', formValues); // Update local storage
         Swal.fire({
           title: 'Success!',
-          text: 'Profile updated successfully.',
+          text: 'Profile image updated successfully.',
           icon: 'success'
         });
       } catch (error) {
-        console.error('Error updating profile:', error);
+        console.error('Error updating profile image:', error);
         Swal.fire({
           title: 'Error',
-          text: 'Failed to update profile.',
+          text: 'Failed to update profile image.',
           icon: 'error'
         });
       }
@@ -82,13 +84,13 @@ function RestaurantTop() {
         />
       </div>
       <button
-        className='h-12 w-12 rounded-full bg-yellow cursor-pointer'
+        className='h-16 w-16 rounded-full bg-white cursor-pointer flex justify-center items-center'
         onClick={handleProfileUpdate}
       >
         {profileImageUrl ? (
-          <img src={profileImageUrl} alt="Profile" className="h-full w-full rounded-full" />
+          <img src={profileImageUrl} alt="Profile" className="h-16 w-16 rounded-full" />
         ) : (
-          <div className="h-full w-full rounded-full bg-yellow"></div>
+          <div className="h-16 w-16 rounded-full bg-white"></div>
         )}
       </button>
     </div>

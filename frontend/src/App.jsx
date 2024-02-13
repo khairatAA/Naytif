@@ -14,7 +14,7 @@ import RestuarantSideBar from './components/Restaurants/RestuarantSideBar';
 import RestuarantHome from './components/Restaurants/RestuarantHome';
 import AddNewMenuItem from './components/Restaurants/AddNewMenu';
 import AvaliableMenuItems from './components/Restaurants/AvaliableMenuItems';
-import UpdateMenuItem from './components/Restaurants/UpdateMenuItem';
+import UpdateRestaurant from './components/Restaurants/UpdateRestaurant';
 
 function App() {
   return (
@@ -33,7 +33,7 @@ function App() {
         <Route path="/restuarants/home" element={<RestuarantHome />} />
         <Route path="/restaurants/:restaurant_id/menu" element={<AddNewMenuItem />} />
         <Route path="/restaurants/:restaurant_id/available_menu" element={<AvaliableMenuItems />} />
-        <Route path="/restaurants/:restaurant_id/update_menu_item" element={<UpdateMenuItem />} />
+        <Route path="/restaurants/:restaurant_id/update_restaurant" element={<UpdateRestaurant /> } />
 
         <Route path="/auth/rider/sign_up" element={<RiderSignIn />} />
         <Route path="/auth/rider/success" element={<RiderHeroPage />} />
