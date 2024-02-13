@@ -37,6 +37,9 @@ def post_restaurant():
     first_name = request.form['first_name']
     last_name = request.form['last_name']
     email = request.form['email']
+    restaurant = db.session.execute(db.select(Restaurant).where(Restaurant.email==email)).scalar()
+    if restaurant:
+        return jsonify(msg="Restaurant already exist with this email"), 400
     password = request.form['password']
     password = generate_password_hash(password, method="pbkdf2:sha256", salt_length=8)
     phone = request.form['phone']

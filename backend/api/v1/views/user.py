@@ -93,7 +93,7 @@ def login_user():
     password = request.form.get('password', None)
     if not email or not password:
         return jsonify({"msg": "Invalid Entry"}), 400
-    user = db.session.execute(db.select(User).where(email==email)).scalar()
+    user = db.session.execute(db.select(User).where(User.email==email)).scalar()
     if not user:
         return ({"msg": "User doesn't exist."}), 404
     is_valid = check_password_hash(user.password, password)
