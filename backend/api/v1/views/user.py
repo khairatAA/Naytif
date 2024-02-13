@@ -37,8 +37,6 @@ def create_user():
     confirm_password = request.form['confirm_password']
     if password != confirm_password:
         return jsonify(msg="Password don't match"), 400
-    phone = request.form['phone']
-    image_url = request.form['image_url']
     user = db.session.execute(db.select(User).where(User.email == email)).scalar()
     if user:
         return jsonify({'msg': 'User already exist'}), 400
@@ -49,24 +47,11 @@ def create_user():
             first_name=first_name,
             last_name=last_name,
             email=email,
-            password=password,
-            phone=phone,
-            image_url=image_url
+            password=password
         )
         db.session.add(new_user)
         db.session.commit()
-        user_dict = {
-            'id': new_user.id,
-            'first_name': first_name,
-            'last_name': last_name,
-            'email': email,
-            'password': password,
-            'phone': phone,
-            'image_url': image_url,
-            'created_at': new_user.created_at,
-            'updated_at': new_user.updated_at
-        }
-        return jsonify(user=user_dict)
+        return jsonify(msg="User succesfully created."), 201
     return jsonify(error={"msg": "Invalid entry"}), 400
 
 
@@ -85,6 +70,21 @@ def get_user(user_id):
         user_dict = user.to_dict()
         return jsonify(user=user_dict)
     
+@app.route('/users/<user_id>/delivery_details')
+def get_user_delivery_details(user_id):
+    """Takes the id of the user and return the 
+    user if it exist otherwise returns 404
+    """
+    try:
+        user = db.get_or_404(User, user_id)
+    except Exception:
+        return jsonify({'msg': 'User not found'}), 404
+    
+    # get user delivery details
+    delivery_details = user.delivery_details
+    delivery_details = [delivery_detail.to_dict() for delivery_detail in delivery_details]
+    return jsonify(delivery_details=delivery_details)
+    
 
 @app.route('/users/login', methods=['POST'])
 def login_user():
@@ -102,7 +102,7 @@ def login_user():
     # login here
     # generate token
     access_token = create_access_token(identity=user, additional_claims={"role": "User"})
-    return jsonify(access_token=access_token)
+    return jsonify({"access_token": access_token, "user_id": user.id})
 
 
 @app.route('/users/logout', methods=['DELETE'])
@@ -147,6 +147,12 @@ def user_by_id(user_id):
     
     # delete user
     db.session.delete(user)
+    jti = get_jwt()['jti']
+    blocked_token = TokenBlocklist(
+        id=str(uuid.uuid4()),
+        jti=jti
+    )
+    db.session.add(blocked_token)
     db.session.commit()
     return jsonify({'Success': 'User successfully deleted.'})
 
@@ -170,7 +176,7 @@ def user_forgot_password():
     if not user:
         return jsonify(msg="User not founnd"), 404
     reset_token = create_access_token(identity=user)
-    reset_link = request.host_url + 'reset/' + reset_token
+    reset_link = request.host_url + 'users/reset/' + reset_token
     return jsonify(reset_link=reset_link)
 
 

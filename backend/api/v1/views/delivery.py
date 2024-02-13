@@ -39,7 +39,7 @@ def create_delivery_details():
 def delivery_details_by_id(delivery_details_id):
     """ Get delivery detail by id"""
     try:
-        delivery_details = db.get_or_404(delivery_details, delivery_details_id)
+        delivery_details = db.get_or_404(DeliveryDetails, delivery_details_id)
     except Exception:
         return jsonify({'error': 'delivery_details not found'})
     

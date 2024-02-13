@@ -26,7 +26,7 @@ def create_driver():
     vehicle_type = request.form['vehicle_type']
     driver = db.session.execute(db.select(Driver).where(Driver.email == email)).scalar()
     if driver:
-        return jsonify({'error': 'driver already exist'})
+        return jsonify({'msg': 'Driver already exist'}), 400
     if first_name and last_name and email:
         new_driver = Driver(
             id=str(uuid.uuid4()),
@@ -38,18 +38,8 @@ def create_driver():
         )
         db.session.add(new_driver)
         db.session.commit()
-        driver_dict = {
-            'id': new_driver.id,
-            'first_name': first_name,
-            'last_name': last_name,
-            'email': email,
-            'phone': phone,
-            'image_url': new_driver.image_url,
-            'created_at': new_driver.created_at,
-            'updated_at': new_driver.updated_at,
-            'vehicle_type': new_driver.vehicle_type
-        }
-        return jsonify(driver=driver_dict)
+
+        return jsonify(msg="Driver successfully created."), 201
     return jsonify(error={"error": "invalid entry"})
 
 

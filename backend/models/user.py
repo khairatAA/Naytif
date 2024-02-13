@@ -29,4 +29,6 @@ class User(db.Model):
 
         if user_dict.get('_sa_instance_state'):
             del user_dict['_sa_instance_state']
+        if user_dict.get('password'):
+            del user_dict['password']
         return user_dict

@@ -63,7 +63,7 @@ def order_by_id(order_id):
     # update order information
     if request.method == 'PATCH':
         if request.form.get('number_of_order'):
-            order.phone = request.form['number_or_order']
+            order.number_of_order = request.form['number_of_order']
             order.updated_at = datetime.datetime.now()
         if request.form.get('order_status'):
             order.order_status = request.form['order_status']
