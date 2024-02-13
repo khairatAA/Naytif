@@ -135,12 +135,17 @@ def user_by_id(user_id):
         return jsonify({'msg': 'User not found'}), 404
     # update user information
     if request.method == 'PATCH':
+        count = 0
         if request.form.get('phone'):
             phone = request.form['phone']
             user.phone = phone
+            count += 1
         if request.form.get('image_url'):
             image_url = request.form['image_url']
             user.image_url = image_url
+            count += 1
+        if count < 1:
+            return jsonify(msg="No data provided.")
         user.updated_at = datetime.datetime.now()
         db.session.commit()
         return jsonify({"Success": "Successfully updated the user."})
