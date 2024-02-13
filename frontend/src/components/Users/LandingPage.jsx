@@ -52,7 +52,7 @@ function LandingPage() {
                 </div>
                 {showMenuBar && <MenuBar onClose={() => setShowMenubar(false)} />}
             </nav>
-            <div className=" max-md:flex px-11 max-md:flex-col py-5 max-md:items-center">
+            <div className=" max-md:flex px-11 max-md:flex-col py-5 items-center md:pt-20 max-md:items-center justify-center">
                 <div className="text-5xl font-bold pt-36 pb-6 max-md:text-5xl">
                     Order delivery near you
                 </div>

@@ -40,6 +40,7 @@ function AddNewMenuItem() {
             const response = await api.post(`/restaurants/${restaurant_id}/menu`, formData);
             console.log(response);
             // localStorage.setItem("menu_item_id", response.data.menu.id)
+            localStorage.setItem('menuItems', JSON.stringify(response.data.menu));
             console.log(localStorage);
             setSuccessMessage('You have been successfully added a menu item');
             setErrorMessage('');
