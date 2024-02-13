@@ -93,7 +93,7 @@ def login_user():
     password = request.form.get('password', None)
     if not email or not password:
         return jsonify({"msg": "Invalid Entry"}), 400
-    user = db.session.execute(db.select(User).where(email==email)).scalar()
+    user = db.session.execute(db.select(User).where(User.email==email)).scalar()
     if not user:
         return ({"msg": "User doesn't exist."}), 404
     is_valid = check_password_hash(user.password, password)
@@ -135,12 +135,17 @@ def user_by_id(user_id):
         return jsonify({'msg': 'User not found'}), 404
     # update user information
     if request.method == 'PATCH':
+        count = 0
         if request.form.get('phone'):
             phone = request.form['phone']
             user.phone = phone
+            count += 1
         if request.form.get('image_url'):
             image_url = request.form['image_url']
             user.image_url = image_url
+            count += 1
+        if count < 1:
+            return jsonify(msg="No data provided.")
         user.updated_at = datetime.datetime.now()
         db.session.commit()
         return jsonify({"Success": "Successfully updated the user."})
