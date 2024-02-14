@@ -35,7 +35,7 @@ function UserLogin() {
         try {
             const response = await api.post('/users/login', formData);
             console.log(response);
-            localStorage.setItem("token", response.data.access_token)
+            localStorage.setItem("user_token", response.data.access_token)
             localStorage.setItem("user_id", response.data.user_id)
             console.log(localStorage)
             setSuccessMessage('You have been successfully logged in');
@@ -44,7 +44,7 @@ function UserLogin() {
             setTimeout(() => {
                 setIsSubmitting(false);
                 setSuccessMessage('');
-                navigate("");
+                navigate("/users/home");
             }, 2000);
         } catch (error) {
             console.log(error);
@@ -112,8 +112,8 @@ function UserLogin() {
                         {successMessage && <p className=" text-green font-semibold">{successMessage}</p>}
                         {errorMessage && <p className=" text-[#ff0000] font-semibold">{errorMessage}</p>}
                         <> 
-                            <AuthenticationInput type="email" name="email" id="email" autoComplete="email" placeholder="Enter email" />
-                            <AuthenticationInput type="password" name="password" id="password" autoComplete="password" placeholder="Enter password" />
+                            <AuthenticationInput type="email" name="email" id="email" autoComplete="email" placeholder="Enter email" value={formValue.email} onChange={handleInput} />
+                            <AuthenticationInput type="password" name="password" id="password" autoComplete="password" placeholder="Enter password" value={formValue.password} onChange={handleInput} />
                             <div onClick={handleForgotPassword} className=" text-xs cursor-pointer"><u>Forget Password</u></div>
                         </>
 

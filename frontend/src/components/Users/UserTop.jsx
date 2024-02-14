@@ -6,37 +6,37 @@ import UserMenuBar from './UserMenuBar';
 
 function UserTop() {
     const [showUserMenuBar, setShowUserMenubar] = useState(false)
-  const [profileImageUrl, setProfileImageUrl] = useState('');
+  const [UserprofileImageUrl, setUserProfileImageUrl] = useState('');
   const user_id = localStorage.getItem("user_id");
 
   useEffect(() => {
     // Fetch profile image URL from local storage on component mount
-    const storedProfileImageUrl = localStorage.getItem('profileImageUrl');
-    if (storedProfileImageUrl) {
-      setProfileImageUrl(storedProfileImageUrl);
+    const storedUserProfileImageUrl = localStorage.getItem('UserprofileImageUrl');
+    if (storedUserProfileImageUrl) {
+      setUserProfileImageUrl(storedUserProfileImageUrl);
     }
-    // else {
-    //   fetchRestaurantDetails(); // Fetch from API if not available in local storage
-    // }
+    else {
+      fetchRestaurantDetails(); // Fetch from API if not available in local storage
+    }
   }, [user_id]); // Trigger useEffect whenever restaurant_id changes
 
   // Function to fetch restaurant details
-//   const fetchRestaurantDetails = async () => {
-//     try {
-//       const response = await api.get(`/restaurants/${restaurant_id}`);
-//       const { image_url } = response.data.restaurant;
-//       setProfileImageUrl(image_url);
-//     } catch (error) {
-//       console.error('Error fetching restaurant details:', error);
-//     }
-//   };
+  const fetchRestaurantDetails = async () => {
+    try {
+      const response = await api.get(`/users/${user_id}`);
+      const { image_url } = response.data.user;
+      setUserProfileImageUrl(image_url);
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+    }
+  };
 
   // Function to handle profile image update
   const handleProfileUpdate = async () => {
     const { value: formValues } = await Swal.fire({
       title: 'Update Profile',
       input: 'url',
-      inputValue: profileImageUrl || '',
+      inputValue: UserprofileImageUrl || '',
       inputPlaceholder: 'Enter Profile Image URL',
       inputAttributes: {
         autocapitalize: 'off'
@@ -56,8 +56,8 @@ function UserTop() {
     if (formValues) {
       try {
         await api.patch(`/users/${user_id}`, { image_url: formValues });
-        setProfileImageUrl(formValues);
-        localStorage.setItem('profileImageUrl', formValues); // Update local storage
+        setUserProfileImageUrl(formValues);
+        localStorage.setItem('UserprofileImageUrl', formValues); // Update local storage
         Swal.fire({
           title: 'Success!',
           text: 'Profile image updated successfully.',
@@ -93,11 +93,11 @@ function UserTop() {
         />
       </div>
       <button
-        className='h-14 w-14 rounded-full bg-white cursor-pointer flex justify-center items-center'
+        className='h-16 w-16 rounded-full bg-white cursor-pointer flex justify-center items-center'
         onClick={handleProfileUpdate}
       >
-        {profileImageUrl ? (
-          <img src={profileImageUrl} alt="Profile" className="h-14 w-14 rounded-full" />
+        {UserprofileImageUrl ? (
+          <img src={UserprofileImageUrl} alt="Profile" className="h-16 w-16 rounded-full border border-white" />
         ) : (
             <User color='black' width={32} height={32} />
         )}
