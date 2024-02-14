@@ -43,14 +43,13 @@ def create_user():
     if first_name and last_name and email and password:
         password = generate_password_hash(password=password, method="pbkdf2:sha256", salt_length=8)
         new_user = User(
-            id=str(uuid.uuid4()),
+            # id=str(uuid.uuid4()),
             first_name=first_name,
             last_name=last_name,
             email=email,
             password=password
         )
-        db.session.add(new_user)
-        db.session.commit()
+        new_user.save()
         return jsonify(msg="User succesfully created."), 201
     return jsonify(error={"msg": "Invalid entry"}), 400
 
@@ -151,7 +150,7 @@ def user_by_id(user_id):
         return jsonify({"Success": "Successfully updated the user."})
     
     # delete user
-    db.session.delete(user)
+    user.delete()
     jti = get_jwt()['jti']
     blocked_token = TokenBlocklist(
         id=str(uuid.uuid4()),
