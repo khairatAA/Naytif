@@ -89,8 +89,10 @@ def get_user_delivery_details(user_id):
 @app.route('/users/login', methods=['POST'])
 def login_user():
     """login user """
+    # print(request.form)
     email = request.form.get('email', None)
     password = request.form.get('password', None)
+    # print(email, password)
     if not email or not password:
         return jsonify({"msg": "Invalid Entry"}), 400
     user = db.session.execute(db.select(User).where(User.email==email)).scalar()
@@ -136,12 +138,13 @@ def user_by_id(user_id):
     # update user information
     if request.method == 'PATCH':
         count = 0
-        if request.form.get('phone'):
-            phone = request.form['phone']
+        json_data = request.get_json()
+        if json_data.get('phone'):
+            phone = json_data['phone']
             user.phone = phone
             count += 1
-        if request.form.get('image_url'):
-            image_url = request.form['image_url']
+        if json_data.get('image_url'):
+            image_url = json_data['image_url']
             user.image_url = image_url
             count += 1
         if count < 1:

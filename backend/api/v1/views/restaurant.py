@@ -132,28 +132,29 @@ def put_or_delete_restaurant(restaurant_id):
 
     # update restaurant information
     if request.method == 'PATCH':
+        json_data = request.get_json()
         count = 0
-        if request.form.get('brand_name'):
-            restaurant.brand_name = request.form.get('brand_name')
+        if json_data.get('brand_name'):
+            restaurant.brand_name = json_data.get('brand_name')
             count += 1
-        if request.form.get('store_name'):
-            restaurant.store_name = request.form.get('store_name')
+        if json_data.get('store_name'):
+            restaurant.store_name = json_data.get('store_name')
             count += 1
-        if request.form.get('address'):
-            restaurant.address_name = request.form.get('address')
+        if json_data.get('address'):
+            restaurant.address_name = json_data.get('address')
             count += 1
-        if request.form.get('first_name'):
-            restaurant.first_name = request.form.get('first_name')
+        if json_data.get('first_name'):
+            restaurant.first_name = json_data.get('first_name')
             count += 1
-        if request.form.get('last_name'):
-            restaurant.last_name = request.form.get('last_name')
+        if json_data.get('last_name'):
+            restaurant.last_name = json_data.get('last_name')
             count += 1
-        if request.form.get('phone'):
-            phone = request.form['phone']
+        if json_data.get('phone'):
+            phone = json_data['phone']
             restaurant.phone = phone
             count += 1
-        if request.form.get('image_url'):
-            image_url = request.form['image_url']
+        if json_data.get('image_url'):
+            image_url = json_data['image_url']
             restaurant.image_url = image_url
             count += 1
         if count == 0:
