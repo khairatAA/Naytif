@@ -16,6 +16,7 @@ import AddNewMenuItem from './components/Restaurants/AddNewMenu';
 import AvaliableMenuItems from './components/Restaurants/AvaliableMenuItems';
 import UpdateRestaurant from './components/Restaurants/UpdateRestaurant';
 import UserTop from './components/Users/UserTop';
+import UserHome from './components/Users/UserHome';
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
         <Route path="/auth/sign_up_2" element={<UserSignUp2 />} />
         <Route path="/auth/success" element={<UserHeroPage />} />
         <Route path="/auth/login" element={<UserLogin />} />
-        <Route path="/users/home" element={<UserTop />} />
+        <Route path="/users/home" element={<UserHome />} />
 
         <Route path="/auth/restuarants/sign_up" element={<ResturantSignUp />} />
         <Route path="/auth/restuarants/login" element={<RestaurantLogin />} />

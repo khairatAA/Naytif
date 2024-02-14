@@ -75,7 +75,7 @@ function UserTop() {
   };
 
   return (
-    <div className='flex flex-row bg-yellow justify-between gap-5 items-center px-5 py-2'>
+    <div className='flex flex-row bg-yellow justify-between gap-5 items-center'>
         <div className=' flex gap-5'>
             <button type="button" onClick={() => setShowUserMenubar(true)}>
                 <MenuIcon size={32} />
@@ -99,7 +99,7 @@ function UserTop() {
         {profileImageUrl ? (
           <img src={profileImageUrl} alt="Profile" className="h-14 w-14 rounded-full" />
         ) : (
-            <User color='black' width={14} height={14} />
+            <User color='black' width={32} height={32} />
         )}
       </button>
       {showUserMenuBar && <UserMenuBar onClose={() => setShowUserMenubar(false)} />}
