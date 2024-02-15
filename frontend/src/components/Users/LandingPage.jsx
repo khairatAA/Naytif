@@ -24,6 +24,8 @@ import Footer from "../Footer";
 import MenuBar from "./MenuBar";
 import { useState } from "react";
 import { Link } from "react-router-dom"
+// my additions
+import naytifDefault from "../../assets/naytifDefault.png"
 
 
 
@@ -35,12 +37,13 @@ function LandingPage() {
       <div>
         <div className="bg-cover bg-no-repeat h-screen" style={{backgroundImage: `url(${landingpageImage})`}}>
             {/* Navbar implementation */}
-            <nav className="flex flex-row items-center justify-between z-10 px-11 max-md:px-6 py-3 fixed top-0 backdrop-blur-xl w-full ">
+            <nav className="flex flex-row items-center justify-between z-10 px-11 max-md:px-6 py-3 fixed top-0 backdrop-blur-xl w-full bg-black">
                 <div className="flex flex-row items-center justify-center max-md:justify-between max-md:w-full gap-6">
                     <button type="button" onClick={() => setShowMenubar(true)}>
                         <img src={ Menu } alt="menubar icon" />
                     </button>
-                    <a href="/" className="font-logo text-black text-4xl leading-7 font-bold">Naytif</a>
+                    {/* Added img to render logo instead of naytif */}
+                    <a href="/" className="font-logo text-black text-4xl leading-7 font-bold"><img src={naytifDefault} className="h-10 w-15 fill-slate-300" alt="Naytif" /></a>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-6 max-md:hidden">
                     <Link to="/auth/login">
