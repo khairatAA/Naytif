@@ -58,11 +58,12 @@ def driver_by_id(driver_id):
     
     # update driver information
     if request.method == 'PATCH':
-        if request.form.get('phone'):
-            phone = request.form['phone']
+        json_data = request.get_json()
+        if json_data.get('phone'):
+            phone = json_data['phone']
             driver.phone = phone
-        if request.form.get('image_url'):
-            image_url = request.form['image_url']
+        if json_data.get('image_url'):
+            image_url = json_data['image_url']
             driver.image_url = image_url
         driver.updated_at = datetime.datetime.now()
         db.session.commit()

@@ -268,22 +268,23 @@ def patch_or_delete_menu_item(restaurant_id, menu_item_id):
     
     # update restaurant information
     if request.method == 'PATCH':
+        json_data = request.get_json()
         count = 0
-        if request.form.get('name'):
-            menu_item.name = request.form['name']
+        if json_data.get('name'):
+            menu_item.name = json_data['name']
             count += 1
-        if request.form.get('image_url'):
-            image_url = request.form['image_url']
+        if json_data.get('image_url'):
+            image_url = json_data['image_url']
             menu_item.image_url = image_url
             count += 1
-        if request.form.get('description'):
-            menu_item.description = request.form['description']
+        if json_data.get('description'):
+            menu_item.description = json_data['description']
             count += 1
-        if request.form.get('price'):
-            menu_item.price = float(request.form['price'])
+        if json_data.get('price'):
+            menu_item.price = float(json_data['price'])
             count += 1
-        if request.form.get('category'):
-            menu_item.category = request.form['category']
+        if json_data.get('category'):
+            menu_item.category = json_data['category']
             count += 1
         if count < 1:
             return jsonify(msg="No data provided.")

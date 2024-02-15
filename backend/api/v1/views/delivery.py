@@ -50,8 +50,9 @@ def delivery_details_by_id(delivery_details_id):
     
     # update delivery_details information
     if request.method == 'PATCH':
-        if request.form.get('phone'):
-            phone = request.form['phone']
+        json_data = request.get_json()
+        if json_data.get('phone'):
+            phone = json_data['phone']
             delivery_details.phone = phone
         delivery_details.updated_at = datetime.datetime.now()
         db.session.commit()
