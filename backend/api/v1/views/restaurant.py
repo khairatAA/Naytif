@@ -141,7 +141,7 @@ def put_or_delete_restaurant(restaurant_id):
             restaurant.store_name = json_data.get('store_name')
             count += 1
         if json_data.get('address'):
-            restaurant.address_name = json_data.get('address')
+            restaurant.address = json_data.get('address')
             count += 1
         if json_data.get('first_name'):
             restaurant.first_name = json_data.get('first_name')
