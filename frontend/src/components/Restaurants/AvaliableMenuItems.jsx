@@ -64,6 +64,8 @@ function AvaliableMenuItems() {
             <input type="text" id="menuItemCategory" name="menuItemCategory" value="${menuItem.category}"><br>
             <label for="menuItemPrice">Price:</label><br>
             <input type="number" id="menuItemPrice" name="menuItemPrice" value="${menuItem.price}"><br>
+            <label for="menuItemImage_url">Menu Item Image URL:</label><br>
+            <input type="text" id="menuItemImage_url" name="menuItemImage_url" value="${menuItem.image_url}"><br>
           </form>
         `,
         focusConfirm: false,
@@ -72,6 +74,7 @@ function AvaliableMenuItems() {
             name: document.getElementById('menuItemName').value,
             category: document.getElementById('menuItemCategory').value,
             price: document.getElementById('menuItemPrice').value,
+            image_url: document.getElementById('menuItemImage_url').value,
           };
           // Make a PATCH request to update the menu item
           await api.patch(`/restaurants/${restaurant_id}/menu/${menuItem.id}`, updatedMenuItem);
@@ -102,9 +105,9 @@ function AvaliableMenuItems() {
   };  
 
   return (
-    <div className="flex flex-row w-full h-screen" style={{ backgroundColor: '#E5F4FC' }}>
+    <div className="flex flex-row w-full min-h-screen" style={{ backgroundColor: '#E5F4FC' }}>
       <RestuarantSideBar />
-      <div className=" ml-72 max-md:ml-16 px-5 bg-powder-blue w-full py-5 flex flex-col gap-14 ">
+      <div className=" ml-72 max-md:ml-16 px-5 bg-powder-blue w-full py-5 pb-10 flex flex-col gap-14 ">
         <RestaurantTop />
         <h1 className=' font-extrabold text-3xl'>Available Products</h1>
         <table className=' w-full'>
