@@ -2,11 +2,8 @@
 import { X } from 'lucide-react';
 import { useRef } from 'react';
 import { BigGreenButtons, BigYellowButtons } from '../Buttons';
-<<<<<<< HEAD
 import naytifDefault from '../../assets/naytifDefault.png'
-=======
 import { Link } from 'react-router-dom';
->>>>>>> khairat
 
 function MenuBar({onClose}) {
     const menubarRef = useRef();
