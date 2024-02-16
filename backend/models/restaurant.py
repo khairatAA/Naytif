@@ -32,4 +32,6 @@ class Restaurant(db.Model):
 
         if restaurant_dict.get('_sa_instance_state'):
             del restaurant_dict['_sa_instance_state']
+        if restaurant_dict.get('password'):
+            del restaurant_dict['password']
         return restaurant_dict

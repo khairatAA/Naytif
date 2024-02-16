@@ -112,7 +112,7 @@ function Login() {
                         <>
                             <FormContent type="email" name="email" id="email" autoComplete="email" placeholder="Enter email" value={formValue.email} onChange={handleInput} />
                             <FormContent type="password" name="password" id="password" placeholder="Enter password" value={formValue.password} onChange={handleInput} />
-                            <div className=" text-xs" onClick={handleForgotPassword}><u>Forget Password</u></div>
+                            <div className=" text-xs cursor-pointer" onClick={handleForgotPassword}><u>Forget Password</u></div>
                         </>
 
                         <div className=" flex flex-col gap-3 w-full">

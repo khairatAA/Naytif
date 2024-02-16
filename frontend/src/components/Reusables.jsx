@@ -39,18 +39,19 @@ export function TopCities({text}) {
 }
 
 // Authentication input field
-export function AuthenticationInput({type, name, id, autoComplete, placeholder,}) {
+export function AuthenticationInput({type, id, autoComplete, placeholder, value, onChange}) {
     return (
         <div>
             <input
                 type={type}
-                name={name}
+                name={id}
                 id={id}
                 autoComplete={autoComplete}
                 className="block flex-1 border rounded w-full bg-light-yellow py-2 pl-1 placeholder:text-black focus:ring-0 sm:text-sm sm:leading-6 outline-0 hover:border-green invalid:text-red invalid:border-black"
                 placeholder={placeholder}
                 required
-                // value={value}
+                value={value}
+                onChange={onChange}
             />
         </div>
     )
@@ -141,7 +142,7 @@ export function FormNotes({id, title,instruction, value, onChange}) {
                 rows={1}
                 className="block rounded w-full bg-light-green border py-2 pl-1 placeholder:text-grey-800 focus:ring-0 sm:text-sm sm:leading-6 outline-0 hover:border-green invalid:text-red"
                 placeholder="Example text."
-                maxLength={50}
+                maxLength={60}
                 value={value}
                 onChange={onChange}
             />

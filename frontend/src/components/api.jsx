@@ -16,4 +16,14 @@ api.interceptors.request.use(config => {
     return Promise.reject(error);
 });
 
+api.interceptors.request.use(config => {
+    const user_token = localStorage.getItem('user_token');
+    if (user_token) {
+        config.headers.Authorization = `Bearer ${user_token}`;
+    }
+    return config;
+}, error => {
+    return Promise.reject(error);
+});
+
 export default api;

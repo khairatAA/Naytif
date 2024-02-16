@@ -14,7 +14,10 @@ import RestuarantSideBar from './components/Restaurants/RestuarantSideBar';
 import RestuarantHome from './components/Restaurants/RestuarantHome';
 import AddNewMenuItem from './components/Restaurants/AddNewMenu';
 import AvaliableMenuItems from './components/Restaurants/AvaliableMenuItems';
-import UpdateMenuItem from './components/Restaurants/UpdateMenuItem';
+import UpdateRestaurant from './components/Restaurants/UpdateRestaurant';
+import UserTop from './components/Users/UserTop';
+import UserHome from './components/Users/UserHome';
+import UserMenuPage from './components/Users/UserMenuPage';
 
 function App() {
   return (
@@ -26,6 +29,8 @@ function App() {
         <Route path="/auth/sign_up_2" element={<UserSignUp2 />} />
         <Route path="/auth/success" element={<UserHeroPage />} />
         <Route path="/auth/login" element={<UserLogin />} />
+        <Route path="/users/home" element={<UserHome />} />
+        <Route path="/users/:restaurant_id/available_menu" element={<UserMenuPage />} />
 
         <Route path="/auth/restuarants/sign_up" element={<ResturantSignUp />} />
         <Route path="/auth/restuarants/login" element={<RestaurantLogin />} />
@@ -33,7 +38,7 @@ function App() {
         <Route path="/restuarants/home" element={<RestuarantHome />} />
         <Route path="/restaurants/:restaurant_id/menu" element={<AddNewMenuItem />} />
         <Route path="/restaurants/:restaurant_id/available_menu" element={<AvaliableMenuItems />} />
-        <Route path="/restaurants/:restaurant_id/update_menu_item" element={<UpdateMenuItem />} />
+        <Route path="/restaurants/:restaurant_id/update_restaurant" element={<UpdateRestaurant /> } />
 
         <Route path="/auth/rider/sign_up" element={<RiderSignIn />} />
         <Route path="/auth/rider/success" element={<RiderHeroPage />} />

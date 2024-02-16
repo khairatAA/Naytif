@@ -38,6 +38,9 @@ def post_restaurant():
     first_name = request.form['first_name']
     last_name = request.form['last_name']
     email = request.form['email']
+    restaurant = db.session.execute(db.select(Restaurant).where(Restaurant.email==email)).scalar()
+    if restaurant:
+        return jsonify(msg="Restaurant already exist with this email"), 400
     password = request.form['password']
     password = generate_password_hash(password, method="pbkdf2:sha256", salt_length=8)
     phone = request.form['phone']
@@ -66,7 +69,6 @@ def login():
     """ login restaurant with valid credentials"""
     email = request.form.get('email', None)
     password = request.form.get('password', None)
-    print(email, f'==>{password}<==')
     if not email or not password:
         return jsonify({"msg": "Invalid email or password"}), 401
     restaurant = db.session.execute(db.select(Restaurant).where(Restaurant.email==email)).scalar()
@@ -131,24 +133,33 @@ def put_or_delete_restaurant(restaurant_id):
 
     # update restaurant information
     if request.method == 'PATCH':
-        if request.form.get('brand_name'):
-            restaurant.brand_name = restaurant.form.get('brand_name')
-        if request.form.get('store_name'):
-            restaurant.store_name = restaurant.form.get('store_name')
-        if request.form.get('address'):
-            restaurant.address_name = restaurant.form.get('address')
-
-        if request.form.get('first_name'):
-            restaurant.first_name = restaurant.form.get('first_name')
-
-        if request.form.get('last_name'):
-            restaurant.last_name = restaurant.form.get('last_name')
-        if request.form.get('phone'):
-            phone = request.form['phone']
+        json_data = request.get_json()
+        count = 0
+        if json_data.get('brand_name'):
+            restaurant.brand_name = json_data.get('brand_name')
+            count += 1
+        if json_data.get('store_name'):
+            restaurant.store_name = json_data.get('store_name')
+            count += 1
+        if json_data.get('address'):
+            restaurant.address = json_data.get('address')
+            count += 1
+        if json_data.get('first_name'):
+            restaurant.first_name = json_data.get('first_name')
+            count += 1
+        if json_data.get('last_name'):
+            restaurant.last_name = json_data.get('last_name')
+            count += 1
+        if json_data.get('phone'):
+            phone = json_data['phone']
             restaurant.phone = phone
-        if request.form.get('image_url'):
-            image_url = request.form['image_url']
+            count += 1
+        if json_data.get('image_url'):
+            image_url = json_data['image_url']
             restaurant.image_url = image_url
+            count += 1
+        if count == 0:
+            return jsonify(msg="No data provided.")
         restaurant.updated_at = datetime.datetime.now()
         db.session.commit()
         return jsonify({"Success": "Successfully updated the restaurant."})
@@ -258,17 +269,26 @@ def patch_or_delete_menu_item(restaurant_id, menu_item_id):
     
     # update restaurant information
     if request.method == 'PATCH':
-        if request.form.get('name'):
-            menu_item.name = request.form['name']
-        if request.form.get('image_url'):
-            image_url = request.form['image_url']
+        json_data = request.get_json()
+        count = 0
+        if json_data.get('name'):
+            menu_item.name = json_data['name']
+            count += 1
+        if json_data.get('image_url'):
+            image_url = json_data['image_url']
             menu_item.image_url = image_url
-        if request.form.get('description'):
-            menu_item.description = request.form['description']
-        if request.form.get('price'):
-            menu_item.price = float(request.form['price'])
-        if request.form.get('category'):
-            menu_item.category = request.form['category']
+            count += 1
+        if json_data.get('description'):
+            menu_item.description = json_data['description']
+            count += 1
+        if json_data.get('price'):
+            menu_item.price = float(json_data['price'])
+            count += 1
+        if json_data.get('category'):
+            menu_item.category = json_data['category']
+            count += 1
+        if count < 1:
+            return jsonify(msg="No data provided.")
         menu_item.updated_at = datetime.datetime.now()
         db.session.commit()
         return jsonify({"Success": "Successfully updated the restaurant menu item."})

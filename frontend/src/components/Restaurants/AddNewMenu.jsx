@@ -40,6 +40,7 @@ function AddNewMenuItem() {
             const response = await api.post(`/restaurants/${restaurant_id}/menu`, formData);
             console.log(response);
             // localStorage.setItem("menu_item_id", response.data.menu.id)
+            localStorage.setItem('menuItems', JSON.stringify(response.data.menu));
             console.log(localStorage);
             setSuccessMessage('You have been successfully added a menu item');
             setErrorMessage('');
@@ -72,7 +73,7 @@ function AddNewMenuItem() {
                     {successMessage && <p className=" text-green font-semibold">{successMessage}</p>}
                     {errorMessage && <p className=" text-[#ff0000] font-semibold">{errorMessage}</p>}
 
-                    <FormContentCustomBg title='Menu Item Name' id='menu_item_name' type='text' instruction='Do not exceed 20 characters when entering the menu  name' value={formValue.menu_item_name} onChange={handleInput} maxLength={20} />
+                    <FormContentCustomBg title='Menu Item Name' id='menu_item_name' type='text' instruction='Do not exceed 30 characters when entering the menu  name' value={formValue.menu_item_name} onChange={handleInput} maxLength={30} />
 
                     <div className='flex flex-col justify-center items-start gap-1'>
                         <p className="block text-sm font-medium leading-6 text-black">Choose Menu Category</p>

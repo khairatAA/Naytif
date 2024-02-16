@@ -26,7 +26,11 @@ def create_driver():
     vehicle_type = request.form['vehicle_type']
     driver = db.session.execute(db.select(Driver).where(Driver.email == email)).scalar()
     if driver:
+<<<<<<< HEAD
         return jsonify(msg='Driver already exist'), 400
+=======
+        return jsonify({'msg': 'Driver already exist'}), 400
+>>>>>>> khairat
     if first_name and last_name and email:
         new_driver = Driver(
             id=str(uuid.uuid4()),
@@ -37,8 +41,15 @@ def create_driver():
             vehicle_type=vehicle_type
         )
         db.session.add(new_driver)
+<<<<<<< HEAD
         return jsonify(msg="Driver successfully created."), 201
     return jsonify(msg="Invalid entry"), 400
+=======
+        db.session.commit()
+
+        return jsonify(msg="Driver successfully created."), 201
+    return jsonify(error={"error": "invalid entry"})
+>>>>>>> khairat
 
 
 @app.route('/drivers/<driver_id>', methods=['GET', 'PATCH', 'DELETE'])
@@ -56,11 +67,12 @@ def driver_by_id(driver_id):
 
     # update driver information
     if request.method == 'PATCH':
-        if request.form.get('phone'):
-            phone = request.form['phone']
+        json_data = request.get_json()
+        if json_data.get('phone'):
+            phone = json_data['phone']
             driver.phone = phone
-        if request.form.get('image_url'):
-            image_url = request.form['image_url']
+        if json_data.get('image_url'):
+            image_url = json_data['image_url']
             driver.image_url = image_url
         driver.updated_at = datetime.datetime.now()
         db.session.commit()

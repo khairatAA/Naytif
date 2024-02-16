@@ -20,8 +20,8 @@ class User(db.Model):
     image_url: Mapped[str] = mapped_column(String(255), nullable=True)
     created_at:Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at:Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
-    delivery_details = relationship('DeliveryDetails', back_populates="user")
-    orders = relationship("Order", back_populates="user")
+    delivery_details = relationship('DeliveryDetails', back_populates="user", cascade="all, delete-orphan")
+    orders = relationship("Order", back_populates="user", cascade="all, delete-orphan")
 
     def to_dict(self):
         """ Returns a dictionary with all fields and their values """
@@ -29,4 +29,6 @@ class User(db.Model):
 
         if user_dict.get('_sa_instance_state'):
             del user_dict['_sa_instance_state']
+        if user_dict.get('password'):
+            del user_dict['password']
         return user_dict
