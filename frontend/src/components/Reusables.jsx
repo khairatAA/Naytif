@@ -142,7 +142,7 @@ export function FormNotes({id, title,instruction, value, onChange}) {
                 rows={1}
                 className="block rounded w-full bg-light-green border py-2 pl-1 placeholder:text-grey-800 focus:ring-0 sm:text-sm sm:leading-6 outline-0 hover:border-green invalid:text-red"
                 placeholder="Example text."
-                maxLength={50}
+                maxLength={60}
                 value={value}
                 onChange={onChange}
             />
