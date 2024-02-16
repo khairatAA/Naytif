@@ -1,7 +1,7 @@
 import api from "../api";
 import { useState, useEffect } from "react";
 import UserTop from "./UserTop";
-import naytiv from "../../assets/naytiv.svg";
+import naytiv from "../../assets/naytifDefault.png";
 import { MapPinIcon } from "lucide-react";
 import scotter from '../../assets/scotter.svg';
 import Restaurant1 from '../../assets/Restaurant1.svg';
@@ -71,7 +71,7 @@ function UserHome() {
                         <h1 className='font-medium text-2xl'>Hello {users.first_name} !</h1>
                         <div className="flex flex-row">
                             <h1 className="font-extrabold text-2xl">Order with </h1>
-                            <img src={naytiv} alt="" className="h-20 relative -top-12 -right-1 " />
+                            <img src={naytiv} alt="" className="h-20 relative -top-10 -right-1 " />
                         </div>
                     </div>
                     <h3 className="text-base">We provide super fast delivery</h3>

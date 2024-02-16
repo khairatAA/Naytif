@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import { BigGreenButtons, BigYellowButtons } from '../Buttons';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import naytifDefault from '../../assets/naytifDefault.png'
 
 function UserMenuBar({onClose}) {
     const UserMenubarRef = useRef();
@@ -38,7 +39,7 @@ function UserMenuBar({onClose}) {
         <div className=' mt-8 flex flex-col gap-5'>
             <button onClick={onClose} className=' absolute top-3 right-5'><X size={40} color='black'/></button>
             <div className=' px-8 py-8 flex flex-col gap-16 items-center'>
-                <h1 className='text-5xl font-extrabold font-logo text-black'>Naytiv</h1>
+                <img src={naytifDefault} className="h-20 w-60 fill-slate-300" />
                 <div className=' flex flex-col gap-5 justify-between items-center'>
                     <Link to='' className={`flex p-3 justify-start gap-5 items-center rounded-md hover:bg-yellow`}>
                         <Edit2Icon color='black' />
