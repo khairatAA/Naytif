@@ -1,5 +1,5 @@
 // Pop-up Modal
-import { Edit2Icon, LogOut, Trash2Icon, X } from 'lucide-react';
+import { AccessibilityIcon, Edit2Icon, LogOut, MapPinIcon, Trash2Icon, X } from 'lucide-react';
 import { useRef } from 'react';
 import { BigGreenButtons, BigYellowButtons } from '../Buttons';
 import { Link } from 'react-router-dom';
@@ -43,6 +43,10 @@ function UserMenuBar({onClose}) {
                     <Link to='' className={`flex p-3 justify-start gap-5 items-center rounded-md hover:bg-yellow`}>
                         <Edit2Icon color='black' />
                         <h2 className="text-black font-bold text-xl">Update Profile</h2>
+                    </Link>
+                    <Link to='' className={`flex p-3 justify-start gap-5 items-center rounded-md hover:bg-yellow`}>
+                        <MapPinIcon color='black' />
+                        <h2 className="text-black font-bold text-xl">Update Delivery</h2>
                     </Link>
                     <div className=' flex flex-col gap-5 self-end'>
                         <Link to='' className={`flex p-3 justify-start gap-5 items-center rounded-md hover:bg-yellow`}>

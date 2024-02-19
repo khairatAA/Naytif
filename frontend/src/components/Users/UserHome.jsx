@@ -61,6 +61,11 @@ function UserHome() {
     return pattern.test(url);
   };
 
+  // Function to save restaurant ID to localStorage
+  const handleRestaurantClick = (restaurantId) => {
+    localStorage.setItem("restaurant_id", restaurantId);
+  };
+
   return (
     <div className="flex flex-col bg-yellow w-full gap-14 py-2  px-10 pb-10 justify-center">
         <UserTop />
@@ -104,7 +109,7 @@ function UserHome() {
                     {
                         sortedRestaurants.map((restaurant, index) => (
                             <div key={restaurant.id} className="flex flex-col gap-5 cursor-pointer">
-                                <Link to={`/users/${restaurant.id}/available_menu`}>
+                                <Link to={`/users/${restaurant.id}/available_menu`} onClick={() => handleRestaurantClick(restaurant.id)}>
                                     <div className="rounded-xl">
                                         {restaurant.image_url && isValidUrl(restaurant.image_url) ? (
                                             <img

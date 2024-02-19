@@ -18,6 +18,9 @@ import UpdateRestaurant from './components/Restaurants/UpdateRestaurant';
 import UserTop from './components/Users/UserTop';
 import UserHome from './components/Users/UserHome';
 import UserMenuPage from './components/Users/UserMenuPage';
+import UserDelivery from './components/Users/UserDelivery';
+import OrderSummary from './components/Users/OrderSummary';
+import OrderConfirmation from './components/Users/OrderComfirmation';
 
 function App() {
   return (
@@ -31,6 +34,9 @@ function App() {
         <Route path="/auth/login" element={<UserLogin />} />
         <Route path="/users/home" element={<UserHome />} />
         <Route path="/users/:restaurant_id/available_menu" element={<UserMenuPage />} />
+        <Route path="/users/delivery_details" element={<UserDelivery />} />
+        <Route path="/users/order_summary" element={<OrderSummary />} />
+        <Route path="/users/order_confirmation" element={<OrderConfirmation />} />
 
         <Route path="/auth/restuarants/sign_up" element={<ResturantSignUp />} />
         <Route path="/auth/restuarants/login" element={<RestaurantLogin />} />

@@ -76,10 +76,28 @@ function UserMenuPage() {
     return (cart[menuItem.id] || 0) * menuItem.price;
   };
 
-  const handleProceedToCheckout = () => {
-    // Perform any necessary actions before proceeding to the checkout page
-    navigate('') // Navigate to the checkout page
-  };
+  const handleProceedToOrderSummary = async () => {
+    try {
+      // Check if the user has delivery details in the database
+      const delivery_details_id = localStorage.getItem("delivery_details_id");
+      const response = await api.get(`/users/${user_id}/delivery_details`);
+      const deliveryDetails = response.data.delivery_details;
+      localStorage.setItem("cart", JSON.stringify(cart));
+  
+      if (deliveryDetails && deliveryDetails.length > 0) {
+        // Store the cart state in local storage
+        localStorage.setItem("cart", JSON.stringify(cart));
+        // Navigate to the order summary page
+        navigate('/users/order_summary');
+      } else {
+        // Navigate to the delivery details page
+        navigate('/users/delivery_details');
+      }
+    } catch (error) {
+      console.error('Error checking delivery details:', error);
+      // Handle error, maybe show an error message to the user
+    }
+  };  
 
   return (
     <div className="flex flex-col bg-yellow w-full gap-14 py-2 px-10 pb-10 justify-center min-h-screen">
@@ -106,7 +124,7 @@ function UserMenuPage() {
           </div>
         </div>
       </div>
-      <div className="self-start flex flex-row max-sm:flex-col justify-between items-start w-full gap-8">
+      <div className="self-start flex flex-row max-sm:flex-col-reverse justify-between items-start w-full gap-8">
         <div className="flex flex-col gap-5 w-9/12 max-lg:w-6/12 max-sm:w-full ">
           {menuItems.length > 0 && menuItems.map((menuItem, index) => (
             <div key={index} className="p-5 bg-[rgba(255,255,255,15%)] border border-green rounded-xl w-full cursor-pointer flex flex-col gap-3">
@@ -170,7 +188,7 @@ function UserMenuPage() {
                         return null;
                     }
                 })}
-                <div onClick={handleProceedToCheckout}>
+                <div onClick={handleProceedToOrderSummary}>
                     <GreenButtons text='Place Order' />
                 </div>
             </div>
