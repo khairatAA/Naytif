@@ -16,7 +16,7 @@ CORS(app)
 
 # App configurations
 app.config['SECRET_KEY'] = "dfb4e4942620287ab13bde30af8ac494" # os.getenv('FLASK_KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://naytifapiadmin:Fooddeliveryapp$@naytif-api-server.postgres.database.azure.com:5432/food-delivery-app"  # os.environ.get('DB', 'sqlite:///food_delivery.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB', 'sqlite:///food_delivery.db')
 app.config['JWT_SECRET_KEY'] = "6b09ab472fede9bda4f17e1a7f691685" # os.environ.get('JWT_SECRET_KEY')
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 
