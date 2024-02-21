@@ -1,5 +1,6 @@
 // Restuarant Hero Page upon sign up
 import hero2 from "../../assets/hero2.svg"
+import { Link } from "react-router-dom";
 
 export default function RestuarantHeroPage() {
     
@@ -14,7 +15,7 @@ export default function RestuarantHeroPage() {
                     <div className=" flex flex-col justify-center items-start gap-5">
                         <h1 className=" text-3xl font-bold">Successful ✅</h1>
                         <h2 className=" text-base font-medium">Your account has been created</h2>
-                        <h2 className=" text-lg font-medium">Go ahead to log in <a href="/auth/restuarants/login" className=" text-yellow"><u>here</u></a></h2>
+                        <h2 className=" text-lg font-medium">Go ahead to log in <Link to="/auth/restuarants/login" className=" text-yellow"><u>here</u></Link></h2>
                     </div>
                 </div>
             </div>

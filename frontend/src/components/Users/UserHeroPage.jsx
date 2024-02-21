@@ -1,5 +1,6 @@
 // User Hero Page upon sign up
 import heroImage from "../../assets/heroImage.svg"
+import { Link } from "react-router-dom";
 
 export default function UserHeroPage() {
     return (
@@ -13,7 +14,7 @@ export default function UserHeroPage() {
                     <div className=" flex flex-col justify-center items-start gap-5">
                         <h1 className=" text-3xl font-bold">Successful ✅</h1>
                         <h2 className=" text-base font-medium">Your account has been created</h2>
-                        <h2 className=" text-lg font-medium">Go ahead to log in <a href="/auth/login" className=" text-green"><u>here</u></a></h2>
+                        <h2 className=" text-lg font-medium">Go ahead to log in <Link to="/auth/login" className=" text-green"><u>here</u></Link></h2>
                     </div>
                 </div>
             </div>
