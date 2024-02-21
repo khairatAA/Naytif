@@ -66,7 +66,7 @@ function ResturantSignUp() {
             {/* Navbar implementation */}
             <nav className="flex flex-row px-11 items-center justify-between py-5 bg-black fixed top-0 w-full">
                 <div className="flex flex-row items-center justify-center gap-6">
-                    <a href="/" className="font-logo text-white text-4xl leading-7 font-bold">Naytif</a>
+                    <Link to="/" className="font-logo text-white text-4xl leading-7 font-bold">Naytif</Link>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-6">
                     <Link to="/auth/restuarants/login">
@@ -79,7 +79,7 @@ function ResturantSignUp() {
                 <div className=" bg-white p-8 flex flex-col gap-5 w-full mb-16">
                     <div>
                         <h1 className=" font-bold text-xl">Get Started</h1>
-                        <a href="/auth/restuarants/login" className=" text-sm"><u>Already have an account?</u></a>
+                        <Link to="/auth/restuarants/login" className=" text-sm"><u>Already have an account?</u></Link>
                     </div>
                     {/* Form content */}
                     <form action="" onSubmit={ handleSubmit }>

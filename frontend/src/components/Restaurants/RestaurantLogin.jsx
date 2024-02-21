@@ -98,7 +98,7 @@ function Login() {
     };
 
     return (
-     <div className=" flex flex-col justify-center h-full" style={{backgroundColor: 'rgb(229 244 252' }}>
+     <div className=" flex flex-col justify-center h-screen max-h-full" style={{backgroundColor: 'rgb(229 244 252' }}>
         <div className=" bg-light-green w-full flex justify-center items-center py-5">
             <div className=" flex flex-col justify-center items-center p-6 border border-yellow rounded-2xl gap-6">
                 <div className=" flex flex-row justify-center items-baseline gap-2">
@@ -118,7 +118,7 @@ function Login() {
                         <div className=" flex flex-col gap-3 w-full">
                             <div className=" flex flex-col gap-2 w-full">
                                 <BigGreenButtons type="submit" disabled={isSubmitting} text="Login" className="w-full" />
-                                <p className=" text-xs">Don’t have an account? <a href="/auth/restuarants/sign_up" className=" text-yellow">Sign Up</a></p>
+                                <p className=" text-xs">Don’t have an account? <Link to="/auth/restuarants/sign_up" className=" text-yellow">Sign Up</Link></p>
                             </div>
                             <p className=" text-center ">or</p>
                             <button className=" flex flex-row items-center gap-5 py-3 px-5 justify-center border border-yellow rounded-lg hover:bg-white">
