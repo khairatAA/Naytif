@@ -166,10 +166,17 @@ function OrderSummary() {
 
   const handleConfirmOrder = async () => {
     try {
+      // Prepare order data to send to the backend
+      const orderData = {
+        userId: localStorage.getItem('user_id'),
+        items: Object.entries(cart).map(([itemId, quantity]) => ({ itemId, quantity })),
+        // Add any other relevant information such as delivery address
+      };
+      // Make a POST request to the backend API to create the order
+      const response = await api.post('/orders', orderData);
+      // const orderId = response.data.orderId; // Assuming the backend returns the ID of the newly created order
       // Add your code to confirm the order here
-
       navigate('/users/order_confirmation');
-
         // Simulate delay before navigating to home page
       setTimeout(() => {
         navigate('/users/home');
@@ -253,7 +260,7 @@ function OrderSummary() {
                 <div className=' border-b border-b-green pb-2'>
                 <p> <span className=' font-semibold'>Phone No:</span> <span>{deliveryDetails.phone}</span></p>
                 </div>
-                <p className=' text-sm text-center'>Easily update your delivery details by clicking 'Update Delivery Details' in the navbar or simply click <span onClick={handleLinkClick}  className=' text-green'><u>here</u></span>.</p>
+                <p className=' text-sm text-center'>Easily update your delivery details by clicking 'Update Delivery Details' in the navbar or simply click <span onClick={handleLinkClick}  className=' text-green cursor-pointer'><u>here</u></span>.</p>
               </div>
             </div>
 
