@@ -70,7 +70,7 @@ def get_user(user_id):
         user_dict = user.to_dict()
         return jsonify(user=user_dict)
     
-@app.route('/users/<user_id>/delivery_details')
+@app.route('/users/<user_id>/delivery_details', methods=['GET', 'PATCH'])
 def get_user_delivery_details(user_id):
     """Takes the id of the user and return the 
     user if it exist otherwise returns 404
@@ -82,6 +82,19 @@ def get_user_delivery_details(user_id):
     
     # get user delivery details
     delivery_details = user.delivery_details
+    if request.method == 'PATCH':
+        number_of_delivery_details = len(delivery_details)
+        if number_of_delivery_details > 0:
+            delivery_detail = delivery_details[0]:
+            json_data = request.get_json()
+            if json_data.get('address'):
+                delivery_detail.address = json_data['address']
+            if json_data.get('phone'):
+                delivery_detail.phone = json_data['phone']
+            db.session.commit()
+            return jsonify(msg="delivery detail updated")
+        else:
+            return jsonify(msg="delivery detail doesn't exist"), 400
     delivery_details = [delivery_detail.to_dict() for delivery_detail in delivery_details]
     return jsonify(delivery_details=delivery_details)
     
@@ -139,6 +152,10 @@ def user_by_id(user_id):
     if request.method == 'PATCH':
         count = 0
         json_data = request.get_json()
+        if json_data.get('first_name'):
+            user.first_name = json_data['first_name']
+        if json_data.get('last_name'):
+            user.last_name = json_data['last_name']
         if json_data.get('phone'):
             phone = json_data['phone']
             user.phone = phone
