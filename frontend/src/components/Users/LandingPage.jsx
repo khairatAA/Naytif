@@ -40,7 +40,7 @@ function LandingPage() {
                     <button type="button" onClick={() => setShowMenubar(true)}>
                         <img src={ Menu } alt="menubar icon" />
                     </button>
-                    <a href="/" className="font-logo text-black text-4xl leading-7 font-bold">Naytif</a>
+                    <Link to="/" className="font-logo text-black text-4xl leading-7 font-bold">Naytif</Link>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-6 max-md:hidden">
                     <Link to="/auth/login">

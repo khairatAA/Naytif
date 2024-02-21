@@ -120,7 +120,7 @@ function UserLogin() {
                         <div className=" flex flex-col gap-3 w-full">
                             <div className=" flex flex-col gap-2 w-full">
                                 <BigGreenButtons type='submit' disabled={isSubmitting} text="Login" className="w-full" />
-                                <p className=" text-xs">Don’t have an account? <a href="/auth/sign_up_1" className=" text-green">Sign Up</a></p>
+                                <p className=" text-xs">Don’t have an account? <Link to="/auth/sign_up_1" className=" text-green">Sign Up</Link></p>
                             </div>
                             <p className=" text-center ">or</p>
                             <button className=" flex flex-row items-center gap-5 py-3 px-5 justify-center border border-green rounded-lg hover:bg-white">
