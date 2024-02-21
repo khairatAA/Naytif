@@ -24,6 +24,8 @@ function OrderSummary() {
   const [selectedRider, setSelectedRider] = useState(null);
   const deliveryCharge = 2000;
   const confirmationDelay = 10000; // Define the delay in milliseconds
+  const [address, setAddress] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
 
   // Get carts
   useEffect(() => {
@@ -152,7 +154,7 @@ function OrderSummary() {
   };
 
   if (loading) {
-    return <div className=' bg-yellow'>Loading...</div>; // Render a loading indicator while fetching menu items
+    return <div className=' bg-yellow h-screen'>Loading...</div>; // Render a loading indicator while fetching menu items
   }
 
   const totalMenuPrice = Object.entries(cart).reduce((total, [itemId, quantity]) => {
