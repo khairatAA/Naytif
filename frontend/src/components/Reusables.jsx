@@ -1,4 +1,5 @@
 // This files contains all reusable components
+import React from 'react';
 
 // Search place holder
 export function Placeholder({icon, text, placeholderText}) {

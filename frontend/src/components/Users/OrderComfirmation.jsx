@@ -1,5 +1,6 @@
 // User Hero Page upon sign up
 import scotter from '../../assets/scotter.svg';
+import React from 'react';
 
 export default function OrderConfirmation() {
     return (

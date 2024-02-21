@@ -1,6 +1,7 @@
 // User Hero Page upon sign up
 import heroImage from "../../assets/heroImage.svg"
 import { Link } from "react-router-dom";
+import React from 'react';
 
 export default function UserHeroPage() {
     return (

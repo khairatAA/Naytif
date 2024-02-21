@@ -7,6 +7,7 @@ import { useLocation, Link } from 'react-router-dom';
 import api from '../api';
 import { GreenButtons } from '../Buttons';
 import Footer from '../Footer';
+import Swal from 'sweetalert2';
 
 function OrderSummary() {
   const location = useLocation();
@@ -123,6 +124,33 @@ function OrderSummary() {
     }
   }, [ridersDetails]);
 
+  // To update delivery details
+  const handleUpdate = () => {
+    api.patch(`/users/${user_id}/delivery_details`, { address, phoneNumber })
+        .then(response => {
+            Swal.fire('Success', 'Delivery updated successfully', 'success');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire('Error', 'Failed to update delivery', 'error');
+        });
+  };
+
+  const handleLinkClick = () => {
+    Swal.fire({
+        title: 'Update Delivery',
+        html:
+            `<input id="swal-input1" class="swal2-input" value="${address || ''}" placeholder="Address" required>` +
+            `<input id="swal-input2" class="swal2-input" value="${phoneNumber || ''}" placeholder="Phone Number" required>`,
+        focusConfirm: false,
+        preConfirm: () => {
+            setAddress(document.getElementById('swal-input1').value);
+            setPhoneNumber(document.getElementById('swal-input2').value);
+            handleUpdate();
+        }
+    });
+  };
+
   if (loading) {
     return <div>Loading...</div>; // Render a loading indicator while fetching menu items
   }
@@ -223,7 +251,7 @@ function OrderSummary() {
                 <div className=' border-b border-b-green pb-2'>
                 <p> <span className=' font-semibold'>Phone No:</span> <span>{deliveryDetails.phone}</span></p>
                 </div>
-                <p className=' text-sm text-center'>Easily update your delivery details by clicking 'Update Delivery Details' in the navbar or simply click <Link to='' className=' text-green'><u>here</u></Link>.</p>
+                <p className=' text-sm text-center'>Easily update your delivery details by clicking 'Update Delivery Details' in the navbar or simply click <div onClick={handleLinkClick}  className=' text-green'><u>here</u></div>.</p>
               </div>
             </div>
 

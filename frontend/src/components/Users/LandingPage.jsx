@@ -1,4 +1,5 @@
 // This file contains the landing page of the Naytiv Web App
+import React from 'react';
 import Menu from "../../assets/Menu.svg"
 import landingpageImage from "../../assets/landingpageImage.svg"
 import { GreenButtonsWithIcon } from "../Buttons";
