@@ -152,7 +152,7 @@ function OrderSummary() {
   };
 
   if (loading) {
-    return <div>Loading...</div>; // Render a loading indicator while fetching menu items
+    return <div className=' bg-yellow'>Loading...</div>; // Render a loading indicator while fetching menu items
   }
 
   const totalMenuPrice = Object.entries(cart).reduce((total, [itemId, quantity]) => {
@@ -251,7 +251,7 @@ function OrderSummary() {
                 <div className=' border-b border-b-green pb-2'>
                 <p> <span className=' font-semibold'>Phone No:</span> <span>{deliveryDetails.phone}</span></p>
                 </div>
-                <p className=' text-sm text-center'>Easily update your delivery details by clicking 'Update Delivery Details' in the navbar or simply click <div onClick={handleLinkClick}  className=' text-green'><u>here</u></div>.</p>
+                <p className=' text-sm text-center'>Easily update your delivery details by clicking 'Update Delivery Details' in the navbar or simply click <span onClick={handleLinkClick}  className=' text-green'><u>here</u></span>.</p>
               </div>
             </div>
 

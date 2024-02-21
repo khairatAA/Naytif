@@ -101,7 +101,7 @@ function UserMenuPage() {
   };  
 
   return (
-    <div className="flex flex-col bg-yellow w-full gap-14 py-2 px-10 pb-10 justify-center min-h-screen">
+    <div className="flex flex-col bg-yellow w-full gap-14 py-2 px-10 pb-10 justify-start min-h-screen">
       <UserTop />
       <div className='self-center w-full max-w-lg flex flex-col gap-20 justify-center'>
         <div className="flex rounded bg-white hover:border py-2 px-1 hover:border-green">
