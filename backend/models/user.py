@@ -20,7 +20,7 @@ class User(db.Model):
     image_url: Mapped[str] = mapped_column(String(255), nullable=True)
     created_at:Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at:Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
-    delivery_details = relationship('DeliveryDetails', back_populates="user", cascade="all, delete-orphan")
+    delivery_details = relationship('DeliveryDetails', back_populates="user", cascade="all, delete-orphan", uselist=False)
     orders = relationship("Order", back_populates="user", cascade="all, delete-orphan")
 
     def to_dict(self):
