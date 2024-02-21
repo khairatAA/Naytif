@@ -1,3 +1,4 @@
+import React from 'react';
 import { BigGreenButtons } from "../Buttons"
 import { AuthenticationInput } from "../Reusables"
 import google from "../../assets/google.svg"

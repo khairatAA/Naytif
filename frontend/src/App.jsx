@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css'
 import LandingPage from './components/Users/LandingPage'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -21,6 +22,7 @@ import UserMenuPage from './components/Users/UserMenuPage';
 import UserDelivery from './components/Users/UserDelivery';
 import OrderSummary from './components/Users/OrderSummary';
 import OrderConfirmation from './components/Users/OrderComfirmation';
+import UpdateProfile from './components/Users/UpdateProfile';
 
 function App() {
   return (
@@ -37,6 +39,7 @@ function App() {
         <Route path="/users/delivery_details" element={<UserDelivery />} />
         <Route path="/users/order_summary" element={<OrderSummary />} />
         <Route path="/users/order_confirmation" element={<OrderConfirmation />} />
+        <Route path="/users/update_profile" element={<UpdateProfile />} />
 
         <Route path="/auth/restuarants/sign_up" element={<ResturantSignUp />} />
         <Route path="/auth/restuarants/login" element={<RestaurantLogin />} />

@@ -1,4 +1,5 @@
 // Pop-up Modal
+import React from 'react';
 import { X } from 'lucide-react';
 import { useRef } from 'react';
 import { BigGreenButtons, BigYellowButtons } from '../Buttons';

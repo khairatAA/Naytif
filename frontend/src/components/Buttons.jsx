@@ -1,4 +1,5 @@
 // Buttons implementation
+import React from 'react';
 
 // Green button customization with icon
 export function GreenButtonsWithIcon({ text, icon }) {
