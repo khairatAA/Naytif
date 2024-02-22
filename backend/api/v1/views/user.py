@@ -85,7 +85,7 @@ def get_user_delivery_details(user_id):
     if request.method == 'PATCH':
         number_of_delivery_details = len(delivery_details)
         if number_of_delivery_details > 0:
-            delivery_detail = delivery_details[0]:
+            delivery_detail = delivery_details[0]
             json_data = request.get_json()
             if json_data.get('address'):
                 delivery_detail.address = json_data['address']
