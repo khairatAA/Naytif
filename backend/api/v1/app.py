@@ -39,6 +39,7 @@ from api.v1.views.restaurant import *
 from api.v1.views.order import *
 from api.v1.views.driver import *
 from api.v1.views.delivery import *
+from api.v1.views.order_list import *
 
 if __name__ == "__main__":
     app.run(debug=True)
