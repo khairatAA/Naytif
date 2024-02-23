@@ -159,6 +159,7 @@ def restaurant_order_by_id(restaurant_id):
             }
         order_list.append(an_order)
         return jsonify(orders=order_list)
+    return jsonify(orders=[])
 
     
 
