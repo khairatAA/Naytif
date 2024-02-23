@@ -129,7 +129,7 @@ def restaurant_order_by_id(restaurant_id):
     for user in users:
         if user not in users_list:
             users_list.append(user)
-    orders = []
+    restaurant_orders = []
 
     # for order in restaurant_orders:
     #     try:
@@ -143,23 +143,23 @@ def restaurant_order_by_id(restaurant_id):
         items = []
         for order in orders:
             menu_item = order.menu_items
-            an_order = {
+            items.append({
+                "itemId": menu_item.id,
+                "name": menu_item.name,
+                "quantity": order.number_of_order,
+                "price": order.subtotal
+            })
+        user_order = {
             "id": order.id,
             "user": {
                 "id": user.id,
                 "name": f"{user.first_name} {user.last_name}"
             },
             "deliveryAddress": delivery_details.address,
-            "items": items.append({
-                "itemId": menu_item.id,
-                "name": menu_item.name,
-                "quantity": order.number_of_order,
-                "price": order.subtotal
-            })
-            }
-        order_list.append(an_order)
-        return jsonify(orders=order_list)
-    return jsonify(orders=[])
+            "items": items
+        }
+        restaurant_orders.append(user_order)
+    return jsonify(orders=restaurant_orders)
 
     
 
