@@ -174,8 +174,9 @@ function OrderSummary() {
       };
       // Make a POST request to the backend API to create the order
       const response = await api.post('/orders', orderData);
-      const orderId = response.data.orderId; // Assuming the backend returns the ID of the newly created order
+      // const orderId = response.data.orderId; // Assuming the backend returns the ID of the newly created order
       // Add your code to confirm the order here
+      console.log(response);
       navigate('/users/order_confirmation');
         // Simulate delay before navigating to home page
       setTimeout(() => {

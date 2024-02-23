@@ -1,4 +1,4 @@
-import { Search } from 'lucide-react';
+import { Search, User2Icon } from 'lucide-react';
 import React, { useState, useEffect } from "react";
 import api from '../api';
 import Swal from 'sweetalert2';
@@ -90,7 +90,7 @@ function RestaurantTop() {
         {profileImageUrl ? (
           <img src={profileImageUrl} alt="Profile" className="h-16 w-16 rounded-full" />
         ) : (
-          <div className="h-16 w-16 rounded-full bg-white"></div>
+          <User2Icon />
         )}
       </button>
     </div>
