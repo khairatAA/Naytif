@@ -64,23 +64,28 @@ function RestuarantHome() {
               </div>
             </div>
 
-            <div className=''>
+            <div className=' flex flex-col flex-wrap gap-5'>
               {/* {restaurantOrders.map((order, index) => ( */}
-                <div>
+                <div className=" bg-[#E5F4FC] rounded-xl p-5 flex flex-col gap-5 w-80">
 
-                  <div>
-                    <div>
-                      <p>Order #001</p>
-                      <p>01 Jan 2024, 08:78pm</p>
+                  <div className=" flex flex-row justify-between items-center" >
+                    <div className=" flex flex-col justify-start">
+                      <p className=" font-bold text-lg">Order #001</p>
+                      <p className=" font-normal text-base text-[rgba(0,0,0,45%)]">01 Jan 2024, 08:78pm</p>
                     </div>
 
-                    <div className='h-8 w-8 rounded-full bg-white cursor-pointer flex justify-center items-center'>
-                      <img src='' alt="User's profile" className="h-8 w-8 rounded-full" />
+                    <div className='h-12 w-12 rounded-full self-end bg-yellow cursor-pointer flex justify-center items-center'>
+                      <img src='' alt="User's profile" className="h-12 w-12 rounded-full" />
                     </div>
                   </div>
 
                   <div>
                     
+                  </div>
+
+                  <div className=" flex flex-row p-2 items-center justify-between self-center rounded-sm border border-green w-40">
+                    <Check className=" text-green" />
+                    <p>COMPLETED</p>
                   </div>
 
                 </div>
