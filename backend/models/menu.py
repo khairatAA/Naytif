@@ -13,7 +13,7 @@ class Menu(db.Model):
     __tablename__ = "menu_items"
     id:Mapped[str] = mapped_column(String(128), primary_key=True, nullable=False)
     restaurant_id: Mapped[str] = mapped_column(String(128), db.ForeignKey('restaurants.id'))
-    name: Mapped[str] = mapped_column(String(60), nullable=False, unique=True)
+    name: Mapped[str] = mapped_column(String(60), nullable=False, unique=False)
     price: Mapped[float] = mapped_column(DECIMAL(8, 2), nullable=False)
     category: Mapped[str] = mapped_column(String(60), nullable=False)
     description: Mapped[str] = mapped_column(Text, nullable=False)  
