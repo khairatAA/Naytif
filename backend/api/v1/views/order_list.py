@@ -5,6 +5,7 @@ from models.menu import Menu
 from models.order_list import OrderList
 from models.blocked_token import TokenBlocklist
 from models.order import Order
+from models.driver import Driver
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import (
     jwt_required,
@@ -37,25 +38,31 @@ def make_orders():
     }
     """
     json_data = request.get_json()
-    user_id = json_data.userId
-    orders = json_data.items
-    drivers_list = requests.get(request.url_root + '/drivers').json()['drivers']
-    driver = random.choice(drivers_list)
+    print(json_data)
+    user_id = json_data['userId']
+    orders = json_data['items']
+
+    drivers_list = db.session.execute(db.select(Driver)).scalars().all()
+    if len(drivers_list) > 0:
+        driver = random.choice(drivers_list)
+        driver_id = driver.id
+    else:
+        driver_id  = None
     order_list = []
     order_list_id = str(uuid.uuid4())
     new_order_list = OrderList(id=order_list_id)
     for order in orders:
-        menu_item_id = order.itemId
+        menu_item_id = order['itemId']
         try:
             menu_item = db.get_or_404(Menu, menu_item_id)
         except Exception:
             return jsonify(msg="Menu item not found."), 400
-        quantity = order.quantity
+        quantity = order['quantity']
         order_id = str(uuid.uuid4())
         subtotal = float(menu_item.price) * float(quantity)
         new_order = Order(
             id=order_id,
-            driver_id=driver.id,
+            driver_id=driver_id,
             user_id=user_id,
             menu_item_id=menu_item_id,
             restaurant_id=menu_item.restaurant_id,
@@ -67,3 +74,4 @@ def make_orders():
     db.session.add(new_order_list)
     db.session.add_all(order_list)
     db.session.commit()
+    return jsonify(msg="Order list created"), 201

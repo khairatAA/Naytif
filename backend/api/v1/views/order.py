@@ -12,7 +12,7 @@ import uuid
 # /api/v1/view/orders
 # GET: Get a list of all orders.
 # POST: Create an order
-@app.route('/orders', methods=['GET', 'POST'])
+@app.route('/orders', methods=['GET'])
 def get_or_post_orders():
     """ Get all orders or create an order depending on the method"""
     if request.method == 'GET':
