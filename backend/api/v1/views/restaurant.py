@@ -2,6 +2,7 @@ from flask import jsonify, request
 from models import app, db
 from models.restaurant import Restaurant
 from models.menu import Menu
+from models.order import Order
 from models.blocked_token import TokenBlocklist
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import (
@@ -111,6 +112,54 @@ def restaurant_by_id(restaurant_id):
     # get restaurant information
     restaurant_dict = restaurant.to_dict()
     return jsonify(restaurant=restaurant_dict)
+
+# /api/v1/view/restaurants/<int:id>
+@app.route('/restaurants/<restaurant_id>/orders')
+def restaurant_order_by_id(restaurant_id):
+    """ Returns specific restaurant based on id 
+    otherwise 404 if the restaurant doesn't exist
+    """
+    try:
+        restaurant = db.get_or_404(Restaurant, restaurant_id)
+    except Exception:
+        return jsonify({'error': 'Restaurant not found'})
+    orders = db.session.execute(db.select(Order)).scalars().all()
+    users = [order.user for order in orders if orders.restaurant_id == restaurant_id]
+    users_list = []
+    for user in users:
+        if user not in users_list:
+            users_list.append(user)
+    orders = []
+
+    # for order in restaurant_orders:
+    #     try:
+    #         user = db.get_or_404('User', order.user_id)
+    #     except Exception:
+    #         return jsonify(msg="User does not exist")
+    for user in users_list:
+        orders = user.orders
+        delivery_details = user.delivery_details[0] if delivery_details[0] else None
+        order_list = []
+        items = []
+        for order in orders:
+            menu_item = order.menu_items
+            an_order = {
+            "id": order.id,
+            "user": {
+                "id": user.id,
+                "name": f"{user.first_name} {user.last_name}"
+            },
+            "deliveryAddress": delivery_details.address,
+            "items": items.append({
+                "itemId": menu_item.id,
+                "name": menu_item.name,
+                "quantity": order.number_of_order,
+                "price": order.subtotal
+            })
+            }
+        order_list.append(an_order)
+        return jsonify(orders=order_list)
+
     
 
 # TODO: Add authentication to this route
@@ -296,6 +345,11 @@ def patch_or_delete_menu_item(restaurant_id, menu_item_id):
     db.session.delete(menu_item)
     db.session.commit()
     return jsonify({'Success': 'restaurant menu item successfully deleted.'})
+
+@app.route('/restaurants/<restaurant_id>/orders')
+@jwt_required()
+def restaurant_orders():
+    pass
 
 
 # This area is purely to test my authentication

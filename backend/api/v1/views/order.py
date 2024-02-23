@@ -19,26 +19,27 @@ def get_or_post_orders():
         orders = db.session.execute(db.select(Order)).scalars().all()
         order_list = [order.to_dict() for order in orders]
         return jsonify(orders=order_list)
-    order_id = str(uuid.uuid4())
-    driver_id = request.form['driver_id']
-    user_id = request.form['user_id']
-    menu_item_id = request.form['menu_item_id']
-    number_of_order = request.form['number_of_order']
-    menu_item = db.get_or_404(Menu, menu_item_id)
-    subtotal = float(menu_item.price) * float(number_of_order)
-    restaurant_id = menu_item.restaurant_id
-    new_order = Order(
-        id=order_id,
-        driver_id=driver_id,
-        user_id=user_id,
-        menu_item_id=menu_item_id,
-        restaurant_id=restaurant_id,
-        number_of_order=number_of_order,
-        subtotal=subtotal
-    ) 
+    # order_id = str(uuid.uuid4())
+    # driver_id = request.form['driver_id']
+    # user_id = request.form['user_id']
+    # menu_item_id = request.form['menu_item_id']
+    # number_of_order = request.form['number_of_order']
+    # menu_item = db.get_or_404(Menu, menu_item_id)
+    # subtotal = float(menu_item.price) * float(number_of_order)
+    # restaurant_id = menu_item.restaurant_id
+    # new_order = Order(
+    #     id=order_id,
+    #     driver_id=driver_id,
+    #     user_id=user_id,
+    #     menu_item_id=menu_item_id,
+    #     restaurant_id=restaurant_id,
+    #     number_of_order=number_of_order,
+    #     subtotal=subtotal,
+    #     order_list_id=order_list_id
+    # ) 
 
-    db.session.add(new_order)
-    db.session.commit()
+    # db.session.add(new_order)
+    # db.session.commit()
     return jsonify({"Success": "Order has been successfully created."})
 
 

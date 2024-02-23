@@ -35,6 +35,7 @@ from models.delivery import DeliveryDetails
 from models.order import Order
 from models.driver import Driver
 from models.blocked_token import TokenBlocklist
+from models.order_list import OrderList
 
 with app.app_context():
     db.create_all()

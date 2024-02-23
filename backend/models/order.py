@@ -16,6 +16,7 @@ class Order(db.Model):
     restaurant_id: Mapped[str] = mapped_column(String(128), db.ForeignKey("restaurants.id"))
     user_id:Mapped[str] = mapped_column(String(128), db.ForeignKey("users.id"))
     driver_id:Mapped[str] = mapped_column(String(128), db.ForeignKey("drivers.id"))
+    order_list_id:Mapped[str] = mapped_column(String(128), db.ForeignKey("order_lists.id"))
     number_of_order: Mapped[int] = mapped_column(Integer, nullable=False)
     subtotal: Mapped[float] = mapped_column(DECIMAL(8, 2), nullable=False)
     order_status: Mapped[str] = mapped_column(String(60), default="Preparing")
@@ -24,6 +25,8 @@ class Order(db.Model):
     restaurant = relationship("Restaurant", back_populates="orders")
     user = relationship("User", back_populates="orders")
     driver = relationship("Driver", back_populates="orders")
+    order_list = relationship("OrderList", back_populates="orders")
+
 
     def to_dict(self):
         """Serializes the class object to dictionary"""
