@@ -88,6 +88,7 @@ function UserMenuPage() {
       if (deliveryDetails && deliveryDetails.length > 0) {
         // Store the cart state in local storage
         localStorage.setItem("cart", JSON.stringify(cart));
+        console.log(localStorage);
         // Navigate to the order summary page
         navigate('/users/order_summary');
       } else {

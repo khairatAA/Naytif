@@ -68,7 +68,7 @@ function UserHome() {
   };
 
   return (
-    <div className="flex flex-col bg-yellow w-full gap-14 py-2  px-10 pb-10 justify-start">
+    <div className="flex flex-col bg-yellow w-full gap-14 py-2  px-10 pb-10 justify-start h-full min-h-screen">
         <UserTop />
         <div className='w-full flex flex-col justify-between items-center gap-20'>
             <div className="max-w-5xl h-80 bg-light-yellow flex flex-row max-md:flex-col max-md:h-fit p-5 rounded-2xl border border-green items-center justify-between">
