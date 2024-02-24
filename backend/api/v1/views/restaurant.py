@@ -149,6 +149,12 @@ def restaurant_order_by_id(restaurant_id):
                 "quantity": order.number_of_order,
                 "price": order.subtotal
             })
+        unique_items = [] # [item['id'] for item in items]
+        unique_items_ids = [] # list(set(item_ids))
+        for item in items:
+            if item['itemId'] not in unique_items_ids:
+                unique_items.append(item)
+                unique_items_ids.append(item['itemId'])
         user_order = {
             "id": order.id,
             "user": {
@@ -156,7 +162,7 @@ def restaurant_order_by_id(restaurant_id):
                 "name": f"{user.first_name} {user.last_name}"
             },
             "deliveryAddress": delivery_details.address,
-            "items": items
+            "items": unique_items
         }
         restaurant_orders.append(user_order)
     return jsonify(orders=restaurant_orders)
