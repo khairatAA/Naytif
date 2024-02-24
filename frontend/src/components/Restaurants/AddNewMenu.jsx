@@ -33,7 +33,7 @@ function AddNewMenuItem() {
         formData.append("price", formValue.price);
         formData.append("category", selectedOption);
         formData.append("description", formValue.menu_item_description);
-        formData.append("image", formValue.image_url);
+        formData.append("image_url", formValue.image_url);
         formData.append("restaurant_id", restaurant_id)
     
         try {
