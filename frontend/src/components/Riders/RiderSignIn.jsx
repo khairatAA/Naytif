@@ -22,7 +22,7 @@ import { useNavigate } from "react-router-dom";
 export default function RiderSignIn() {
 
     // Connection wth backend and error and success handling
-    const [formValue, setFormValue] = useState({first_name:'', last_name: '', email:'', image_url: '', phone_number:0, city:'', vehicle:''})
+    const [formValue, setFormValue] = useState({first_name:'', last_name: '', email:'', image_url: '', phone_number:'', city:'', vehicle:''})
     const [errorMessage, setErrorMessage] = useState("");
     
     const navigate = useNavigate();
@@ -43,7 +43,7 @@ export default function RiderSignIn() {
         formData.append("image_url", formValue.image_url);
         formData.append("last_name", formValue.last_name);
         // formData.append("password", formValue.password);
-        formData.append("phone", formValue.phone);
+        formData.append("phone", formValue.phone_number);
         formData.append("vehicle_type", formValue.vehicle);
         
         api.post('/drivers', formData)
