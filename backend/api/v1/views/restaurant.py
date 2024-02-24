@@ -124,7 +124,7 @@ def restaurant_order_by_id(restaurant_id):
     except Exception:
         return jsonify({'error': 'Restaurant not found'})
     orders = db.session.execute(db.select(Order)).scalars().all()
-    users = [order.user for order in orders if orders.restaurant_id == restaurant_id]
+    users = [order.user for order in orders if order.restaurant_id == restaurant_id]
     users_list = []
     for user in users:
         if user not in users_list:
@@ -138,7 +138,7 @@ def restaurant_order_by_id(restaurant_id):
     #         return jsonify(msg="User does not exist")
     for user in users_list:
         orders = user.orders
-        delivery_details = user.delivery_details[0] if delivery_details[0] else None
+        delivery_details = user.delivery_details[0] if user.delivery_details[0] else None
         order_list = []
         items = []
         for order in orders:
@@ -149,6 +149,12 @@ def restaurant_order_by_id(restaurant_id):
                 "quantity": order.number_of_order,
                 "price": order.subtotal
             })
+        unique_items = [] # [item['id'] for item in items]
+        unique_items_ids = [] # list(set(item_ids))
+        for item in items:
+            if item['itemId'] not in unique_items_ids:
+                unique_items.append(item)
+                unique_items_ids.append(item['itemId'])
         user_order = {
             "id": order.id,
             "user": {
@@ -156,7 +162,7 @@ def restaurant_order_by_id(restaurant_id):
                 "name": f"{user.first_name} {user.last_name}"
             },
             "deliveryAddress": delivery_details.address,
-            "items": items
+            "items": unique_items
         }
         restaurant_orders.append(user_order)
     return jsonify(orders=restaurant_orders)
