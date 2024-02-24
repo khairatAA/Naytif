@@ -126,7 +126,7 @@ function AvaliableMenuItems() {
                 <td className='p-3 text-center'>{menuItem.name}</td>
                 <td className='p-3 text-center'>{menuItem.category}</td>
                 <td className='p-3 text-center'>#{menuItem.price}</td>
-                <td><UploadIcon color='green' onClick={() => handleUpdateMenuItem(menuItem)} /></td>
+                <td><UploadIcon color='green' className=' cursor-pointer' onClick={() => handleUpdateMenuItem(menuItem)} /></td>
                 <td className='p-3 text-center'>
                   <Trash2Icon
                     color='red'
