@@ -22,7 +22,7 @@ import { useNavigate } from "react-router-dom";
 export default function RiderSignIn() {
 
     // Connection wth backend and error and success handling
-    const [formValue, setFormValue] = useState({first_name:'', last_name: '', email:'', image_url: '', phone_number:'', city:'', vehicle:''})
+    const [formValue, setFormValue] = useState({first_name:'', last_name: '', email:'', image_url: '', phone_number:0, city:'', vehicle:''})
     const [errorMessage, setErrorMessage] = useState("");
     
     const navigate = useNavigate();
