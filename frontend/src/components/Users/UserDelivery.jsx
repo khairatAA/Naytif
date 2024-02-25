@@ -94,7 +94,7 @@ function UserDelivery() {
                         </div>
                     </form>
                 </div>
-                <p className=" text-wrap text-center font-medium">Please note we only accept payment on delivery <br />at this time either cash or transfer is allowed.</p>
+                <p className=" text-wrap text-center font-medium">Please note: We only accept payment on delivery at this time. You can transfer funds, use cash, or utilize POS on delivery.</p>
             </div>
         </div>
     </div>
