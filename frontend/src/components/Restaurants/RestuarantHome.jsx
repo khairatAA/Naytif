@@ -32,19 +32,21 @@ function RestuarantHome() {
         const orders = response.data.orders.map(async (order) => {
           // const userResponse = await api.get(`/users/${order.user.id}`);
           // const user = userResponse.data.user;
-
           const menuItems = await Promise.all(
             order.items.map(async (item) => {
+              console.log("Ordered menu items id is:", item.itemId);
               const menuItemResponse = await api.get(
                 `/restaurants/${restaurant_id}/menu/${item.itemId}`
               );
               const menuItem = menuItemResponse.data.menuItem;
+              console.log("Order menu item details", menuItem);
               return { ...item, menuItem };
             })
           );
 
           return { ...order, items: menuItems };
         });
+        console.log(orders);
 
         // Set restaurantOrders with orders (without user details)
         setRestaurantOrders(await Promise.all(orders));
