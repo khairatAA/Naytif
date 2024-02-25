@@ -362,7 +362,7 @@ def restaurant_orders():
 
 @app.route('/restaurants/forgot', methods=['POST'])
 def restaurant_forgot_password():
-    email = request.form['email']
+    email = request.get_json()['email']
     restaurant = db.session.execute(db.select(Restaurant).where(Restaurant.email==email)).scalar()
     if not restaurant:
         return jsonify(msg="Restaurant not founnd"), 404

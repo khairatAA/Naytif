@@ -197,7 +197,7 @@ def user_protected():
 
 @app.route('/users/forgot', methods=['POST'])
 def user_forgot_password():
-    email = request.form['email']
+    email = request.get_json()['email']
     user = db.session.execute(db.select(User).where(User.email==email)).scalar()
     if not user:
         return jsonify(msg="User not founnd"), 404
