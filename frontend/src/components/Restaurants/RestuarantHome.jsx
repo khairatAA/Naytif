@@ -8,14 +8,13 @@ function RestuarantHome() {
   const [restaurants, setRestaurants] = useState([]);
   const restaurant_id = localStorage.getItem("restaurant_id");
   const [restaurantOrders, setRestaurantOrders] = useState([]);
-  const [userDetails, setUserDetails] = useState({}); // State variable for user details
+  const [items, setItems] = useState([]); // State variable for order items
 
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
         const response = await api.get(`/restaurants/${restaurant_id}`);
         const fetchedRestaurants = response.data.restaurant;
-        console.log(fetchedRestaurants);
         setRestaurants(fetchedRestaurants);
       } catch (error) {
         console.error("Error fetching restaurant details:", error);
@@ -29,27 +28,16 @@ function RestuarantHome() {
     const fetchRestaurantOrders = async () => {
       try {
         const response = await api.get(`/restaurants/${restaurant_id}/orders`);
-        const orders = response.data.orders.map(async (order) => {
-          // const userResponse = await api.get(`/users/${order.user.id}`);
-          // const user = userResponse.data.user;
-          const menuItems = await Promise.all(
-            order.items.map(async (item) => {
-              console.log("Ordered menu items id is:", item.itemId);
-              const menuItemResponse = await api.get(
-                `/restaurants/${restaurant_id}/menu/${item.itemId}`
-              );
-              const menuItem = menuItemResponse.data.menuItem;
-              console.log("Order menu item details", menuItem);
-              return { ...item, menuItem };
-            })
-          );
+        const orders = response.data.orders;
 
-          return { ...order, items: menuItems };
-        });
-        console.log(orders);
+        // Extract and store item IDs in local storage
+        const itemIds = orders.reduce((acc, order) => {
+          return [...acc, ...order.items.map(item => item.itemId)];
+        }, []);
+        localStorage.setItem('orderItemIds', JSON.stringify(itemIds));
 
-        // Set restaurantOrders with orders (without user details)
-        setRestaurantOrders(await Promise.all(orders));
+        // Set restaurantOrders with orders
+        setRestaurantOrders(orders);
       } catch (error) {
         console.error("Error fetching restaurant orders:", error);
       }
@@ -57,7 +45,6 @@ function RestuarantHome() {
 
     fetchRestaurantOrders();
   }, [restaurant_id]);
-
 
   const scrollToOrder = (index) => {
     const element = document.getElementById(`order_${index}`);
@@ -72,12 +59,12 @@ function RestuarantHome() {
   return (
     <div className="flex flex-row bg-powder-blue w-full h-full min-h-screen pb-20">
       <RestuarantSideBar />
-      <div className=" ml-72 max-md:ml-16 px-5 bg-powder-blue w-full py-5 flex flex-col gap-8 ">
+      <div className="ml-72 max-md:ml-16 px-5 bg-powder-blue w-full py-5 flex flex-col gap-8">
         <RestaurantTop />
-        <h1 className="font-extrabold text-3xl">Welcome {restaurants.brand_name} !</h1>
+        <h1 className="font-extrabold text-3xl">Welcome {restaurants.brand_name}!</h1>
         <div className="flex flex-col gap-3">
           <h2 className="font-bold text-xl">ORDER LIST</h2>
-          <div className=" flex flex-row gap-5">
+          <div className="flex flex-row gap-5">
             {sortedOrders.map((order, index) => (
               <div
                 key={index}
@@ -93,7 +80,7 @@ function RestuarantHome() {
 
         <div className="flex flex-row flex-wrap max-md:justify-center gap-5">
           {sortedOrders.map((order, index) => (
-            <div key={index} id={`order_${index}`} className="bg-[#E5F4FC] rounded-xl p-5 flex flex-col gap-5 w-72">
+            <div key={index} id={`order_${index}`} className="bg-[#E5F4FC] rounded-xl p-5 flex flex-col gap-5 w-72 h-fit">
               <div className="flex flex-row justify-between items-start">
                 <div className="flex flex-col justify-start">
                   <p className="font-bold text-lg">Order #{index.toString().padStart(3, "0")}</p>
@@ -107,15 +94,12 @@ function RestuarantHome() {
               <div className="flex flex-col gap-5">
                 {order.items.map((item, idx) => (
                   <div key={idx} className="flex flex-row items-center gap-5 pb-2 border-b border-b-[rgba(0,0,0,45%)]">
-                    <div className="h-16 w-16 rounded-full self-end bg-yellow cursor-pointer flex justify-center items-center">
-                      <img src="" alt="" className="h-16 w-16 rounded-full" />
-                    </div>
                     <div className="flex flex-col gap-1">
                       <div>
                         <p className="font-bold text-base">{item.name}</p>
                         <p></p>
                       </div>
-                      <div className="flex flex-row justify-between">
+                      <div className="flex flex-row w-full gap-8">
                         <p className="text-base text-[rgba(0,0,0,45%)]">#{parseFloat(item.price).toFixed(2)}</p>
                         <p className="text-base text-[rgba(0,0,0,45%)]">Qty: {item.quantity}</p>
                       </div>
