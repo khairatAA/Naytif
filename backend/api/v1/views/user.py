@@ -4,6 +4,7 @@ from models.user import User
 from models.blocked_token import TokenBlocklist
 from werkzeug.security import check_password_hash, generate_password_hash
 import datetime
+import smtplib
 import uuid
 from flask_jwt_extended import (
     create_access_token,
@@ -202,7 +203,17 @@ def user_forgot_password():
         return jsonify(msg="User not founnd"), 404
     reset_token = create_access_token(identity=user)
     reset_link = request.host_url + 'users/reset/' + reset_token
-    return jsonify(reset_link=reset_link)
+    name = f"{user.first_name} {user.last_name}"
+    app_password = "uohsvsfnzyvhuglw"
+    email_address = "python.omarj@gmail.com"
+    message = f"Click on the follow link to reset your password: {reset_link}"
+    email_message = f"Subject:Password Reset\n\nHello {name}\n{message}"
+    with smtplib.SMTP("smtp.gmail.com", 587) as connection:
+        connection.starttls()
+        connection.login(email_address, app_password)
+        connection.sendmail(email_address, email, email_message)
+    return jsonify(msg="Email sent.")
+    # return jsonify(reset_link=reset_link)
 
 
 @app.route('/users/reset/<reset_token>', methods=['PATCH'])

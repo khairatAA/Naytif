@@ -11,9 +11,11 @@ from flask_jwt_extended import (
     create_refresh_token,
     get_jwt_identity,
     get_jwt,
-    current_user
+    current_user,
+    decode_token
 )
 import datetime
+import smtplib
 import uuid
 
 #GET: Get a list of all restaurants
@@ -358,6 +360,38 @@ def patch_or_delete_menu_item(restaurant_id, menu_item_id):
 def restaurant_orders():
     pass
 
+@app.route('/restaurants/forgot', methods=['POST'])
+def restaurant_forgot_password():
+    email = request.form['email']
+    restaurant = db.session.execute(db.select(Restaurant).where(Restaurant.email==email)).scalar()
+    if not restaurant:
+        return jsonify(msg="Restaurant not founnd"), 404
+    reset_token = create_access_token(identity=restaurant)
+    reset_link = request.host_url + 'restaurants/reset/' + reset_token
+    name = f"{restaurant.first_name} {restaurant.last_name}"
+    app_password = "uohsvsfnzyvhuglw"
+    email_address = "python.omarj@gmail.com"
+    message = f"Click on the follow link to reset your password: {reset_link}"
+    email_message = f"Subject:Password Reset\n\nHello {name}\n{message}"
+    with smtplib.SMTP("smtp.gmail.com", 587) as connection:
+        connection.starttls()
+        connection.login(email_address, app_password)
+        connection.sendmail(email_address, email, email_message)
+    return jsonify(msg="Email sent.")
+    # return jsonify(reset_link=reset_link)
+
+
+@app.route('/restaurants/reset/<reset_token>', methods=['PATCH'])
+def restaurant_reset_password(reset_token):
+    restaurant_id = decode_token(reset_token)['sub']
+    try:
+        restaurant = db.get_or_404(Restaurant, restaurant_id)
+    except Exception:
+        return jsonify(msg="Bad token")
+    password = request.form['password']
+    restaurant.password = generate_password_hash(password=password, method="pbkdf2:sha256", salt_length=8)
+    db.session.commit()
+    return jsonify(msg="Password reset successful")
 
 # This area is purely to test my authentication
 @app.route('/protected')
