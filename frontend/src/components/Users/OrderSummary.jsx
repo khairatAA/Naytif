@@ -23,7 +23,7 @@ function OrderSummary() {
   const user_id = localStorage.getItem("user_id");
   const [selectedRider, setSelectedRider] = useState(null);
   const deliveryCharge = 2000;
-  const confirmationDelay = 10000; // Define the delay in milliseconds
+  const confirmationDelay = 5000; // Define the delay in milliseconds
   const [address, setAddress] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
 

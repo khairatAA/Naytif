@@ -106,7 +106,7 @@ function UserLogin() {
             <div className=" flex flex-col justify-center items-center p-6 border border-green rounded-2xl gap-6">
                 <div className=" flex flex-row justify-center items-baseline gap-2">
                     <h2 className=" font-bold text-3xl">Welcome To</h2>
-                    <img src={naytifDefault} alt="" className=" h-20 relative -bottom-3" />
+                    <img src={naytifDefault} alt="" className=" h-11 relative top-2 -right-1" />
                 </div>
                 <div className=" flex flex-col gap-2 w-full">
                     <form onSubmit={handleSubmit} className=" flex flex-col gap-3 w-full">

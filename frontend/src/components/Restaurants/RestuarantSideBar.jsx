@@ -62,7 +62,7 @@ export default function RestuarantSideBar() {
             <div className="flex flex-col gap-5">
                 {/* <img src={naytiv} alt="" className="h-20" /> */}
                 {/* <img src={naytifGreen} alt="" className="h-10" /> */}
-                <img src={naytifGreen} className="h-10 w-20 fill-slate-300" alt="Naytif" />
+                <img src={naytifGreen} className="h-10 w-20 fill-slate-300 self-center" alt="Naytif" />
                 <div className="flex flex-col gap-3">
                     <Link to='/restuarants/home' onClick={() => handleClick('HOME')} className={`flex p-3 justify-start gap-5 items-center rounded-md border border-yellow hover:bg-yellow ${activeItem === 'HOME' ? 'bg-yellow' : ''}`}>
                         <HomeIcon color="white" />

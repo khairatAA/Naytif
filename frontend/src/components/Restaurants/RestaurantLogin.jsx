@@ -80,7 +80,7 @@ function Login() {
         if (email) {
             try {
                 // /restaurants/forgot_password
-                const response = await api.post('', { email });
+                const response = await api.post('/restaurants/forgot', { email });
                 Swal.fire({
                     title: 'Password Reset Email Sent!',
                     text: 'Please check your email for further instructions.',
@@ -103,7 +103,7 @@ function Login() {
             <div className=" flex flex-col justify-center items-center p-6 border border-yellow rounded-2xl gap-6">
                 <div className=" flex flex-row justify-center items-baseline gap-2">
                     <h2 className=" font-bold text-3xl">Welcome To</h2>
-                    <img src={naytiv} alt="" className=" h-20 relative -bottom-3" />
+                    <img src={naytiv} alt="" className="h-11 relative top-2 -right-1" />
                 </div>
                 <div className=" flex flex-col gap-2 w-full">
                     <form action="" onSubmit={handleSubmit} className=" flex flex-col gap-3 w-full">
