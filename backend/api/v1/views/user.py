@@ -1,4 +1,4 @@
-from flask import jsonify, request
+from flask import jsonify, request, render_template, flash, url_for, redirect
 from models import app, db
 from models.user import User
 from models.blocked_token import TokenBlocklist
@@ -216,14 +216,22 @@ def user_forgot_password():
     # return jsonify(reset_link=reset_link)
 
 
-@app.route('/users/reset/<reset_token>', methods=['PATCH'])
+@app.route('/users/reset/<reset_token>', methods=['GET', 'POST'])
 def user_reset_password(reset_token):
-    user_id = decode_token(reset_token)['sub']
-    try:
-        user = db.get_or_404(User, user_id)
-    except Exception:
-        return jsonify(msg="Bad token")
-    password = request.form['password']
-    user.password = generate_password_hash(password=password, method="pbkdf2:sha256", salt_length=8)
-    db.session.commit()
-    return jsonify(msg="Password reset successful")
+    if request.method == 'POST':
+        print("Post is true")
+        user_id = decode_token(reset_token)['sub']
+        try:
+            user = db.get_or_404(User, user_id)
+        except Exception:
+            return jsonify(msg="Bad token")
+        
+        password = request.form['password']
+        confirm_password =request.form['confirm_password']
+        if password != confirm_password:
+            flash("Password doesn't match")
+            return redirect(url_for('user_reset_password', reset_token=reset_token))
+        user.password = generate_password_hash(password=password, method="pbkdf2:sha256", salt_length=8)
+        db.session.commit()
+        return render_template('password_changed.html')
+    return render_template('reset_password.html')

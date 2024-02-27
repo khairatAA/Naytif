@@ -1,4 +1,4 @@
-from flask import jsonify, request
+from flask import jsonify, request, render_template, flash, url_for, redirect
 from models import app, db
 from models.restaurant import Restaurant
 from models.menu import Menu
@@ -381,17 +381,25 @@ def restaurant_forgot_password():
     # return jsonify(reset_link=reset_link)
 
 
-@app.route('/restaurants/reset/<reset_token>', methods=['PATCH'])
+@app.route('/restaurants/reset/<reset_token>', methods=['GET', 'PATCH'])
 def restaurant_reset_password(reset_token):
-    restaurant_id = decode_token(reset_token)['sub']
-    try:
-        restaurant = db.get_or_404(Restaurant, restaurant_id)
-    except Exception:
-        return jsonify(msg="Bad token")
-    password = request.form['password']
-    restaurant.password = generate_password_hash(password=password, method="pbkdf2:sha256", salt_length=8)
-    db.session.commit()
-    return jsonify(msg="Password reset successful")
+     if request.method == 'POST':
+        print("Post is true")
+        restaurant_id = decode_token(reset_token)['sub']
+        try:
+            restaurant = db.get_or_404(Restaurant, restaurant_id)
+        except Exception:
+            return jsonify(msg="Bad token")
+        
+        password = request.form['password']
+        confirm_password =request.form['confirm_password']
+        if password != confirm_password:
+            flash("Password doesn't match")
+            return redirect(url_for('restaurant_reset_password', reset_token=reset_token))
+        restaurant.password = generate_password_hash(password=password, method="pbkdf2:sha256", salt_length=8)
+        db.session.commit()
+        return render_template('password_changed.html')
+     return render_template('reset_password.html')
 
 # This area is purely to test my authentication
 @app.route('/protected')
