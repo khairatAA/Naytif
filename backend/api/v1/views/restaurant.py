@@ -140,6 +140,7 @@ def restaurant_order_by_id(restaurant_id):
     #         return jsonify(msg="User does not exist")
     for user in users_list:
         orders = user.orders
+        orders = [order for order in orders if order.restaurant_id == restaurant_id]
         delivery_details = user.delivery_details[0] if user.delivery_details[0] else None
         order_list = []
         items = []
