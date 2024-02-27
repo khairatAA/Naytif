@@ -4,6 +4,7 @@ import api from '../api';
 import Swal from 'sweetalert2';
 import UserMenuBar from './UserMenuBar';
 import { Link } from 'react-router-dom';
+import naytifDefault from '../../assets/naytifYellow.png'
 
 function UserTop() {
     const [showUserMenuBar, setShowUserMenubar] = useState(false)
@@ -81,7 +82,9 @@ function UserTop() {
             <button type="button" onClick={() => setShowUserMenubar(true)}>
                 <MenuIcon size={32} />
             </button>
-            <Link to='/users/home' className="font-logo text-green text-4xl leading-7 font-bold">Naytif</Link>
+            <Link to='/users/home' className="font-logo text-green text-4xl leading-7 font-bold">
+            <img src={naytifDefault} className="h-10 w-15 fill-slate-300" alt="Naytif" />
+            </Link>
         </div>
       <div className='flex bg-white gap-5 items-center rounded-lg px-3 max-md:hidden'>
         <Search color='black' />

@@ -1,6 +1,6 @@
 import { DeleteIcon, HomeIcon, LogOutIcon, PanelRightOpenIcon, PlusCircleIcon, SettingsIcon, X } from "lucide-react";
 import naytiv from '../../assets/naytiv.svg';
-import flame from "../../assets/flame.svg";
+import naytifGreen from "../../assets/naytifGreen.png";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -61,7 +61,8 @@ export default function RestuarantSideBar() {
         <div className="bg-green flex flex-col h-screen w-72 max-md:w-16 px-3 py-3 justify-between fixed">
             <div className="flex flex-col gap-5">
                 {/* <img src={naytiv} alt="" className="h-20" /> */}
-                <img src={flame} alt="" className="h-16" />
+                {/* <img src={naytifGreen} alt="" className="h-10" /> */}
+                <img src={naytifGreen} className="h-10 w-20 fill-slate-300" alt="Naytif" />
                 <div className="flex flex-col gap-3">
                     <Link to='/restuarants/home' onClick={() => handleClick('HOME')} className={`flex p-3 justify-start gap-5 items-center rounded-md border border-yellow hover:bg-yellow ${activeItem === 'HOME' ? 'bg-yellow' : ''}`}>
                         <HomeIcon color="white" />

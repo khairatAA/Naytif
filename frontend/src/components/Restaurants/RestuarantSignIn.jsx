@@ -12,6 +12,7 @@ import areYouReady from "../../assets/areYouReady.svg"
 import { useState } from "react";
 import api from "../api";
 import { useNavigate } from "react-router-dom";
+import naytifDefault from "../../assets/naytifDefault.png"
 
 
 /**
@@ -66,7 +67,9 @@ function ResturantSignUp() {
             {/* Navbar implementation */}
             <nav className="flex flex-row px-11 items-center justify-between py-5 bg-black fixed top-0 w-full">
                 <div className="flex flex-row items-center justify-center gap-6">
-                    <Link to="/" className="font-logo text-white text-4xl leading-7 font-bold">Naytif</Link>
+                    <Link to="/" className="font-logo text-white text-4xl leading-7 font-bold">
+                    <img src={naytifDefault} className="h-10 w-15 fill-slate-300" alt="Naytif" />
+                    </Link>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-6">
                     <Link to="/auth/restuarants/login">

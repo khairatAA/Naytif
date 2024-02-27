@@ -9,6 +9,7 @@ import SwalDelete from '../SwalDelete';
 import Swal from 'sweetalert2';
 import api from "../api";
 import { useState } from 'react';
+import naytifDefault from '../../assets/naytifDefault.png';
 
 function UserMenuBar({onClose}) {
     const UserMenubarRef = useRef();
@@ -95,7 +96,9 @@ function UserMenuBar({onClose}) {
         <div className=' mt-8 flex flex-col gap-5'>
             <button onClick={onClose} className=' absolute top-3 right-5'><X size={40} color='black'/></button>
             <div className=' px-8 flex flex-col gap-16 items-center'>
-                <Link to='/users/home' className='text-5xl font-extrabold font-logo text-black'>Naytiv</Link>
+                <Link to='/users/home' className='text-5xl font-extrabold font-logo text-black'>
+                <img src={naytifDefault} className="h-12 w-15 fill-slate-300" alt="Naytif" />
+                </Link>
                 <div className=' flex flex-col gap-5 justify-between'>
                     <Link to='/users/home' className={`flex p-3 justify-start gap-5 items-center rounded-md hover:bg-yellow`}>
                         <HomeIcon color='black' />

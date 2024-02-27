@@ -4,6 +4,7 @@ import { X } from 'lucide-react';
 import { useRef } from 'react';
 import { BigGreenButtons, BigYellowButtons } from '../Buttons';
 import { Link } from 'react-router-dom';
+import naytifDefault from '../../assets/naytifDefault.png';
 
 function MenuBar({onClose}) {
     const menubarRef = useRef();
@@ -20,7 +21,9 @@ function MenuBar({onClose}) {
         <div className=' mt-8 flex flex-col gap-5'>
             <button onClick={onClose} className=' absolute top-3 right-5'><X size={40}/></button>
             <div className=' px-8 py-8 flex flex-col gap-7 items-center'>
-                <h1 className='text-3xl font-extrabold font-logo'>Naytiv</h1>
+                <h1 className='text-3xl font-extrabold font-logo'>
+                <img src={naytifDefault} className="h-10 w-15 fill-slate-300" alt="Naytif" />
+                </h1>
                 <div className=' flex flex-col gap-2'>
                     <Link to='/auth/login'>
                         <BigGreenButtons text="Log In" />

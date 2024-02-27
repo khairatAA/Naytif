@@ -7,6 +7,7 @@ import { YellowButtons } from "../Buttons";
 import loginIcon from "../../assets/loginIcon.svg"
 import location from "../../assets/location.svg"
 import clock from "../../assets/clock.svg"
+import naytifDefault from "../../assets/naytifDefault.png";
 import { GreenButtons } from "../Buttons";
 import { Placeholder } from "../Reusables";
 import { TopResturants } from "../Reusables";
@@ -41,7 +42,7 @@ function LandingPage() {
                     <button type="button" onClick={() => setShowMenubar(true)}>
                         <img src={ Menu } alt="menubar icon" />
                     </button>
-                    <Link to="/" className="font-logo text-black text-4xl leading-7 font-bold">Naytif</Link>
+                    <Link to="/" className="font-logo text-black text-4xl leading-7 font-bold"><img src={naytifDefault} className="h-10 w-15 fill-slate-300" alt="Naytif" /></Link>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-6 max-md:hidden">
                     <Link to="/auth/login">

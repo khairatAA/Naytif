@@ -2,7 +2,7 @@ import { BigGreenButtons } from "../Buttons"
 import { AuthenticationInput, FormContent } from "../Reusables"
 import google from "../../assets/google.svg"
 import { Link } from "react-router-dom"
-import naytiv from "../../assets/naytiv.svg"
+import naytiv from "../../assets/naytifDefault.png"
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import api from "../api"
@@ -103,7 +103,7 @@ function Login() {
             <div className=" flex flex-col justify-center items-center p-6 border border-yellow rounded-2xl gap-6">
                 <div className=" flex flex-row justify-center items-baseline gap-2">
                     <h2 className=" font-bold text-3xl">Welcome To</h2>
-                    <img src={naytiv} alt="" className=" h-20 relative -bottom-2" />
+                    <img src={naytiv} alt="" className=" h-20 relative -bottom-3" />
                 </div>
                 <div className=" flex flex-col gap-2 w-full">
                     <form action="" onSubmit={handleSubmit} className=" flex flex-col gap-3 w-full">

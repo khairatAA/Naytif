@@ -1,13 +1,16 @@
 // Restuarant Hero Page upon sign up
 import hero2 from "../../assets/hero2.svg"
 import { Link } from "react-router-dom";
+import naytifDefault from "../../assets/naytifDefault.png"
 
 export default function RiderHeroPage() {
     
     return (
         <div className=" bg-green flex flex-col h-screen">
             <div className=" py-5 pl-5" style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.25)' }}>
-                <h1 className="font-logo text-yellow text-4xl leading-7 font-bold"><Link to="/">Naytiv</Link></h1>
+                <h1 className="font-logo text-yellow text-4xl leading-7 font-bold"><Link to="/">
+                        <img src={naytifDefault} className="h-10 w-15 fill-slate-300" alt="Naytif" />
+                    </Link></h1>
             </div>
             <div className=" flex flex-col justify-center items-center h-full px-10">
                 <div className=" flex flex-row max-sm:flex-col justify-center items-center gap-5 p-5 bg-[rgba(255,255,255,30%)]  rounded-2xl border border-green">
