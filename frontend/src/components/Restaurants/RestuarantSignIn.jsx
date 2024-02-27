@@ -111,7 +111,7 @@ function ResturantSignUp() {
             </div>
             <div className=" flex flex-col px-11 py-11 gap-8">
                 <div>
-                    <h1 className=" font-bold text-3xl">Why Naytiv?</h1>
+                    <h1 className=" font-bold text-3xl">Why Naytif?</h1>
                 </div>
                 <div className=" flex flex-row max-sm:flex-col  justify-center items-start gap-5 ">
                     <div className=" flex flex-col gap-5 justify-center items-start">
@@ -131,13 +131,13 @@ function ResturantSignUp() {
 
             <div className=" bg-white flex flex-col justify-center items-start px-11 py-11 gap-8">
                 <div>
-                    <h1 className=" font-bold text-3xl">How Naytiv works for restaurant partners</h1>
+                    <h1 className=" font-bold text-3xl">How Naytif works for restaurant partners</h1>
                 </div>
                 <div className=" flex  flex-row max-sm:flex-col justify-between items-start gap-5">
                     <div className=" flex flex-col items-start w-full gap-5">
                         <img src={Illustration1} alt="Illustration" className=" h-52 self-center" />
                         <h3 className="text-wrap font-semibold text-xl w-full">Customers order</h3>
-                        <p className=" text-sm text-wrap">A customer finds your restaurant and places an order through the Naytiv app.</p>
+                        <p className=" text-sm text-wrap">A customer finds your restaurant and places an order through the Naytif app.</p>
                     </div>
                     <div className=" flex flex-col items-start w-full gap-5">
                         <img src={Illustration2} alt="Illustration" className=" h-52 self-center" />

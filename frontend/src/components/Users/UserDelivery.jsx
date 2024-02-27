@@ -64,7 +64,7 @@ function UserDelivery() {
             <UserTop />
         </div>
         <div className="flex flex-col justify-center items-center">
-            <div className="flex flex-col justify-center p-6 border border-green rounded-2xl gap-6">
+            <div className="flex flex-col justify-center w-96 p-6 border border-green rounded-2xl gap-6">
                 <div className=" flex flex-col gap-2">
                     <form onSubmit={handleSubmit} className=" flex flex-col gap-5 w-full">
                         <div className=" flex flex-col gap-3"> 
