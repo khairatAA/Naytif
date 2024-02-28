@@ -5,11 +5,8 @@
 </p>
 <h1 align="center">Naytif - Frontend</h1>
 
+![Naytif_logo](/src/assets/naytifyellow.svg)
+
 ## Overview
 
-<img src='https://imgur.com/g5EX3hW' alt='Naytif_logo'>
-
-<!-- ![Naytif_logo](https://imgur.com/a/1mjpXbE)
-![Naytif_logo](https://imgur.com/g5EX3hW) -->
-
-![Naytif_homepage](https://imgur.com/a/TXif59C)
+![Naytif_homepage](/src/assets/LandingPage.svg)
