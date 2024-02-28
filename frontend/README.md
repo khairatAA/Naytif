@@ -7,6 +7,6 @@
 
 ## Overview
 
-![Naytif_logo](https://i.imgur.com/1mjpXbE.png)
+![Naytif_logo](https://imgur.com/a/1mjpXbE)
 
-![Naytif_homepage](https://i.imgur.com/TXif59C.png)
+![Naytif_homepage](https://imgur.com/a/TXif59C)
