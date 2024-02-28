@@ -3,10 +3,10 @@
     <img src="https://skillicons.dev/icons?i=react,tailwind,javascript,vite" />
   </a>
 </p>
-<h1 align="center">Naytiv - Frontend</h1>
+<h1 align="center">Naytif - Frontend</h1>
 
 ## Overview
 
-Naytiv Frontend
+![Naytif_logo](https://i.imgur.com/1mjpXbE.png)
 
-Coming Soon...
+![Naytif_homepage](https://i.imgur.com/TXif59C.png)
