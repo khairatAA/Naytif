@@ -9,4 +9,4 @@
 
 ![Naytif_logo](https://i.imgur.com/1mjpXbE.png)
 
-![Naytif_homepage](https://i.imgur.com/TXif59C.png)
+![Naytif_homepage](https://i.imgur.com/TXif59C)
