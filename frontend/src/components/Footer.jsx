@@ -49,7 +49,7 @@ function Footer() {
             </div>
             <div className=' flex flex-row justify-center items-center gap-3'>
                 <Copyright />
-                <p>2024 Naytiv</p>
+                <p>2024 Naytif</p>
             </div>
         </div>
       </footer>
