@@ -5,8 +5,8 @@
 </p>
 <h1 align="center">Naytif - Frontend</h1>
 
-![Naytif_logo](/src/assets/naytifyellow.svg)
+![Naytif_logo](./src/assets/naytifyellow.svg)
 
 ## Overview
 
-![Naytif_homepage](/src/assets/LandingPage.svg)
+![Naytif_homepage](./src/assets/LandingPage.svg)
