@@ -6,8 +6,6 @@
 
 <h1 align="center">Naytif - Frontend</h1>
 
-![visitors](https://visitor-badge.glitch.me/badge?page_id=khairatAA.qrtddc&left_color=#00A082&right_color=#FFC244)
-
 <p align="center">
   <img src="./src/assets/naytifyellow.svg" alt="Naytif_logo" height="200">
 </p>
