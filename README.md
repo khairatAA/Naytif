@@ -118,11 +118,11 @@ Before the coding process, a design template was created using **[Figma](https:/
 
 ## Contributing
 
-Please read the **[Contributing instructions](../CONTRIBUTING.md)**
+Please read the **[Contributing instructions](./CONTRIBUTING.md)**
 
 ## License
 
-This project is licensed under the _MIT License_ - see the **[LICENSE](../LICENSE)** file for details.
+This project is licensed under the _MIT License_ - see the **[LICENSE](./LICENSE)** file for details.
 
 ## Contributors
 
