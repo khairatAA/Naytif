@@ -80,14 +80,52 @@ Welcome to Naytif's frontend directory. **[Naytif](https://naytif.vercel.app/)**
 
 ## Getting Started
 
+### Prerequisites
+
+- Node.js (version >= 12.0.0)
+- npm or yarn
+- Git
+
+### Installation
+
+- Clone the repository:
+  `git clone https://github.com/khairatAA/Naytif.git`
+
+- Navigate to the frontend directory:
+  `cd Naytif/frontend`
+
+- Install dependencies:
+  `npm install`
+
+### Running the Application
+
+- Start the development server:
+  `npm start`
+
+- Access the application at `http://localhost:3000` by default.
+
 ## Design Stage
 
 Before the coding process, a design template was created using **[Figma](https://www.figma.com/)** to visualize our vision for our food delivery application. You can view the design template **[here](https://www.figma.com/file/Wbm8hiC5NDMXhCRMImbQcd/Naytiv?type=design&node-id=0%3A1&mode=design&t=CKv3LBsVEwVq9l8d-1)**.
 
 ## Usage
 
+### Basic Usage Instructions
+
+- Navigate through the **[application](https://naytif.vercel.app/)** using the navigation bar at the top.
+
+- Explore different sections, such as browsing menus, placing orders, and tracking deliveries.
+
 ## Contributing
+
+Please read the **[Contributing instructions](../CONTRIBUTING.md)**
 
 ## License
 
+This project is licensed under the _MIT License_ - see the **[LICENSE](../LICENSE)** file for details.
+
 ## Contributors
+
+- Khairat Adesina [khairatadesina01@gmail.com](mailto:khairatadesina01@gmail.com) [LinkedIn](https://www.linkedin.com/in/khairat-adesina1234/) [X](https://twitter.com/_dedamola)
+
+- Omar Jammeh [Orms45@gmail.com](mailto:Orms45@gmail.com) [LinkedIn](http://www.linkedin.com/in/omar-jammeh-a4b0b029a) [X]()
