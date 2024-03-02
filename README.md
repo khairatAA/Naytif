@@ -97,6 +97,11 @@ Welcome to Naytif! **[Naytif](https://naytif.vercel.app/)** is a food delivery w
 - Install dependencies:
   `npm install`
 
+- Navigate to the backend directory:
+  `cd Naytif/frontend`
+- Install dependencies:
+  `pip install -r requirements.txt`
+
 ### Running the Application
 
 - Start the development server:
